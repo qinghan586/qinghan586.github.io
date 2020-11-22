@@ -5,10 +5,6 @@
   <!-- SEO相关 -->
   
     
-      
-        <meta name="robots" content="index,follow">
-      
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -23,7 +19,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>清菡的主页</title>
+  <title>更新Appium运行原理讲解 - 清菡的主页</title>
+  
+    <meta name="keywords" content="Appium自动化测试系列">
   
 
   
@@ -58,7 +56,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -309,7 +307,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -374,7 +372,7 @@
   </div>
 </div>
 
-          <div id="scroll-down" style="display: ;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
         </div>
     
   
@@ -385,102 +383,233 @@
         
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-  <section class="post-list">
-    
-      
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
     
-    <h2 class="article-title" >
-      <a href="/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/">
+      <h1 class="title">
         更新Appium运行原理讲解
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        点击查看原文上篇文章中，讲解 Appium 运行原理、Web-Selenium 的运行原理的时候，图片放重复了，导致讲解不是很清晰。本篇文章更新一下此处的讲解，多有疏忽，请见谅！
-1.Web-Selenium 运行原理：
-通过 Http 通信，没有改变浏览器访问系统的属性，只要访问就可以了。Appium 做自动化也是如此。
-2.Appium 运行原理：
-安卓和 Ios 都有自己自带的自动化测...
-      
-    
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">App自动化测试</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-11-22</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Nov 22, 2020</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">App自动化测试</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="更新Appium运行原理讲解" data-path="/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <h1 id="点击查看原文"><a href="#点击查看原文" class="headerlink" title="点击查看原文"></a><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/d1zBs8BBidLT1kVdU1nCdg">点击查看原文</a></h1><p>上篇文章中，讲解 Appium 运行原理、Web-Selenium 的运行原理的时候，图片放重复了，导致讲解不是很清晰。本篇文章更新一下此处的讲解，多有疏忽，请见谅！</p>
+<h2 id="1-Web-Selenium-运行原理："><a href="#1-Web-Selenium-运行原理：" class="headerlink" title="1.Web-Selenium 运行原理："></a>1.Web-Selenium 运行原理：</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210132.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210132.png" srcset="data:image/png;base64,666" alt="图片来自网络"></p>
+<p>通过 Http 通信，没有改变浏览器访问系统的属性，只要访问就可以了。<br>Appium 做自动化也是如此。</p>
+<h2 id="2-Appium-运行原理："><a href="#2-Appium-运行原理：" class="headerlink" title="2.Appium 运行原理："></a>2.Appium 运行原理：</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210147.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210147.png" srcset="data:image/png;base64,666" alt="图片来自网络"></p>
+<p>安卓和 Ios 都有自己自带的自动化测试框架。<br>因为 Ios 和安卓是不同的语言编写的，所以用 Appium(Appium 是跨平台跨语言)。</p>
+<p>版本不一样，用的自动化框架也不一样。自动化框架不一样，API 接口也不一样。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210205.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210205.png" srcset="data:image/png;base64,666" alt="图片来自网络"></p>
+<p><code>Appium server</code> 去跟移动端的东西通信，首先确实是 Ios 还是安卓。即使确认了是安卓，也得确认下是 <code>UiAutomator</code> 的 Api 还是 <code>Instrumentation</code> 的 Api。</p>
+<p><strong>一般只支持主流版本，其它版本需要用户自己支持了。</strong></p>
+<p>启动一个模拟器或者真机就有一套自带的自动化框架。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210221.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922210221.png" srcset="data:image/png;base64,666" alt="图片来自网络"></p>
+<p>Appium 发送命令到手机，手机上有个 Bootstrap 接收命令。Bootstrap 是一个服务：Ip 地址和端口做的一个监听。</p>
+<p>Appium server 启动后得到代码发送的命令后，不会直接发给手机。</p>
+<p>比如你在安卓 8 的设备上做个什么操作，打开一个 APP，Appium server 检查下目前设备上有没有安卓 8 的。如果有，它就把这个命令发送给手机端。</p>
+<p>Bootstrap 得到命令后，在本系统中调用 UIAutomator 提供的 API 去做一些实际的操作。就实现了通过 Python 代码去驱动移动端做一堆的事情。</p>
+<p><code>Bootstrap.jar</code> 就是利用了 <code>UIAutomator</code> 一个测试类在这个当中写了 Ip 地址和端口，启动这个服务就结束了。当然也会传达命令，调用 UIAutomator 等。</p>
+<p>Appium server 是个服务，移动终端上面也放了一个服务。作为服务主要接收别人向我们发送的命令，实际上就是<strong>通信</strong>。</p>
+<p>Appium server 这个中间件支持 Ios、安卓。</p>
+<p>移动端不仅有 Web 网页的操作，还有自己特性的操作。移动端的特点：手指触屏操作、多点触控、混合应用。移动端特有的操作，把命令加进来，做一个扩充就好了。</p>
+<p><strong>装了 Appium 没有装 Selenium 是肯定会报错的。因为 Appium 是基于 Selenium 的，Appium 做了些拓展。</strong></p>
+<p>很多东西和 Web 自动化，包括从概念上都是一样的。虽然说，它做了拓展，它也是基于现在的基础。现在通信原理的基础上增加了一些原理，增加了一些操作，核心是没有变的。原因很简单：大家都是界面操作。本质上是差不多的，就是在不同的平台上来做这些事情。</p>
+<p>很多方面基本上都是这种思想来做的。现在开源的东西越来越多，很多实现思想就是这种分层、独立、兼容很多语言，可以不限定客户端是谁的。</p>
+<p>Appium 本来就是开源的，是 Js 实现的。</p>
+<p>以上是 Appium 客户端的介绍。</p>
+<hr>
+<ul>
+<li>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：清菡软件测试 87+原创文章，欢迎关注、交流，禁止第三方擅自转载。</li>
+</ul>
+<h4 id="热文精选"><a href="#热文精选" class="headerlink" title="热文精选"></a>热文精选</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/d1zBs8BBidLT1kVdU1nCdg">Python+Appium运行简单的demo，你需要理解Appium运行原理！</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vDLnrW1NbJKqi5PbumLzVQ">举个华为计算器的栗子「Appium环境配置与调试」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/wIfOAWVFMk727eBvSuAofA">持续集成有什么好处？快来看鸭</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/oGWyMNYX3p0rhClPyt5HIg">怎么安装配置ADB环境？</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/8-1PYaAmTB0PUfUURqthxw">使用Typora+PicGo配置Gitee图床</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/hnKH2JFxStm0rI10cbox8A">Jenkins持续集成「编译打包、代码检查、单元测试、环境部署、软件测试​」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/V8iSiZXej0H1qD5SNER-gg">避免栽坑之掌握Jenkins工作原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/QjuldwsbJXAY6eiLogsMLg">Web自动化必会知识：「Web基础、元素定位、元素操作、Selenium运行原理、项目实战+框架」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-a4ag36dz5L03zqy7Ze-Og">Jenkins读取Allure结果出报告</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/KMc58V6mgnyL5nDo2G7xeQ">pytest的fixture怎么用？</a></li>
+</ul>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922212407.jpg" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200922212407.jpg" srcset="data:image/png;base64,666"></p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/>http://example.com/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-22T14:47:27+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Nov 22, 2020</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/">
-        从0开始用Hexo框架搭建个人博客（无坑版）
-      </a>
-    </h2>
-  
-  <div class='md'>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%B3%BB%E5%88%97/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Appium自动化测试系列</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-        坚持原创输出，点击蓝字关注我吧
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/&title=更新Appium运行原理讲解 - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/&title=更新Appium运行原理讲解 - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/&title=更新Appium运行原理讲解 - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/'>
+          <p class='title'>从0开始用Hexo框架搭建个人博客（无坑版）<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>坚持原创输出，点击蓝字关注我吧
 作者：清菡博客：Oschina、云+社区、知乎等各大平台都有。
 目录
 一、环境准备
@@ -488,415 +617,28 @@
 
 
 二、安装 Hexo 博客框架
-三、使用 Hexo 搭建博客（本地启动）
-四、部署到远端（Github）上公开使用
-五、注意
-
-Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解决方式。无论是 Windows 还是 Linux，操作其实都是差不...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-22</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/'>
-            Read More
-          </a>
-        </div>
+三、使用 Hexo 搭...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/%E6%B5%8B%E8%AF%95%E4%BC%98%E6%83%A0%E5%8A%B5%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%9C%BA%E6%99%AF%E9%A1%B9%E7%9B%AE%E5%8F%91%E7%8E%B0%E5%81%B6%E7%8E%B0Bug%EF%BC%8C%E6%82%A8%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84%E5%90%97%EF%BC%9F/">
-        测试优惠劵类复杂场景项目发现偶现Bug，您知道什么原因造成的吗？
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-您有什么观点或建议？后台回复“知识星球”可参与问答。
-
-测试某项目（在测试环境测试）。用户在店铺消费金额累积达到一定金额自动领取优惠券的，但是这个优惠券项目的场景是非常复杂的。
-运营要在后台配置不同的用户、不同的累计金额、是否可重复领取、优惠券过期时间、还有不同的店铺及不同的领取时间等，涉及网页和APP端，主要是在APP上做一个验证。（因为没确定运营要在后台怎么配置，所以测试全部配置都得考...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/%E6%B5%8B%E8%AF%95%E4%BC%98%E6%83%A0%E5%8A%B5%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%9C%BA%E6%99%AF%E9%A1%B9%E7%9B%AE%E5%8F%91%E7%8E%B0%E5%81%B6%E7%8E%B0Bug%EF%BC%8C%E6%82%A8%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84%E5%90%97%EF%BC%9F/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Ui%20Automator%20%E6%A1%86%E6%9E%B6%E5%92%8CUi%20Automator%20Viewer%E4%BD%A0%E4%BC%9A%E7%94%A8%E5%90%97%EF%BC%9F%E9%99%84%E9%80%81%E3%80%8C%E5%BF%85%E5%A4%87adb%E5%91%BD%E4%BB%A4%E3%80%8D%E6%8B%BF%E8%B5%B0%E4%B8%8D%E8%B0%A2%20%EF%BC%81/">
-        Ui Automator 框架和Ui Automator Viewer你会用吗？附送「必备adb命令」拿走不谢 ！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
- 一、往期回顾
-二、了解 adb 命令
-1.adb 的使用和配置
-2.如果现在同时有 2 个设备呢，怎么指定安装到哪个设备上？
-3.Android 8.0 adb shell dumpsys activity activities | findstr mFocusedActivity 获取当...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Ui%20Automator%20%E6%A1%86%E6%9E%B6%E5%92%8CUi%20Automator%20Viewer%E4%BD%A0%E4%BC%9A%E7%94%A8%E5%90%97%EF%BC%9F%E9%99%84%E9%80%81%E3%80%8C%E5%BF%85%E5%A4%87adb%E5%91%BD%E4%BB%A4%E3%80%8D%E6%8B%BF%E8%B5%B0%E4%B8%8D%E8%B0%A2%20%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Python+Appium%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84demo%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%81/">
-        Python+Appium运行简单的demo，你需要理解Appium运行原理！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、Appium 的理念
-四个原则
-1.Web-Selenium 的运行原理
-2.Appium 运行原理
+  </article>
 
 
-二、Appium 面板
-三、一段简单的代码来打开应用
-1.前提条件
-2.怎么识别 app？
-3.查看安卓 App 包名的链接
-4.Appium 官网介绍
-5.为什么有平台版本号？
-6...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Python+Appium%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84demo%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%92%8CUiAutomator%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8D/">
-        Appium之「元素定位和UiAutomator表达式」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、常见属性的用法
- 1.怎么用 resource-id？
-2.其它属性
 
 
-二、通过截图就可以看到元素的属性，那怎么元素定位呢？
-1.appium - app 页面元素定位 
-2.UiAutomator 的表达式
-3.什么时候用 UiAutomator 呢？
-4.和 Web 自动化的定位有啥...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%92%8CUiAutomator%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E3%80%81swipe%20%E6%BB%91%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/">
-        Appium常用操作之「元素定位、swipe 滑屏操作」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、打开 uiautomatorviewer
-二、Appium 常用操作
-1.用 layui 做 app 元素定位的时候会报错怎么办？
-2.不等待，直接去找这个元素会报错吗？
-3.如果是 Web 自动化，会 import By，在 Appium 中 MobileBy 有 8 种定位方式。如果...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E3%80%81swipe%20%E6%BB%91%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%BE%AE%E4%BF%A1%E6%BB%91%E5%B1%8F%E3%80%81%E8%A7%A6%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/">
-        Appium常用操作之「微信滑屏、触屏操作」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、滑屏操作
-1.访问之后，马上就滑屏可以吗？
-2.连续实现 2 次滑屏
-3.代码
-
-
-二、模拟触屏
-1.短按和点击的区别？
-2.用坐标还是元素？
-3.引入 TouchAction
-4.每个行为函数都有 3 个参数
-5.首先确定每一个点的位置
-6.代码
-
-
-三、注意
-
-一、滑屏操作不需要看到...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%BE%AE%E4%BF%A1%E6%BB%91%E5%B1%8F%E3%80%81%E8%A7%A6%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8CToast%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E3%80%8D/">
-        Appium常用操作之「Toast提示信息获取」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：Oschina、云+社区、知乎等各大平台都有。
-目录
-一、什么是 Toast
-二、获取 Toast 提示信息的前提
-1.针对这种元素，有的时候我们需要做什么呢？
-2.要获取 Toast 信息要满足以下四个要求
-3.怎么看 Server 版本？
-4.如果 Appium Server 版本低于 1.6.3+，代码中必须指定 automationNa...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8CToast%E6%8F%90%E7%A4%BA%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
 
 
 </div>
@@ -906,121 +648,22 @@ Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">清菡的主页</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"
-            id="categoriesAppE887AAE58AA8E58C96E6B58BE8AF95"
-            ><div class='name'>App自动化测试</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Web-Selenium-%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-text">1.Web-Selenium 运行原理：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Appium-%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%9A"><span class="toc-text">2.Appium 运行原理：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%83%AD%E6%96%87%E7%B2%BE%E9%80%89"><span class="toc-text">热文精选</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%B3%BB%E5%88%97/" style="font-size: 14px; color: #999">Appium自动化测试系列</a> <a href="/tags/App%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 24px; color: #555">App自动化</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 14px; color: #999">博客</a>
-    </div>
-  </section>
-
-
-  
 
   
 
@@ -1036,14 +679,14 @@ Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="更新Appium运行原理讲解";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
