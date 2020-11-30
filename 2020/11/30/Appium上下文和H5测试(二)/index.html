@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,7 +19,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Archive: 2020/11 - 清菡的主页</title>
+  <title>Appium上下文和H5测试(二) - 清菡的主页</title>
+  
+    <meta name="keywords" content="App自动化">
   
 
   
@@ -56,7 +56,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -307,7 +307,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -383,586 +383,295 @@
         
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
+    
+    
+      <h1 class="title">
+        Appium上下文和H5测试(二)
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Nov 30, 2020</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Appium上下文和H5测试(二)" data-path="/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129210336.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129210336.png" srcset="data:image/png;base64,666"></p>
+<p>作者：清菡<br/><br>博客：oschina、云+社区、知乎等各大平台都有。</p>
+<h2 id="文章总览图"><a href="#文章总览图" class="headerlink" title="文章总览图"></a>文章总览图</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129231154.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129231154.png" srcset="data:image/png;base64,666"></p>
+<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loc=<span class="string">&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,loc))</span><br><span class="line">driver.find_element_by_android_uiautomator(loc).click()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>这个步骤后进入了这个页面：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129133617.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129133617.png" srcset="data:image/png;base64,666"></p>
+<p>进入这个页面也是需要时间的。WebView 这个元素当中，放的才是 html 页面。真的等到 html 页面加载出来之后，再去获取所有相关的内容，这样比较好。</p>
+<p>万一切过来的时候，html 页面还没有开始加载，我就马上去获取当前所有可以操作的对象，这样很容易丢失，所以也一样要讲究等待。</p>
+<p>讲究等待，首先等到 WebView 这个元素出现。等到 WebView 这个 class 控件出现，class 值代表它的控件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 等待Web View元素出现  -Web View里面放的是Html</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME,<span class="string">&#x27;android.webkit.WebView&#x27;</span>)))</span><br></pre></td></tr></table></figure>
+
+<p><code>sleep</code>1 秒钟，确保里面的 html，所有的都能加载完成。</p>
+<p><code>time.sleep(1)</code></p>
+<h2 id="二、怎么切换？"><a href="#二、怎么切换？" class="headerlink" title="二、怎么切换？"></a>二、怎么切换？</h2><h3 id="用什么样的语句来获取我们的-WebView、获取我们的原生控件呢？"><a href="#用什么样的语句来获取我们的-WebView、获取我们的原生控件呢？" class="headerlink" title="用什么样的语句来获取我们的 WebView、获取我们的原生控件呢？"></a>用什么样的语句来获取我们的 WebView、获取我们的原生控件呢？</h3><p>它这个东西在我们 App 当中叫做<code>context</code>，翻译成中文就是<strong>上下文。</strong></p>
+<p><strong>上下文在我们自动化中就是指可以切换的东西，就是我们的原生控件。</strong> 原生控件是我们默认的，就像窗口切换就是我们默认的窗口是一样的。原生控件是它的默认上下文。打开 app，默认就是在它的原生控件当中。</p>
+<p>WebView 就是它的第二种<code>context</code>。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129152903.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129152903.png" srcset="data:image/png;base64,666"></p>
+<p>只要当前页面中有 WebView，它就会显示出来，有 2 个就会显示 2 个。如图片中这个例子中只有一个 Webview，所以它只显示一个 WebView。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129160059.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129160059.png" srcset="data:image/png;base64,666"></p>
+<p>这就是<code>context</code>上下文。</p>
+<p>只有这种情况下需要切换，其它情况下都是原生控件就不需要切换，不用管它，一旦有 html 页面就需要考虑这些事情了。</p>
+<h2 id="三、上下文切换"><a href="#三、上下文切换" class="headerlink" title="三、上下文切换"></a>三、上下文切换</h2><p><strong>可用的上下文（Contexts）</strong></p>
+<p>列出所有可用的上下文（contexts）</p>
+<p><code>driver.contexts</code></p>
+<p><code>driver.window_handles</code> 获取所有窗口的 handle，返回 list 列表。</p>
+<p><strong>当前上下文（context）：列出当前的上下文（context）</strong></p>
+<p><code>driver.current_context</code></p>
+<p><strong>切换至默认的上下文（context）</strong></p>
+<p>切换回默认的上下文（context）。（译者注：一般就是原生上下文 “NATIVE_APP”）</p>
+<p><code>driver.switch_to.context(None)</code></p>
+<p><strong>当前 Activity：获取当前的 Acticity。仅支持 Android。</strong></p>
+<p><code>driver.current_activity</code></p>
+<p><strong>当前包名（package）：获取当前包名（package）。仅支持 Android 。</strong></p>
+<p><code>driver.current_package</code></p>
+<p>上下文的操作方式在这里，和 Windows 窗口是一模一样的。和 Web 自动化中所谓的窗口是一样的。</p>
+<p>首先列出所有可用的上下文。就像列出目前所有打开的窗口是一样的。</p>
+<p>这个上下文，有 WebView 的时候，也是在执行代码的时候，它进入了有 WebView 的<strong>页面当中</strong>，才会有多个，没有进入有 WebView 的页面当中只有一个 WebView 的（相当于一个大箱子，箱子打开后有多个）。</p>
+<p>列出所有可用的上下文，再去切换至需要的上下文。怎么切换呢？他们得到的结果也是个列表啊。</p>
+<p>列表当中放的值呢，不是原生控件就是 WebView。所以它也有下标。如果要切换的话就是<code>driver.switch_to.context(None)</code></p>
+<h3 id="None-表示什么呢？"><a href="#None-表示什么呢？" class="headerlink" title="None 表示什么呢？"></a>None 表示什么呢？</h3><p>表示切换回默认的上下文，按照 Web 自动化的讲法就是默认的窗口，在我们这里就是默认的原生控件里面。</p>
+<p>如果你想切换到 WebView 的话，<code>driver.contexts</code>返回值 0，列表取下标 1，2，3，4 都是可以取得。也可以将你得到的 Web 名称放在<code>driver.switch_to.context(None)</code>中替换 None 就可以了。</p>
+<p><code>driver.switch_to.context(None)</code>可以切进去，也可以切出来。如果你想获取当前的窗口，当前的上下文，叫做<code>driver.current_context</code>。</p>
+<p>它的做法与窗口是一模一样的。<strong>Web 自动化中叫做窗口，这里叫做上下文。</strong> 其它的时候不需要切换，但是有窗口需要交替的时候就必须要切换。有 iframe，需要更换 html 页面的时候就需要切换，其它情况下就不切换。</p>
+<p><strong>现在在这个地方已经等到了这个所有的 WebView 出现了，所以接下来这样做：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129165336.jpg" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129165336.jpg" srcset="data:image/png;base64,666"></p>
+<p><code>button[@class=&quot;bottom-btn buy&quot;]</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129165818.jpg" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129165818.jpg" srcset="data:image/png;base64,666"></p>
+<p><strong>相当于 App 自动化和 Web 自动化组合起来用了，无缝切换，不需要改什么，照着套路用就好了：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换之后：当前的操作对象：html页面。</span></span><br><span class="line"><span class="comment"># 等待元素可见</span></span><br><span class="line"><span class="comment"># 因为是通用的，所以接下来的代码是web自动化的代码</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.XPATH,<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>)))</span><br><span class="line"><span class="comment"># 这个用Mobileby或者By都无所谓。</span></span><br><span class="line">driver.find_element_by_xpath(<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>).click()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129173857.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129173857.png" srcset="data:image/png;base64,666"></p>
+<p><strong>列出了当前的上下文：</strong></p>
+<p><code>[&#39;NATIVE_APP&#39;, &#39;WEBVIEW_com.tencent.mobileqq:mini&#39;, &#39;WEBVIEW_com.保密&#39;]</code></p>
+<p>NATIVE_APP 是当前的原生控件，按照 web 自动化来说，是默认的主窗口。</p>
+<p><strong>是因为这段代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、先列出所有的context</span></span><br><span class="line">cons=driver.contexts  <span class="comment">#列表</span></span><br><span class="line"><span class="comment">#也是按照出现的先后顺序，WebView是操作过程中才出现的，所以它肯定排队。</span></span><br><span class="line">print(cons)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129174909.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129174909.png" srcset="data:image/png;base64,666"></p>
+<p><strong>一定要开启 webview debug 属性，如果你没有开启它，那么这 2 项，在这里获取的时候是看不到的：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129175328.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129175328.png" srcset="data:image/png;base64,666"></p>
+<p>就只有一个了，就是 NATIVE_APP。只能看到 NATIVE_APP 是切换不到 WebView 的。一定要保证能够识别得到，才能够去切换。</p>
+<p><strong>技巧：</strong> 报错的时候先看第一行代码，看看在你自己当前脚本当中到底是哪一行出错了。</p>
+<h2 id="四、样例代码"><a href="#四、样例代码" class="headerlink" title="四、样例代码"></a>四、样例代码</h2><p>手机设置中开启着显示布局边界的情况下，然后 run 代码。因为 App 界面有变更，所以代码和现有界面不一致，即<strong>立即购买</strong>现在成了<strong>报名截止并跳转至 QQ 界面</strong>。代码提示找不到元素请不要奇怪，因为为了便于理解，放的元素还是<strong>立即购买</strong>的元素。</p>
+<p>此代码只是样例，不一定保证在你的电脑上就能运行成功，请根据实际情况修改。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;10&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;2NSDU20410017297&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;输入appPackage&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;输入appActivity&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line">loc=<span class="string">&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,loc)))</span><br><span class="line">driver.find_element_by_android_uiautomator(loc).click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待Web View元素出现  -Web View里面放的是Html</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME,<span class="string">&#x27;android.webkit.WebView&#x27;</span>)))</span><br><span class="line"><span class="comment"># 因为只是等它这个元素出现了，至于里面的html有没有加载完成，并不是很确定。</span></span><br><span class="line">time.sleep(<span class="number">1</span>)<span class="comment">#为了稳定起见，稍微sleep 1秒，确保里面的Html，所有的都能加载完成。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 前提：可以识别到WebView，</span></span><br><span class="line"><span class="comment"># 这个识别不是肉眼识别，而是通过调用代码的时候可以识别。需要开启app的webview debug调试属性，对外可见。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># context  #原生控件 #webview</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、先列出所有的context</span></span><br><span class="line">cons=driver.contexts  <span class="comment">#列表</span></span><br><span class="line"><span class="comment">#也是按照出现的先后顺序，WebView是操作过程中才出现的，所以它肯定排队。</span></span><br><span class="line">print(cons)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、切换至WebView，要确保chromedriver的版本要与webView的版本匹配。也要放置在对应的位置。</span></span><br><span class="line">driver.switch_to.context(cons[-<span class="number">1</span>])<span class="comment">#这个地方没有给你提示，不代表你错了，照着操作就好了。</span></span><br><span class="line"><span class="comment"># 先写个-1，因为现在不知道WebView的名字。但是知道WebView一定是出现在最后的就可以了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3、切换之后：当前的操作对象：html页面。</span></span><br><span class="line"><span class="comment"># 等待元素可见</span></span><br><span class="line"><span class="comment"># 因为是通用的，所以接下来的代码是web自动化的代码</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.XPATH,<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>)))</span><br><span class="line"><span class="comment"># 这个用Mobileby或者By都无所谓。</span></span><br><span class="line">driver.find_element_by_xpath(<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>).click()</span><br><span class="line"><span class="comment"># 这里为什么用MobileBy.XPATH而不是By.XPATH？</span></span><br><span class="line"><span class="comment"># MobileBy这个类继承了By,所以这个用Mobileby或者By都无所谓。</span></span><br><span class="line"><span class="comment"># 原理：大家背后走的都是同一套逻辑，同一段请求，同一种命令。都是find_element</span></span><br><span class="line"><span class="comment"># 只不过我们查找元素的方式不一样。所以它只是一个外部的形式而已，在内部也是一样的。</span></span><br><span class="line"><span class="comment"># 即便用Selenium Webdriver 写代码，也可以把MobileBy引进来，只要我不去用移动端的定位方式，都是可以做的。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>appium 报错 session not created: This version of ChromeDriver only supports Chrome version 84</p>
+<p><strong>靠谱链接：</strong> <a target="_blank" rel="noopener" href="https://www.codenong.com/jsb8d9e8746809/">https://www.codenong.com/jsb8d9e8746809/</a></p>
+<p><strong>温馨提示：</strong> 如果你的代码没问题，还报错，那么就换 Appium 版本吧，Appium 的 bug 很多。</p>
+<p>上篇文章  中此处代码错了，应该改成这样：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129173111.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129173111.png" srcset="data:image/png;base64,666"></p>
+<hr>
+<p>公众号 <strong>清菡软件测试</strong> 首发，更多原创文章：清菡软件测试 95+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129205421.jpg" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129205421.jpg" srcset="data:image/png;base64,666"></p>
+<p>感谢关注清菡，欢迎点击在看和转发！</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/>http://example.com/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-30T13:27:38+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Nov 30, 2020</p>
+  </a>
+</div>
+
+        
       
         
           
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/App%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>App自动化</p></a></div>
+
+
         
       
-    
-    
-      
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%B8%80)/">
-        Appium上下文和H5测试(一)
-      </a>
-    </h2>
-  
-  <div class='md'>
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-        坚持原创输出，点击蓝字关注我吧
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/&title=Appium上下文和H5测试(二) - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/&title=Appium上下文和H5测试(二) - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/&title=Appium上下文和H5测试(二) - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%B8%80)/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Appium上下文和H5测试(一)</p>
+          <p class='content'>坚持原创输出，点击蓝字关注我吧
 作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
 目录
 一、混合应用-H5
 1.混合应用是什么？
-2.怎么样分辨一个 App 页面究竟是原生的还是 Web 的？
-3.如果 App 是 Web 的界面，那界面不会有布局边界显示，如有则说明是原生的界面。
-
-
-二、想要操作这个 Html 页面
-1.想通过代码点击立即购买，那 Web 自动化中用到了什么...
+2.怎么样分辨一个 App 页面究竟是原生的还是 ...</p>
+        </a>
       
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-30</time>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%B8%80)/'>
-            Read More
-          </a>
-        </div>
+        <a class='next' href='/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/'>
+          <p class='title'>更新Appium运行原理讲解<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>点击查看原文上篇文章中，讲解 Appium 运行原理、Web-Selenium 的运行原理的时候，图片放重复了，导致讲解不是很清晰。本篇文章更新一下此处的讲解，多有疏忽，请见谅！
+1.Web-S...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/">
-        Appium上下文和H5测试(二)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-文章总览图
-一、往期回顾1234loc=&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ANDRO...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-30</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/">
-        更新Appium运行原理讲解
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        点击查看原文上篇文章中，讲解 Appium 运行原理、Web-Selenium 的运行原理的时候，图片放重复了，导致讲解不是很清晰。本篇文章更新一下此处的讲解，多有疏忽，请见谅！
-1.Web-Selenium 运行原理：
-通过 Http 通信，没有改变浏览器访问系统的属性，只要访问就可以了。Appium 做自动化也是如此。
-2.Appium 运行原理：
-安卓和 Ios 都有自己自带的自动化测...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">App自动化测试</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/">
-        从0开始用Hexo框架搭建个人博客（无坑版）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：Oschina、云+社区、知乎等各大平台都有。
-目录
-一、环境准备
-安装 Node js
+  </article>
 
 
-二、安装 Hexo 博客框架
-三、使用 Hexo 搭建博客（本地启动）
-四、部署到远端（Github）上公开使用
-五、注意
-
-Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解决方式。无论是 Windows 还是 Linux，操作其实都是差不...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-22</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/%E6%B5%8B%E8%AF%95%E4%BC%98%E6%83%A0%E5%8A%B5%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%9C%BA%E6%99%AF%E9%A1%B9%E7%9B%AE%E5%8F%91%E7%8E%B0%E5%81%B6%E7%8E%B0Bug%EF%BC%8C%E6%82%A8%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84%E5%90%97%EF%BC%9F/">
-        测试优惠劵类复杂场景项目发现偶现Bug，您知道什么原因造成的吗？
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-您有什么观点或建议？后台回复“知识星球”可参与问答。
-
-测试某项目（在测试环境测试）。用户在店铺消费金额累积达到一定金额自动领取优惠券的，但是这个优惠券项目的场景是非常复杂的。
-运营要在后台配置不同的用户、不同的累计金额、是否可重复领取、优惠券过期时间、还有不同的店铺及不同的领取时间等，涉及网页和APP端，主要是在APP上做一个验证。（因为没确定运营要在后台怎么配置，所以测试全部配置都得考...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/%E6%B5%8B%E8%AF%95%E4%BC%98%E6%83%A0%E5%8A%B5%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%9C%BA%E6%99%AF%E9%A1%B9%E7%9B%AE%E5%8F%91%E7%8E%B0%E5%81%B6%E7%8E%B0Bug%EF%BC%8C%E6%82%A8%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84%E5%90%97%EF%BC%9F/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Ui%20Automator%20%E6%A1%86%E6%9E%B6%E5%92%8CUi%20Automator%20Viewer%E4%BD%A0%E4%BC%9A%E7%94%A8%E5%90%97%EF%BC%9F%E9%99%84%E9%80%81%E3%80%8C%E5%BF%85%E5%A4%87adb%E5%91%BD%E4%BB%A4%E3%80%8D%E6%8B%BF%E8%B5%B0%E4%B8%8D%E8%B0%A2%20%EF%BC%81/">
-        Ui Automator 框架和Ui Automator Viewer你会用吗？附送「必备adb命令」拿走不谢 ！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
- 一、往期回顾
-二、了解 adb 命令
-1.adb 的使用和配置
-2.如果现在同时有 2 个设备呢，怎么指定安装到哪个设备上？
-3.Android 8.0 adb shell dumpsys activity activities | findstr mFocusedActivity 获取当...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Ui%20Automator%20%E6%A1%86%E6%9E%B6%E5%92%8CUi%20Automator%20Viewer%E4%BD%A0%E4%BC%9A%E7%94%A8%E5%90%97%EF%BC%9F%E9%99%84%E9%80%81%E3%80%8C%E5%BF%85%E5%A4%87adb%E5%91%BD%E4%BB%A4%E3%80%8D%E6%8B%BF%E8%B5%B0%E4%B8%8D%E8%B0%A2%20%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Python+Appium%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84demo%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%81/">
-        Python+Appium运行简单的demo，你需要理解Appium运行原理！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、Appium 的理念
-四个原则
-1.Web-Selenium 的运行原理
-2.Appium 运行原理
 
 
-二、Appium 面板
-三、一段简单的代码来打开应用
-1.前提条件
-2.怎么识别 app？
-3.查看安卓 App 包名的链接
-4.Appium 官网介绍
-5.为什么有平台版本号？
-6...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Python+Appium%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84demo%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%92%8CUiAutomator%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8D/">
-        Appium之「元素定位和UiAutomator表达式」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、常见属性的用法
- 1.怎么用 resource-id？
-2.其它属性
 
 
-二、通过截图就可以看到元素的属性，那怎么元素定位呢？
-1.appium - app 页面元素定位 
-2.UiAutomator 的表达式
-3.什么时候用 UiAutomator 呢？
-4.和 Web 自动化的定位有啥...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E5%92%8CUiAutomator%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E3%80%81swipe%20%E6%BB%91%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/">
-        Appium常用操作之「元素定位、swipe 滑屏操作」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、打开 uiautomatorviewer
-二、Appium 常用操作
-1.用 layui 做 app 元素定位的时候会报错怎么办？
-2.不等待，直接去找这个元素会报错吗？
-3.如果是 Web 自动化，会 import By，在 Appium 中 MobileBy 有 8 种定位方式。如果...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E3%80%81swipe%20%E6%BB%91%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%BE%AE%E4%BF%A1%E6%BB%91%E5%B1%8F%E3%80%81%E8%A7%A6%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/">
-        Appium常用操作之「微信滑屏、触屏操作」
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、滑屏操作
-1.访问之后，马上就滑屏可以吗？
-2.连续实现 2 次滑屏
-3.代码
-
-
-二、模拟触屏
-1.短按和点击的区别？
-2.用坐标还是元素？
-3.引入 TouchAction
-4.每个行为函数都有 3 个参数
-5.首先确定每一个点的位置
-6.代码
-
-
-三、注意
-
-一、滑屏操作不需要看到...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Appium%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E4%B9%8B%E3%80%8C%E5%BE%AE%E4%BF%A1%E6%BB%91%E5%B1%8F%E3%80%81%E8%A7%A6%E5%B1%8F%E6%93%8D%E4%BD%9C%E3%80%8D/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-        <p class="current">
-          1 / 2
-        </p>
-        
-          <a class="next" rel="next" href="/archives/2020/11/page/2/">
-            <section class="post next white-box shadow">
-              &nbsp;Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </section>
-          </a>
-        
-      </div>
-    
-  
-
-
-	
 </div>
 <aside class='l_side'>
   
@@ -970,126 +679,28 @@ Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">清菡的主页</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"
-            id="categoriesAppE887AAE58AA8E58C96E6B58BE8AF95"
-            ><div class='name'>App自动化测试</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%9A%E6%8C%81%E5%8E%9F%E5%88%9B%E8%BE%93%E5%87%BA%EF%BC%8C%E7%82%B9%E5%87%BB%E8%93%9D%E5%AD%97%E5%85%B3%E6%B3%A8%E6%88%91%E5%90%A7"><span class="toc-text">坚持原创输出，点击蓝字关注我吧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E6%80%BB%E8%A7%88%E5%9B%BE"><span class="toc-text">文章总览图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BE%80%E6%9C%9F%E5%9B%9E%E9%A1%BE"><span class="toc-text">一、往期回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%80%8E%E4%B9%88%E5%88%87%E6%8D%A2%EF%BC%9F"><span class="toc-text">二、怎么切换？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E8%AF%AD%E5%8F%A5%E6%9D%A5%E8%8E%B7%E5%8F%96%E6%88%91%E4%BB%AC%E7%9A%84-WebView%E3%80%81%E8%8E%B7%E5%8F%96%E6%88%91%E4%BB%AC%E7%9A%84%E5%8E%9F%E7%94%9F%E6%8E%A7%E4%BB%B6%E5%91%A2%EF%BC%9F"><span class="toc-text">用什么样的语句来获取我们的 WebView、获取我们的原生控件呢？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">三、上下文切换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#None-%E8%A1%A8%E7%A4%BA%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F"><span class="toc-text">None 表示什么呢？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%A0%B7%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="toc-text">四、样例代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">遇到的问题</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%B3%BB%E5%88%97/" style="font-size: 14px; color: #999">Appium自动化测试系列</a> <a href="/tags/App%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 24px; color: #555">App自动化</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 14px; color: #999">博客</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -1099,14 +710,14 @@ Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Appium上下文和H5测试(二)";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
