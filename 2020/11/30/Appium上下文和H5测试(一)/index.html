@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -575,8 +575,38 @@
 <p>这个步骤之后进入到了<strong>全程班</strong>的页面，进入全程班的页面也是需要时间的。Web View 这个元素当中放的才是 Html 页面，是不是等到 Html 页面加载出来之后再去获取所有的相关内容这样比较好。</p>
 <p>万一切过来的时候，Html 页面还没有去加载就马上获取当前所有可以操作的对象，这样很容易丢失，所以一样要有等待。</p>
 <p>首先等到 Web View 这个元素的 class 控件出现。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;10&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;2NSDU20410017297&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;填appPackage&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;填appActivity&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line">loc=<span class="string">&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,<span class="built_in">locals</span>())))</span><br><span class="line">driver.find_element_by_android_uiautomator(loc).click()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待Web View元素出现  -Web View里面放的是Html</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located(MobileBy.CLASS_NAME,<span class="string">&#x27;android.webkit.WebView&#x27;</span>))</span><br><span class="line">time.sleep(<span class="number">1</span>)<span class="comment">#稍微sleep 1秒，确保里面的Html，所有的都能加载完成。</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-PYTHON"><code class="language-PYTHON">
+from appium import webdriver
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.mobileby import MobileBy
 
+
+desired_caps=&#123;&#125;
+# 平台类型
+desired_caps["platformName"]="Android"
+# 平台版本号
+desired_caps["platformVersion"]="10"
+# 设备名称
+desired_caps["deviceName"]="2NSDU20410017297"
+# app 包名
+desired_caps["appPackage"]="填appPackage"
+# app 入口 acitivity
+desired_caps["appActivity"]="填appActivity"
+
+
+# 连接Appium server。前提：appium desktop要启动。有监听端口。
+# 将desired_caps发送给appium server。打开app
+driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
+
+loc='new UiSelector().text("全程班")'
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,locals())))
+driver.find_element_by_android_uiautomator(loc).click()
+
+# 等待Web View元素出现  -Web View里面放的是Html
+WebDriverWait(driver,20).until(EC.visibility_of_element_located(MobileBy.CLASS_NAME,'android.webkit.WebView'))
+time.sleep(1)#稍微sleep 1秒，确保里面的Html，所有的都能加载完成。</code></pre>
 <hr>
 <p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 96+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201124224532.png"></p>

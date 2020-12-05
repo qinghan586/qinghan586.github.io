@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -520,8 +520,49 @@
 <p>这个元素定位和 Web 元素定位一样的，有多种方式。</p>
 <p>安卓和 ios 的手机屏幕有大小的限制，所以一个页面当中元素不会太多，也不会很密密麻麻。因为它需要你不但要能看得清楚还能用手点得着。所以它会做的格局上面内容偏少，间距也会比较大。</p>
 <p>点击<code>“我的”</code>后，页面内容切换。<code>页面内容切换，你就要等，它也是要加载时间的。</code></p>
-<h2 id="三、打开-app-并登录"><a href="#三、打开-app-并登录" class="headerlink" title="三、打开 app 并登录"></a>三、打开 app 并登录</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  某app 2.9.0准环境</span></span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;7.0&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;XPUDU17713003790&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;保密&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;保密&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行代码之前：</span></span><br><span class="line"><span class="comment">#1.appium server启动成功。处于监听状态</span></span><br><span class="line"><span class="comment">#2.模拟器/真机必须能够被电脑识别。即adb devices能够识别到要操作的设备。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 点击“我的”</span></span><br><span class="line">time.sleep(<span class="number">5</span>)</span><br><span class="line"><span class="comment"># 元素定位-组合定位方式</span></span><br><span class="line">driver.find_element_by_xpath(<span class="string">&quot;//*[@resource-id=&#x27;com.tfffc.cf:id/id_text&#x27; and @text=&#x27;我的&#x27;]&quot;</span>).click()</span><br><span class="line"></span><br><span class="line"><span class="comment">#点击手机密码登录</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ID,<span class="string">&#x27;com.tfffc.cf:id/tv_phone_passwad&#x27;</span>)))</span><br><span class="line">driver.find_element_by_id(<span class="string">&#x27;com.tfffc.cf:id/tv_phone_passwad&#x27;</span>).click()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输入用户名、密码、点击登录按钮</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ID,<span class="string">&#x27;com.tfffc.cf:id/editview_phone&#x27;</span>)))</span><br><span class="line">driver.find_element_by_id(<span class="string">&#x27;com.tfffc.cf:id/editview_phone&#x27;</span>).send_keys(<span class="string">&#x27;输入手机号&#x27;</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">&#x27;com.tfffc.cf:id/editview_phone_password&#x27;</span>).send_keys(<span class="string">&#x27;输入密码&#x27;</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">&#x27;com.tfffc.cf:id/phone_password_login&#x27;</span>).click()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="三、打开-app-并登录"><a href="#三、打开-app-并登录" class="headerlink" title="三、打开 app 并登录"></a>三、打开 app 并登录</h2><pre class=" language-PYTHON"><code class="language-PYTHON">#  某app 2.9.0准环境
+from appium import webdriver
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.mobileby import MobileBy
 
+desired_caps=&#123;&#125;
+# 平台类型
+desired_caps["platformName"]="Android"
+# 平台版本号
+desired_caps["platformVersion"]="7.0"
+# 设备名称
+desired_caps["deviceName"]="XPUDU17713003790"
+# app 包名
+desired_caps["appPackage"]="保密"
+# app 入口 acitivity
+desired_caps["appActivity"]="保密"
+
+# 连接Appium server。前提：appium desktop要启动。有监听端口。
+# 将desired_caps发送给appium server。打开app
+driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
+
+# 运行代码之前：
+#1.appium server启动成功。处于监听状态
+#2.模拟器/真机必须能够被电脑识别。即adb devices能够识别到要操作的设备。
+
+
+# 点击“我的”
+time.sleep(5)
+# 元素定位-组合定位方式
+driver.find_element_by_xpath("//*[@resource-id='com.tfffc.cf:id/id_text' and @text='我的']").click()
+
+#点击手机密码登录
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ID,'com.tfffc.cf:id/tv_phone_passwad')))
+driver.find_element_by_id('com.tfffc.cf:id/tv_phone_passwad').click()
+
+#输入用户名、密码、点击登录按钮
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ID,'com.tfffc.cf:id/editview_phone')))
+driver.find_element_by_id('com.tfffc.cf:id/editview_phone').send_keys('输入手机号')
+driver.find_element_by_id('com.tfffc.cf:id/editview_phone_password').send_keys('输入密码')
+driver.find_element_by_id('com.tfffc.cf:id/phone_password_login').click()
+</code></pre>
 <h2 id="四、移动端特有的操作"><a href="#四、移动端特有的操作" class="headerlink" title="四、移动端特有的操作"></a>四、移动端特有的操作</h2><h3 id="1-swipe-滑屏操作"><a href="#1-swipe-滑屏操作" class="headerlink" title="1.swipe 滑屏操作"></a>1.swipe 滑屏操作</h3><p>Appium 的<code>swipe函数</code>是针对屏幕上的坐标来滑动的。<br><code>swipe函数</code>是安卓和 IOS 两种设备同时通用。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201027143333.png"></p>
 <p>从一个点滑到另外一个点，那么每个点都有 x 值和 y 值。<code>swipe</code>有 4 个参数。所以起始 x，起始 y，结束 x，结束 y。</p>
@@ -539,17 +580,38 @@
 <h3 id="5-这个东西想一口气把它滑过来，不能出现滑动到半路上又回去了。如果我要从右边滑到左边，起点和终点怎么选？"><a href="#5-这个东西想一口气把它滑过来，不能出现滑动到半路上又回去了。如果我要从右边滑到左边，起点和终点怎么选？" class="headerlink" title="5.这个东西想一口气把它滑过来，不能出现滑动到半路上又回去了。如果我要从右边滑到左边，起点和终点怎么选？"></a>5.这个东西想一口气把它滑过来，不能出现滑动到半路上又回去了。如果我要从右边滑到左边，起点和终点怎么选？</h3><p><code>swipe</code>有 2 个坐标点，首先要得到<code>start_x</code>。</p>
 <p>x 轴是<code>width</code>。<code>size[&#39;width&#39;]</code>是 x 轴的最大值。</p>
 <p><strong>所有人的使用习惯：</strong> 滑屏都是在正中间滑屏或者稍微偏下一点。从一个页面滑动到另外一个页面，y 轴没有变化。</p>
-<h4 id="所以-y-值是固定的，就取个中间值-0-5"><a href="#所以-y-值是固定的，就取个中间值-0-5" class="headerlink" title="所以 y 值是固定的，就取个中间值 0.5:"></a>所以 y 值是固定的，就取个中间值 0.5:</h4><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#height、width</span></span><br><span class="line">size= driver.get_window_size()</span><br><span class="line">start_x=size[<span class="string">&#x27;width&#x27;</span>]*<span class="number">0.9</span></span><br><span class="line">start_y=size[<span class="string">&#x27;height&#x27;</span>]*<span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h4 id="所以-y-值是固定的，就取个中间值-0-5"><a href="#所以-y-值是固定的，就取个中间值-0-5" class="headerlink" title="所以 y 值是固定的，就取个中间值 0.5:"></a>所以 y 值是固定的，就取个中间值 0.5:</h4><pre class=" language-PY"><code class="language-PY">#height、width
+size= driver.get_window_size()
+start_x=size['width']*0.9
+start_y=size['height']*0.5</code></pre>
+<h4 id="滑动的间距最好是达到-80-以上，这样写，间距就是-0-8-了："><a href="#滑动的间距最好是达到-80-以上，这样写，间距就是-0-8-了：" class="headerlink" title="滑动的间距最好是达到 80%以上，这样写，间距就是 0.8 了："></a>滑动的间距最好是达到 80%以上，这样写，间距就是 0.8 了：</h4><pre class=" language-PYTHON"><code class="language-PYTHON">#height、width
+size= driver.get_window_size()
+start_x=size['width']*0.9
+start_y=size['height']*0.5
 
-<h4 id="滑动的间距最好是达到-80-以上，这样写，间距就是-0-8-了："><a href="#滑动的间距最好是达到-80-以上，这样写，间距就是-0-8-了：" class="headerlink" title="滑动的间距最好是达到 80%以上，这样写，间距就是 0.8 了："></a>滑动的间距最好是达到 80%以上，这样写，间距就是 0.8 了：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#height、width</span></span><br><span class="line">size= driver.get_window_size()</span><br><span class="line">start_x=size[<span class="string">&#x27;width&#x27;</span>]*<span class="number">0.9</span></span><br><span class="line">start_y=size[<span class="string">&#x27;height&#x27;</span>]*<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">end_x=size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.1</span></span><br></pre></td></tr></table></figure>
-
+end_x=size["width"]*0.1</code></pre>
 <p><code>swipe</code>还有个参数叫做<code>duration（时长）</code>，这个单位是<code>毫秒</code>。</p>
 <h3 id="6-准备花多长时间去滑动呢？"><a href="#6-准备花多长时间去滑动呢？" class="headerlink" title="6.准备花多长时间去滑动呢？"></a>6.准备花多长时间去滑动呢？</h3><p>看过手机的操作，如果滑动的太快了，根本没有效果。有的时候滑动的太快了，它还没来得及响应就结束了。所以可以设置下<code>duration（时长）</code>，放缓一点呢，相对来说更稳定些。</p>
 <h4 id="向上向下滑动的时候，start-x-是？"><a href="#向上向下滑动的时候，start-x-是？" class="headerlink" title="向上向下滑动的时候，start_x 是？"></a>向上向下滑动的时候，start_x 是？</h4><p>上下滑动，x 轴不变，x 轴同样取中间值。但是 y 轴从下往上，值越来越小。</p>
 <p>这个可以把它封装起来，以后需要的时候直接调用就好了，随便什么设备都是一样的。如果<code>webdriver</code>中有些方法标明了仅仅是 ios 或者安卓，那就只能在对应的平台上使用。</p>
 <p><code>如果一个函数并没有说明，那么就是大家一起用的，不分彼此。</code></p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#height、width</span></span><br><span class="line">size= driver.get_window_size()</span><br><span class="line">start_x=size[<span class="string">&#x27;width&#x27;</span>]*<span class="number">0.9</span></span><br><span class="line">start_y=size[<span class="string">&#x27;height&#x27;</span>]*<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">end_x=size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.1</span></span><br><span class="line">end_y=size[<span class="string">&#x27;height&#x27;</span>]*<span class="number">0.5</span></span><br><span class="line"><span class="comment">#从右向左滑</span></span><br><span class="line">driver.swipe(start_x,start_y,end_x,end_y,<span class="number">200</span>)</span><br><span class="line"><span class="comment">#从左向右滑</span></span><br><span class="line">driver.swipe(end_x,end_y,start_x,start_y,<span class="number">200</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#向下滑动</span></span><br><span class="line"><span class="comment">#向上滑动：x轴不变，y从大到小</span></span><br><span class="line">driver.swipe(size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.5</span>,size[<span class="string">&quot;heigth&quot;</span>]*<span class="number">0.9</span>,size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.5</span>,size[<span class="string">&quot;heigth&quot;</span>]*<span class="number">0.1</span>)</span><br><span class="line"><span class="comment">#向上滑动：x轴不变，y从小到大</span></span><br><span class="line">driver.swipe(size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.5</span>,size[<span class="string">&quot;heigth&quot;</span>]*<span class="number">0.1</span>,size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.5</span>,size[<span class="string">&quot;heigth&quot;</span>]*<span class="number">0.9</span>)</span><br></pre></td></tr></table></figure>
+<pre class=" language-PY"><code class="language-PY">#height、width
+size= driver.get_window_size()
+start_x=size['width']*0.9
+start_y=size['height']*0.5
 
+end_x=size["width"]*0.1
+end_y=size['height']*0.5
+#从右向左滑
+driver.swipe(start_x,start_y,end_x,end_y,200)
+#从左向右滑
+driver.swipe(end_x,end_y,start_x,start_y,200)
+
+#向下滑动
+#向上滑动：x轴不变，y从大到小
+driver.swipe(size["width"]*0.5,size["heigth"]*0.9,size["width"]*0.5,size["heigth"]*0.1)
+#向上滑动：x轴不变，y从小到大
+driver.swipe(size["width"]*0.5,size["heigth"]*0.1,size["width"]*0.5,size["heigth"]*0.9)</code></pre>
 <hr>
 <p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：清菡软件测试 94+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201027160748.jpg"></p>

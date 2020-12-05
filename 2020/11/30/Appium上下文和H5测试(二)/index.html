@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -480,15 +480,17 @@
                 <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129210336.png"></p>
 <p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <h2 id="文章总览图"><a href="#文章总览图" class="headerlink" title="文章总览图"></a>文章总览图</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129231154.png"></p>
-<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loc=<span class="string">&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,loc))</span><br><span class="line">driver.find_element_by_android_uiautomator(loc).click()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><pre class=" language-PYTHON"><code class="language-PYTHON">loc='new UiSelector().text("全程班")'
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,loc))
+driver.find_element_by_android_uiautomator(loc).click()
+</code></pre>
 <p><strong>这个步骤后进入了这个页面：</strong></p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129133617.png"></p>
 <p>进入这个页面也是需要时间的。WebView 这个元素当中，放的才是 html 页面。真的等到 html 页面加载出来之后，再去获取所有相关的内容，这样比较好。</p>
 <p>万一切过来的时候，html 页面还没有开始加载，我就马上去获取当前所有可以操作的对象，这样很容易丢失，所以也一样要讲究等待。</p>
 <p>讲究等待，首先等到 WebView 这个元素出现。等到 WebView 这个 class 控件出现，class 值代表它的控件。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 等待Web View元素出现  -Web View里面放的是Html</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME,<span class="string">&#x27;android.webkit.WebView&#x27;</span>)))</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 等待Web View元素出现  -Web View里面放的是Html
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME,'android.webkit.WebView')))</code></pre>
 <p><code>sleep</code>1 秒钟，确保里面的 html，所有的都能加载完成。</p>
 <p><code>time.sleep(1)</code></p>
 <h2 id="二、怎么切换？"><a href="#二、怎么切换？" class="headerlink" title="二、怎么切换？"></a>二、怎么切换？</h2><h3 id="用什么样的语句来获取我们的-WebView、获取我们的原生控件呢？"><a href="#用什么样的语句来获取我们的-WebView、获取我们的原生控件呢？" class="headerlink" title="用什么样的语句来获取我们的 WebView、获取我们的原生控件呢？"></a>用什么样的语句来获取我们的 WebView、获取我们的原生控件呢？</h3><p>它这个东西在我们 App 当中叫做<code>context</code>，翻译成中文就是<strong>上下文。</strong></p>
@@ -526,15 +528,21 @@
 <p><code>button[@class=&quot;bottom-btn buy&quot;]</code></p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129165818.jpg"></p>
 <p><strong>相当于 App 自动化和 Web 自动化组合起来用了，无缝切换，不需要改什么，照着套路用就好了：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换之后：当前的操作对象：html页面。</span></span><br><span class="line"><span class="comment"># 等待元素可见</span></span><br><span class="line"><span class="comment"># 因为是通用的，所以接下来的代码是web自动化的代码</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.XPATH,<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>)))</span><br><span class="line"><span class="comment"># 这个用Mobileby或者By都无所谓。</span></span><br><span class="line">driver.find_element_by_xpath(<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>).click()</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 切换之后：当前的操作对象：html页面。
+# 等待元素可见
+# 因为是通用的，所以接下来的代码是web自动化的代码
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.XPATH,'//button[@class="bottom-btn buy"]')))
+# 这个用Mobileby或者By都无所谓。
+driver.find_element_by_xpath('//button[@class="bottom-btn buy"]').click()</code></pre>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129173857.png"></p>
 <p><strong>列出了当前的上下文：</strong></p>
 <p><code>[&#39;NATIVE_APP&#39;, &#39;WEBVIEW_com.tencent.mobileqq:mini&#39;, &#39;WEBVIEW_com.保密&#39;]</code></p>
 <p>NATIVE_APP 是当前的原生控件，按照 web 自动化来说，是默认的主窗口。</p>
 <p><strong>是因为这段代码：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、先列出所有的context</span></span><br><span class="line">cons=driver.contexts  <span class="comment">#列表</span></span><br><span class="line"><span class="comment">#也是按照出现的先后顺序，WebView是操作过程中才出现的，所以它肯定排队。</span></span><br><span class="line">print(cons)</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 1、先列出所有的context
+cons=driver.contexts  #列表
+#也是按照出现的先后顺序，WebView是操作过程中才出现的，所以它肯定排队。
+print(cons)</code></pre>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129174909.png"></p>
 <p><strong>一定要开启 webview debug 属性，如果你没有开启它，那么这 2 项，在这里获取的时候是看不到的：</strong></p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201129175328.png"></p>
@@ -542,8 +550,66 @@
 <p><strong>技巧：</strong> 报错的时候先看第一行代码，看看在你自己当前脚本当中到底是哪一行出错了。</p>
 <h2 id="四、样例代码"><a href="#四、样例代码" class="headerlink" title="四、样例代码"></a>四、样例代码</h2><p>手机设置中开启着显示布局边界的情况下，然后 run 代码。因为 App 界面有变更，所以代码和现有界面不一致，即<strong>立即购买</strong>现在成了<strong>报名截止并跳转至 QQ 界面</strong>。代码提示找不到元素请不要奇怪，因为为了便于理解，放的元素还是<strong>立即购买</strong>的元素。</p>
 <p>此代码只是样例，不一定保证在你的电脑上就能运行成功，请根据实际情况修改。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;10&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;2NSDU20410017297&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;输入appPackage&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;输入appActivity&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line">loc=<span class="string">&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,loc)))</span><br><span class="line">driver.find_element_by_android_uiautomator(loc).click()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待Web View元素出现  -Web View里面放的是Html</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME,<span class="string">&#x27;android.webkit.WebView&#x27;</span>)))</span><br><span class="line"><span class="comment"># 因为只是等它这个元素出现了，至于里面的html有没有加载完成，并不是很确定。</span></span><br><span class="line">time.sleep(<span class="number">1</span>)<span class="comment">#为了稳定起见，稍微sleep 1秒，确保里面的Html，所有的都能加载完成。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 前提：可以识别到WebView，</span></span><br><span class="line"><span class="comment"># 这个识别不是肉眼识别，而是通过调用代码的时候可以识别。需要开启app的webview debug调试属性，对外可见。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># context  #原生控件 #webview</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、先列出所有的context</span></span><br><span class="line">cons=driver.contexts  <span class="comment">#列表</span></span><br><span class="line"><span class="comment">#也是按照出现的先后顺序，WebView是操作过程中才出现的，所以它肯定排队。</span></span><br><span class="line">print(cons)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、切换至WebView，要确保chromedriver的版本要与webView的版本匹配。也要放置在对应的位置。</span></span><br><span class="line">driver.switch_to.context(cons[-<span class="number">1</span>])<span class="comment">#这个地方没有给你提示，不代表你错了，照着操作就好了。</span></span><br><span class="line"><span class="comment"># 先写个-1，因为现在不知道WebView的名字。但是知道WebView一定是出现在最后的就可以了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3、切换之后：当前的操作对象：html页面。</span></span><br><span class="line"><span class="comment"># 等待元素可见</span></span><br><span class="line"><span class="comment"># 因为是通用的，所以接下来的代码是web自动化的代码</span></span><br><span class="line">WebDriverWait(driver,<span class="number">20</span>).until(EC.visibility_of_element_located((MobileBy.XPATH,<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>)))</span><br><span class="line"><span class="comment"># 这个用Mobileby或者By都无所谓。</span></span><br><span class="line">driver.find_element_by_xpath(<span class="string">&#x27;//button[@class=&quot;bottom-btn buy&quot;]&#x27;</span>).click()</span><br><span class="line"><span class="comment"># 这里为什么用MobileBy.XPATH而不是By.XPATH？</span></span><br><span class="line"><span class="comment"># MobileBy这个类继承了By,所以这个用Mobileby或者By都无所谓。</span></span><br><span class="line"><span class="comment"># 原理：大家背后走的都是同一套逻辑，同一段请求，同一种命令。都是find_element</span></span><br><span class="line"><span class="comment"># 只不过我们查找元素的方式不一样。所以它只是一个外部的形式而已，在内部也是一样的。</span></span><br><span class="line"><span class="comment"># 即便用Selenium Webdriver 写代码，也可以把MobileBy引进来，只要我不去用移动端的定位方式，都是可以做的。</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-PYTHON"><code class="language-PYTHON">from appium import webdriver
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.mobileby import MobileBy
 
+
+desired_caps=&#123;&#125;
+# 平台类型
+desired_caps["platformName"]="Android"
+# 平台版本号
+desired_caps["platformVersion"]="10"
+# 设备名称
+desired_caps["deviceName"]="2NSDU20410017297"
+# app 包名
+desired_caps["appPackage"]="输入appPackage"
+# app 入口 acitivity
+desired_caps["appActivity"]="输入appActivity"
+
+
+# 连接Appium server。前提：appium desktop要启动。有监听端口。
+# 将desired_caps发送给appium server。打开app
+driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
+
+loc='new UiSelector().text("全程班")'
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ANDROID_UIAUTOMATOR,loc)))
+driver.find_element_by_android_uiautomator(loc).click()
+
+
+
+# 等待Web View元素出现  -Web View里面放的是Html
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.CLASS_NAME,'android.webkit.WebView')))
+# 因为只是等它这个元素出现了，至于里面的html有没有加载完成，并不是很确定。
+time.sleep(1)#为了稳定起见，稍微sleep 1秒，确保里面的Html，所有的都能加载完成。
+
+# 前提：可以识别到WebView，
+# 这个识别不是肉眼识别，而是通过调用代码的时候可以识别。需要开启app的webview debug调试属性，对外可见。
+
+# context  #原生控件 #webview
+
+# 1、先列出所有的context
+cons=driver.contexts  #列表
+#也是按照出现的先后顺序，WebView是操作过程中才出现的，所以它肯定排队。
+print(cons)
+
+# 2、切换至WebView，要确保chromedriver的版本要与webView的版本匹配。也要放置在对应的位置。
+driver.switch_to.context(cons[-1])#这个地方没有给你提示，不代表你错了，照着操作就好了。
+# 先写个-1，因为现在不知道WebView的名字。但是知道WebView一定是出现在最后的就可以了。
+
+# 3、切换之后：当前的操作对象：html页面。
+# 等待元素可见
+# 因为是通用的，所以接下来的代码是web自动化的代码
+WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.XPATH,'//button[@class="bottom-btn buy"]')))
+# 这个用Mobileby或者By都无所谓。
+driver.find_element_by_xpath('//button[@class="bottom-btn buy"]').click()
+# 这里为什么用MobileBy.XPATH而不是By.XPATH？
+# MobileBy这个类继承了By,所以这个用Mobileby或者By都无所谓。
+# 原理：大家背后走的都是同一套逻辑，同一段请求，同一种命令。都是find_element
+# 只不过我们查找元素的方式不一样。所以它只是一个外部的形式而已，在内部也是一样的。
+# 即便用Selenium Webdriver 写代码，也可以把MobileBy引进来，只要我不去用移动端的定位方式，都是可以做的。</code></pre>
 <h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><p>appium 报错 session not created: This version of ChromeDriver only supports Chrome version 84</p>
 <p><strong>靠谱链接：</strong> <a target="_blank" rel="noopener" href="https://www.codenong.com/jsb8d9e8746809/">https://www.codenong.com/jsb8d9e8746809/</a></p>
 <p><strong>温馨提示：</strong> 如果你的代码没问题，还报错，那么就换 Appium 版本吧，Appium 的 bug 很多。</p>

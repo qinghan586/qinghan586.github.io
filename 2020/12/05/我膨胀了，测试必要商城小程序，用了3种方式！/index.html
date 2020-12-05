@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -503,8 +503,15 @@
 <p>可能不止一个窗口，所以在进来之后，不要着急，不要认为肉眼看到的，当前就在这个页面。</p>
 <p>还需要你先获取当前的所有窗口句柄，要判断你要操作的元素是否在当前的页面当中。如果不在，那就得换一个，因为一个窗口句柄就代表一个页面。</p>
 <p>所以获取了当前所有的窗口的句柄：<code>hs=driver.window_handles</code>，拿到之后对它做了个遍历：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> handle <span class="keyword">in</span> hs:</span><br><span class="line">    driver.switch_to.window(handle)</span><br><span class="line"><span class="comment">#首先切换到这个窗口当中，因为我不知道哪个窗口包含了我要的元素，切换完成之后，我会判断一下</span></span><br><span class="line"><span class="comment">#当前这个窗口对应的页面的源码当中，有没有我要找的。比如窗口中有很多必要商城相关的，可以写必要商城相关的，各种文字都可以用，比如女装、美妆啊。</span></span><br><span class="line">    print(<span class="string">&quot;切换到窗口：&quot;</span>,handle)</span><br><span class="line">    time.sleep(<span class="number">3</span>)</span><br><span class="line">    <span class="comment">#print(driver.page_source)</span></span><br><span class="line">    <span class="keyword">if</span> driver.page_source.find(<span class="string">&quot;热门&quot;</span>) !=-<span class="number">1</span>:</span><br><span class="line">    	<span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON">for handle in hs:
+    driver.switch_to.window(handle)
+#首先切换到这个窗口当中，因为我不知道哪个窗口包含了我要的元素，切换完成之后，我会判断一下
+#当前这个窗口对应的页面的源码当中，有没有我要找的。比如窗口中有很多必要商城相关的，可以写必要商城相关的，各种文字都可以用，比如女装、美妆啊。
+    print("切换到窗口：",handle)
+    time.sleep(3)
+    #print(driver.page_source)
+    if driver.page_source.find("热门") !=-1:
+        break</code></pre>
 <p>如果能找到<strong>热门</strong>这个字，那我就认为当前是正在我操作的页面。然后就不再进行后续遍历了，因为遍历的过程中是相当于已经切进来了的，如果当前确实很符合条件，就不再遍历也不再切换到别的窗口，就在当前窗口。</p>
 <p>确定当前操作的窗口页面是什么之后，接下来的事就是找元素，操作元素。和 Web 自动化一样。注意：Chromedriver 要准备好。切换的时候要准备 Chromedriver。</p>
 <h2 id="二、Python-第三方库-Uiautomator2-做微信小程序、公众号自动化"><a href="#二、Python-第三方库-Uiautomator2-做微信小程序、公众号自动化" class="headerlink" title="二、Python 第三方库 Uiautomator2 做微信小程序、公众号自动化"></a>二、Python 第三方库 Uiautomator2 做微信小程序、公众号自动化</h2><p>除了这一种方式之外，还有一种方式。就是纯 Python 代码，不需要搞的这么复杂。</p>

@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -498,13 +498,56 @@
 <li>三、注意</li>
 </ul>
 <h2 id="一、滑屏操作"><a href="#一、滑屏操作" class="headerlink" title="一、滑屏操作"></a>一、滑屏操作</h2><p>不需要看到欢迎页面，直接做里面的后续操作就好了。也就是<strong>我想记住一些用户的习惯，</strong> 不要像第一次访问一样，有一个<code>重置与否</code>，给它关闭了。</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重置与否</span></span><br><span class="line">desired_caps[<span class="string">&quot;noReset&quot;</span>]=<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-py"><code class="language-py"># 重置与否
+desired_caps["noReset"]=True</code></pre>
 <h3 id="1-访问之后，马上就滑屏可以吗？"><a href="#1-访问之后，马上就滑屏可以吗？" class="headerlink" title="1.访问之后，马上就滑屏可以吗？"></a>1.访问之后，马上就滑屏可以吗？</h3><p>不可以。先等待首页有个元素出现，再去滑屏。滑屏操作需要时间，模拟器或者真机执行操作更需要时间。如果直接滑动 2 次，第一次滑动效果还没展示出来就直接滑动第二次了，就会看到看不懂得现象。所以这种情况下就要加上<code>time</code>。</p>
-<h3 id="2-连续实现-2-次滑屏"><a href="#2-连续实现-2-次滑屏" class="headerlink" title="2.连续实现 2 次滑屏"></a>2.连续实现 2 次滑屏</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#从右向左滑</span></span><br><span class="line">driver.swipe(start_x,start_y,end_x,end_y,<span class="number">200</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">driver.swipe(start_x,start_y,end_x,end_y,<span class="number">200</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="2-连续实现-2-次滑屏"><a href="#2-连续实现-2-次滑屏" class="headerlink" title="2.连续实现 2 次滑屏"></a>2.连续实现 2 次滑屏</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#从右向左滑</span>
+driver<span class="token punctuation">.</span>swipe<span class="token punctuation">(</span>start_x<span class="token punctuation">,</span>start_y<span class="token punctuation">,</span>end_x<span class="token punctuation">,</span>end_y<span class="token punctuation">,</span><span class="token number">200</span><span class="token punctuation">)</span>
+time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+driver<span class="token punctuation">.</span>swipe<span class="token punctuation">(</span>start_x<span class="token punctuation">,</span>start_y<span class="token punctuation">,</span>end_x<span class="token punctuation">,</span>end_y<span class="token punctuation">,</span><span class="token number">200</span><span class="token punctuation">)</span></code></pre>
+<h3 id="3-代码"><a href="#3-代码" class="headerlink" title="3.代码"></a>3.代码</h3><pre class=" language-PYTHON"><code class="language-PYTHON"># 微信app 安卓
+from appium import webdriver
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.mobileby import MobileBy
 
-<h3 id="3-代码"><a href="#3-代码" class="headerlink" title="3.代码"></a>3.代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 微信app 安卓</span></span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;7.0&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;XPUDU17713003790&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;com.tencent.mm&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;com.tencent.mm.ui.LauncherUI&quot;</span></span><br><span class="line"><span class="comment"># 重置与否</span></span><br><span class="line">desired_caps[<span class="string">&quot;noReset&quot;</span>]=<span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># aapt dump badging 包名</span></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ANDROID_UIAUTOMATOR 这个是一种定位表达式，用其它的表达式也是可以的。</span></span><br><span class="line">loc=(MobileBy.ANDROID_UIAUTOMATOR,<span class="string">&#x27;new UiSelector().text(&quot;通讯录&quot;)&#x27;</span>)</span><br><span class="line">WebDriverWait(driver,<span class="number">30</span>).until(EC.visibility_of_element_located(loc))</span><br><span class="line"></span><br><span class="line"><span class="comment">#height、width</span></span><br><span class="line">size= driver.get_window_size()</span><br><span class="line">start_x=size[<span class="string">&#x27;width&#x27;</span>]*<span class="number">0.9</span></span><br><span class="line">start_y=size[<span class="string">&#x27;height&#x27;</span>]*<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">end_x=size[<span class="string">&quot;width&quot;</span>]*<span class="number">0.1</span></span><br><span class="line">end_y=size[<span class="string">&#x27;height&#x27;</span>]*<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#从右向左滑</span></span><br><span class="line"><span class="comment"># 时间长短需要根据实际情况自己来调试，避免没滑过去，代码就执行完毕了。</span></span><br><span class="line">driver.swipe(start_x,start_y,end_x,end_y,<span class="number">300</span>)</span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line">driver.swipe(start_x,start_y,end_x,end_y,<span class="number">300</span>)</span><br></pre></td></tr></table></figure>
+desired_caps=&#123;&#125;
+# 平台类型
+desired_caps["platformName"]="Android"
+# 平台版本号
+desired_caps["platformVersion"]="7.0"
+# 设备名称
+desired_caps["deviceName"]="XPUDU17713003790"
+# app 包名
+desired_caps["appPackage"]="com.tencent.mm"
+# app 入口 acitivity
+desired_caps["appActivity"]="com.tencent.mm.ui.LauncherUI"
+# 重置与否
+desired_caps["noReset"]=True
 
+# aapt dump badging 包名
+# 连接Appium server。前提：appium desktop要启动。有监听端口。
+# 将desired_caps发送给appium server。打开app
+driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
+
+# ANDROID_UIAUTOMATOR 这个是一种定位表达式，用其它的表达式也是可以的。
+loc=(MobileBy.ANDROID_UIAUTOMATOR,'new UiSelector().text("通讯录")')
+WebDriverWait(driver,30).until(EC.visibility_of_element_located(loc))
+
+#height、width
+size= driver.get_window_size()
+start_x=size['width']*0.9
+start_y=size['height']*0.5
+
+end_x=size["width"]*0.1
+end_y=size['height']*0.5
+
+#从右向左滑
+# 时间长短需要根据实际情况自己来调试，避免没滑过去，代码就执行完毕了。
+driver.swipe(start_x,start_y,end_x,end_y,300)
+time.sleep(2)
+driver.swipe(start_x,start_y,end_x,end_y,300)</code></pre>
 <h2 id="二、模拟触屏"><a href="#二、模拟触屏" class="headerlink" title="二、模拟触屏"></a>二、模拟触屏</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201030194835.png" alt="图片来自网络"></p>
 <p>滑屏也是触屏实现的。手指在屏幕上点点点，在 Appium 中提供了专门的<code>TouchAction</code>类来做这件事。</p>
 <p><code>Press、longPress</code>和<code>release</code>组合起来使用的。长按和短按的时间长度不同。</p>
@@ -521,8 +564,14 @@
 <h4 id="TouchAction-的源码："><a href="#TouchAction-的源码：" class="headerlink" title="TouchAction 的源码："></a>TouchAction 的源码：</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201030202444.png"></p>
 <h3 id="4-每个行为函数都有-3-个参数"><a href="#4-每个行为函数都有-3-个参数" class="headerlink" title="4.每个行为函数都有 3 个参数"></a>4.每个行为函数都有 3 个参数</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201030202931.png"></p>
 <p><code>swipe</code>滑屏操作是没有元素的，针对的是整个屏幕。屏幕的话就只能通过坐标点。所以你看<code>swipe</code>的源码就可以看到。</p>
-<h4 id="看下-swipe-的实现-源码："><a href="#看下-swipe-的实现-源码：" class="headerlink" title="看下 swipe 的实现-源码："></a>看下 swipe 的实现-源码：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">action = TouchAction(self) <span class="comment">#首先实例化TouchAction</span></span><br><span class="line">      action \</span><br><span class="line">          .press(x=start_x, y=start_y) \</span><br><span class="line">          .wait(ms=duration) \</span><br><span class="line">          .move_to(x=end_x, y=end_y) \</span><br><span class="line">          .release()</span><br><span class="line">      action.perform()</span><br><span class="line">      <span class="keyword">return</span> self</span><br></pre></td></tr></table></figure>
-
+<h4 id="看下-swipe-的实现-源码："><a href="#看下-swipe-的实现-源码：" class="headerlink" title="看下 swipe 的实现-源码："></a>看下 swipe 的实现-源码：</h4><pre class=" language-PYTHON"><code class="language-PYTHON">  action = TouchAction(self) #首先实例化TouchAction
+        action \
+            .press(x=start_x, y=start_y) \
+            .wait(ms=duration) \
+            .move_to(x=end_x, y=end_y) \
+            .release()
+        action.perform()
+        return self</code></pre>
 <p>现在是它帮你封装好了。实际上不用<code>swipe</code>，就用<code>TouchAction</code>自己去写都可以。</p>
 <p><code>x=end_x, y=end_y，没有用el。</code></p>
 <h3 id="5-首先确定每一个点的位置"><a href="#5-首先确定每一个点的位置" class="headerlink" title="5.首先确定每一个点的位置"></a>5.首先确定每一个点的位置</h3><h4 id="选择一个元素上的坐标，大概会选哪个位置的？"><a href="#选择一个元素上的坐标，大概会选哪个位置的？" class="headerlink" title="选择一个元素上的坐标，大概会选哪个位置的？"></a>选择一个元素上的坐标，大概会选哪个位置的？</h4><p><code>中心。</code></p>
@@ -540,24 +589,103 @@
 <h4 id="那么，第一个点的坐标怎么写？"><a href="#那么，第一个点的坐标怎么写？" class="headerlink" title="那么，第一个点的坐标怎么写？"></a>那么，第一个点的坐标怎么写？</h4><p><code>x+width*1/6 + height*1/6</code></p>
 <h4 id="看-size-源码："><a href="#看-size-源码：" class="headerlink" title="看 size 源码："></a>看 size 源码：</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201101135059.png"></p>
 <h4 id="看-location-源码："><a href="#看-location-源码：" class="headerlink" title="看 location 源码："></a>看 location 源码：</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201101135452.png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#元素的大小</span></span><br><span class="line">size=ele.size</span><br><span class="line"><span class="comment"># 均分的步长 高和宽一样（因为是正方形）</span></span><br><span class="line">step=size[<span class="string">&quot;width&quot;</span>]/<span class="number">6</span><span class="comment">#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。</span></span><br><span class="line"><span class="comment"># 元素的起点坐标-左上角</span></span><br><span class="line">ori=ele.location</span><br><span class="line">point1=(ori[<span class="string">&quot;x&quot;</span>]+step,ori[<span class="string">&quot;y&quot;</span>]+step)</span><br><span class="line">TouchAction(driver)</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON">#元素的大小
+size=ele.size
+# 均分的步长 高和宽一样（因为是正方形）
+step=size["width"]/6#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。
+# 元素的起点坐标-左上角
+ori=ele.location
+point1=(ori["x"]+step,ori["y"]+step)
+TouchAction(driver)</code></pre>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201101140224.png" alt="图片来自网络"></p>
 <p>等于横向走了这么远，纵向也走了这么远，刚好对着这个点了。</p>
 <p><code>第二个点的坐标怎么算？</code></p>
 <p>基于第一个点的基础上做调整就行了。y 轴不变，x 轴往前走了 2 份。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201101140813.png"></p>
 <p><code>第3个点也是在第2个点的基础上往前挪动了2个。</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#元素的大小</span></span><br><span class="line">size=ele.size</span><br><span class="line"><span class="comment"># 均分的步长 高和宽一样（因为是正方形）</span></span><br><span class="line">step=size[<span class="string">&quot;width&quot;</span>]/<span class="number">6</span><span class="comment">#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。</span></span><br><span class="line"><span class="comment"># 元素的起点坐标-左上角</span></span><br><span class="line">ori=ele.location</span><br><span class="line">point1=(ori[<span class="string">&quot;x&quot;</span>]+step,ori[<span class="string">&quot;y&quot;</span>]+step)</span><br><span class="line">point2=(point1[<span class="number">0</span>]+step*<span class="number">2</span>,point1[<span class="number">1</span>]) <span class="comment">#x轴增加了2*step</span></span><br><span class="line">point3=(point2[<span class="number">0</span>]+step*<span class="number">2</span>,point2[<span class="number">1</span>]) <span class="comment">#x轴增加了2*step</span></span><br><span class="line">TouchAction(driver)</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON">#元素的大小
+size=ele.size
+# 均分的步长 高和宽一样（因为是正方形）
+step=size["width"]/6#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。
+# 元素的起点坐标-左上角
+ori=ele.location
+point1=(ori["x"]+step,ori["y"]+step)
+point2=(point1[0]+step*2,point1[1]) #x轴增加了2*step
+point3=(point2[0]+step*2,point2[1]) #x轴增加了2*step
+TouchAction(driver)</code></pre>
 <p><code>第4个点的坐标:</code></p>
 <p>它是倒着往回走。</p>
 <p><code>第5个点的坐标。</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#元素的大小</span></span><br><span class="line">size=ele.size</span><br><span class="line"><span class="comment"># 均分的步长 高和宽一样（因为是正方形）</span></span><br><span class="line">step=size[<span class="string">&quot;width&quot;</span>]/<span class="number">6</span><span class="comment">#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。</span></span><br><span class="line"><span class="comment"># 元素的起点坐标-左上角</span></span><br><span class="line">ori=ele.location</span><br><span class="line">point1=(ori[<span class="string">&quot;x&quot;</span>]+step,ori[<span class="string">&quot;y&quot;</span>]+step)</span><br><span class="line">point2=(point1[<span class="number">0</span>]+step*<span class="number">2</span>,point1[<span class="number">1</span>]) <span class="comment">#相对于point1,x轴增加了2*step</span></span><br><span class="line">point3=(point2[<span class="number">0</span>]+step*<span class="number">2</span>,point2[<span class="number">1</span>]) <span class="comment">#相对于point2,x轴增加了2*step</span></span><br><span class="line">point4=(point3[<span class="number">0</span>]-step*<span class="number">2</span>,point3[<span class="number">1</span>]+step*<span class="number">2</span>)<span class="comment">#相对于point3,x轴减少了2*step,y轴增加了2*step</span></span><br><span class="line">point5=(point4[<span class="number">0</span>],point4[<span class="number">1</span>]+step*<span class="number">2</span>)<span class="comment">#相对于point4,x轴不变,y轴增加了2*step</span></span><br><span class="line">TouchAction(driver).press(x=point1[<span class="number">0</span>],y=point1[<span class="number">1</span>]).wait(<span class="number">200</span>).\</span><br><span class="line">    move_to(x=point2[<span class="number">0</span>],y=point2[<span class="number">1</span>]).wait(<span class="number">200</span>).\</span><br><span class="line">    move_to(x=point3[<span class="number">0</span>],y=point3[<span class="number">1</span>]).wait(<span class="number">200</span>).\</span><br><span class="line">    move_to(x=point4[<span class="number">0</span>],y=point4[<span class="number">1</span>]).wait(<span class="number">200</span>).\</span><br><span class="line">    move_to(x=point5[<span class="number">0</span>],y=point5[<span class="number">1</span>]).wait(<span class="number">200</span>).\</span><br><span class="line">    release().\</span><br><span class="line">    perform()</span><br><span class="line"></span><br><span class="line"><span class="comment">#.\是换行用的。</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#元素的大小</span>
+size<span class="token operator">=</span>ele<span class="token punctuation">.</span>size
+<span class="token comment" spellcheck="true"># 均分的步长 高和宽一样（因为是正方形）</span>
+step<span class="token operator">=</span>size<span class="token punctuation">[</span><span class="token string">"width"</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">6</span><span class="token comment" spellcheck="true">#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。</span>
+<span class="token comment" spellcheck="true"># 元素的起点坐标-左上角</span>
+ori<span class="token operator">=</span>ele<span class="token punctuation">.</span>location
+point1<span class="token operator">=</span><span class="token punctuation">(</span>ori<span class="token punctuation">[</span><span class="token string">"x"</span><span class="token punctuation">]</span><span class="token operator">+</span>step<span class="token punctuation">,</span>ori<span class="token punctuation">[</span><span class="token string">"y"</span><span class="token punctuation">]</span><span class="token operator">+</span>step<span class="token punctuation">)</span>
+point2<span class="token operator">=</span><span class="token punctuation">(</span>point1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>step<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">,</span>point1<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#相对于point1,x轴增加了2*step</span>
+point3<span class="token operator">=</span><span class="token punctuation">(</span>point2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>step<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">,</span>point2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">#相对于point2,x轴增加了2*step</span>
+point4<span class="token operator">=</span><span class="token punctuation">(</span>point3<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">-</span>step<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">,</span>point3<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>step<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#相对于point3,x轴减少了2*step,y轴增加了2*step</span>
+point5<span class="token operator">=</span><span class="token punctuation">(</span>point4<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>point4<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">+</span>step<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">#相对于point4,x轴不变,y轴增加了2*step</span>
+TouchAction<span class="token punctuation">(</span>driver<span class="token punctuation">)</span><span class="token punctuation">.</span>press<span class="token punctuation">(</span>x<span class="token operator">=</span>point1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>y<span class="token operator">=</span>point1<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span>\
+    move_to<span class="token punctuation">(</span>x<span class="token operator">=</span>point2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>y<span class="token operator">=</span>point2<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span>\
+    move_to<span class="token punctuation">(</span>x<span class="token operator">=</span>point3<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>y<span class="token operator">=</span>point3<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span>\
+    move_to<span class="token punctuation">(</span>x<span class="token operator">=</span>point4<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>y<span class="token operator">=</span>point4<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span>\
+    move_to<span class="token punctuation">(</span>x<span class="token operator">=</span>point5<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>y<span class="token operator">=</span>point5<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>wait<span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span>\
+    release<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>\
+    perform<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
+<span class="token comment" spellcheck="true">#.\是换行用的。</span></code></pre>
 <p><strong>以 1 个点做基准，针对不同的点做基准，容易把自己绕晕了。所以，都以前一个点做基准。也可以以起点作为基准。</strong></p>
-<h3 id="6-代码"><a href="#6-代码" class="headerlink" title="6.代码"></a>6.代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> appium.webdriver.common.touch_action <span class="keyword">import</span> TouchAction</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;7.0&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;XPUDU17713003790&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;填上appPackage&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;填上appActivity&quot;</span></span><br><span class="line"><span class="comment"># 重置与否</span></span><br><span class="line">desired_caps[<span class="string">&quot;noReset&quot;</span>]=<span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line">ele=driver.find_element_by_id(<span class="string">&quot;填上元素定位下吧，如果你app这里的元素定位不了，那就只能用坐标了，需要另外学习这块的坐标怎么写，呜呜&quot;</span>)</span><br><span class="line"><span class="comment"># 元素的大小</span></span><br><span class="line">size=ele.size</span><br><span class="line"><span class="comment"># 均分的步长 高和宽一样（因为是正方形）</span></span><br><span class="line">step=size[<span class="string">&quot;width&quot;</span>]/<span class="number">6</span><span class="comment">#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 元素的起点坐标-左上角</span></span><br><span class="line">ori=ele.location</span><br><span class="line">point1=(ori[<span class="string">&quot;x&quot;</span>]+step,ori[<span class="string">&quot;y&quot;</span>]+step)</span><br><span class="line">point2=(point1[<span class="number">0</span>]+step*<span class="number">2</span>,point1[<span class="number">1</span>]) <span class="comment">#相对于point1,x轴增加了2*step</span></span><br><span class="line">point3=(point2[<span class="number">0</span>]+step*<span class="number">2</span>,point2[<span class="number">1</span>]) <span class="comment">#相对于point2,x轴增加了2*step</span></span><br><span class="line">point4=(point3[<span class="number">0</span>]-step*<span class="number">2</span>,point3[<span class="number">1</span>]+step*<span class="number">2</span>)<span class="comment">#相对于point3,x轴减少了2*step,y轴增加了2*step</span></span><br><span class="line">point5=(point4[<span class="number">0</span>],point4[<span class="number">1</span>]+step*<span class="number">2</span>)<span class="comment">#相对于point4,x轴不变,y轴增加了2*step</span></span><br><span class="line">TouchAction(driver).press(x=point1[<span class="number">0</span>],y=point1[<span class="number">1</span>]).wait(<span class="number">100</span>).\</span><br><span class="line">    move_to(x=point2[<span class="number">0</span>],y=point2[<span class="number">1</span>]).wait(<span class="number">100</span>).\</span><br><span class="line">    move_to(x=point3[<span class="number">0</span>],y=point3[<span class="number">1</span>]).wait(<span class="number">100</span>).\</span><br><span class="line">    move_to(x=point4[<span class="number">0</span>],y=point4[<span class="number">1</span>]).wait(<span class="number">100</span>).\</span><br><span class="line">    move_to(x=point5[<span class="number">0</span>],y=point5[<span class="number">1</span>]).wait(<span class="number">100</span>).\</span><br><span class="line">    release().\</span><br><span class="line">    perform()</span><br><span class="line"></span><br><span class="line"><span class="comment">#.\是换行用的。</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-代码"><a href="#6-代码" class="headerlink" title="6.代码"></a>6.代码</h3><pre class=" language-PYTHON"><code class="language-PYTHON">
+from appium import webdriver
+import time
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.webdriver.common.mobileby import MobileBy
+import time
+from appium.webdriver.common.touch_action import TouchAction
 
+desired_caps=&#123;&#125;
+# 平台类型
+desired_caps["platformName"]="Android"
+# 平台版本号
+desired_caps["platformVersion"]="7.0"
+# 设备名称
+desired_caps["deviceName"]="XPUDU17713003790"
+# app 包名
+desired_caps["appPackage"]="填上appPackage"
+# app 入口 acitivity
+desired_caps["appActivity"]="填上appActivity"
+# 重置与否
+desired_caps["noReset"]=True
+
+# 连接Appium server。前提：appium desktop要启动。有监听端口。
+# 将desired_caps发送给appium server。打开app
+driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
+
+ele=driver.find_element_by_id("填上元素定位下吧，如果你app这里的元素定位不了，那就只能用坐标了，需要另外学习这块的坐标怎么写，呜呜")
+# 元素的大小
+size=ele.size
+# 均分的步长 高和宽一样（因为是正方形）
+step=size["width"]/6#py3中除是取整数的，会缺点小数点没关系。取得是终点，问题不大，还是可以滑动到的。
+
+# 元素的起点坐标-左上角
+ori=ele.location
+point1=(ori["x"]+step,ori["y"]+step)
+point2=(point1[0]+step*2,point1[1]) #相对于point1,x轴增加了2*step
+point3=(point2[0]+step*2,point2[1]) #相对于point2,x轴增加了2*step
+point4=(point3[0]-step*2,point3[1]+step*2)#相对于point3,x轴减少了2*step,y轴增加了2*step
+point5=(point4[0],point4[1]+step*2)#相对于point4,x轴不变,y轴增加了2*step
+TouchAction(driver).press(x=point1[0],y=point1[1]).wait(100).\
+    move_to(x=point2[0],y=point2[1]).wait(100).\
+    move_to(x=point3[0],y=point3[1]).wait(100).\
+    move_to(x=point4[0],y=point4[1]).wait(100).\
+    move_to(x=point5[0],y=point5[1]).wait(100).\
+    release().\
+    perform()
+
+#.\是换行用的。</code></pre>
 <h2 id="三、注意"><a href="#三、注意" class="headerlink" title="三、注意"></a>三、注意</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201101144304.png"></p>
 <p>这里是 V1.6.几的或 V1.7.1，V1.7 以前的，如果按上面代码的方式写坐标的话，会报错<code>“提示越界了”</code>。<strong>这个是版本差异引起的。</strong> 需要看日志，日志中会告诉你，当前滑动的点是什么。</p>
 <p><code>多看Appium中的日志，它会问你是el滑动还是坐标滑动？</code></p>

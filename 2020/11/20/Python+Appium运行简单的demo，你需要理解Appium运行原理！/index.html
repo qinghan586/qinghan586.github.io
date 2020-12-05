@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -592,8 +592,27 @@
 <p>输入<code>aapt dump badging 包名</code>，直接把 apk 拖拽过来就可以啦。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200920191418.png"></p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20200920191429.png"></p>
-<h3 id="7-代码"><a href="#7-代码" class="headerlink" title="7.代码"></a>7.代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> appium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">desired_caps=&#123;&#125;</span><br><span class="line"><span class="comment"># 平台类型</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformName&quot;</span>]=<span class="string">&quot;Android&quot;</span></span><br><span class="line"><span class="comment"># 平台版本号</span></span><br><span class="line">desired_caps[<span class="string">&quot;platformVersion&quot;</span>]=<span class="string">&quot;10&quot;</span></span><br><span class="line"><span class="comment"># 设备名称</span></span><br><span class="line">desired_caps[<span class="string">&quot;deviceName&quot;</span>]=<span class="string">&quot;2NSDU20410017297&quot;</span></span><br><span class="line"><span class="comment"># app 包名</span></span><br><span class="line">desired_caps[<span class="string">&quot;appPackage&quot;</span>]=<span class="string">&quot;填对应的package name信息&quot;</span></span><br><span class="line"><span class="comment"># app 入口 acitivity</span></span><br><span class="line">desired_caps[<span class="string">&quot;appActivity&quot;</span>]=<span class="string">&quot;填对应的launchable-activity name信息&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接Appium server。前提：appium desktop要启动。有监听端口。</span></span><br><span class="line"><span class="comment"># 将desired_caps发送给appium server。打开app</span></span><br><span class="line">driver = webdriver.Remote(<span class="string">&#x27;http://127.0.0.1:4723/wd/hub&#x27;</span>,desired_caps)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行代码之前：</span></span><br><span class="line"><span class="comment">#1.appium server启动成功。处于监听状态</span></span><br><span class="line"><span class="comment">#2.模拟器/真机必须能够被电脑识别。即adb devices能够识别到要操作的设备。</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-代码"><a href="#7-代码" class="headerlink" title="7.代码"></a>7.代码</h3><pre class=" language-PYTHON"><code class="language-PYTHON">from appium import webdriver
 
+desired_caps=&#123;&#125;
+# 平台类型
+desired_caps["platformName"]="Android"
+# 平台版本号
+desired_caps["platformVersion"]="10"
+# 设备名称
+desired_caps["deviceName"]="2NSDU20410017297"
+# app 包名
+desired_caps["appPackage"]="填对应的package name信息"
+# app 入口 acitivity
+desired_caps["appActivity"]="填对应的launchable-activity name信息"
+
+# 连接Appium server。前提：appium desktop要启动。有监听端口。
+# 将desired_caps发送给appium server。打开app
+driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub',desired_caps)
+
+# 运行代码之前：
+#1.appium server启动成功。处于监听状态
+#2.模拟器/真机必须能够被电脑识别。即adb devices能够识别到要操作的设备。</code></pre>
 <p>运行代码，成功打开应用。</p>
 <hr>
 <p>公众号 <strong>清菡软件测试</strong> 首发，更多原创文章：清菡软件测试 84+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>

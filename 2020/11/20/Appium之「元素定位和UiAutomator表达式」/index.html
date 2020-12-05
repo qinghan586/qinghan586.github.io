@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 5.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"></head>
 
 
 
@@ -520,8 +520,8 @@
 <p>App 中只支持 5 种元素定位方式。虽然继承了 Web 自动化的元素定位，它之所以继承呢，是用到了其中的一个部分。</p>
 <h3 id="1-appium-app-页面元素定位"><a href="#1-appium-app-页面元素定位" class="headerlink" title="1.appium - app 页面元素定位"></a>1.appium - app 页面元素定位</h3><p>1、通过 id 定位元素：resrouce-id </br><br>2、通过 ClassName 定位：classname </br><br>3、通过 AccessibilityId 定位：content-desc </br><br>4、通过 AndroidUiAutomator 定位 </br><br>5、通过 xpath 定位</p>
 <h4 id="与-Web-自动化通用的是-3-种："><a href="#与-Web-自动化通用的是-3-种：" class="headerlink" title="与 Web 自动化通用的是 3 种："></a>与 Web 自动化通用的是 3 种：</h4><p>1、通过 id 定位元素：resrouce-id </br><br>2、通过 ClassName 定位：classname </br><br>3、通过 xpath 定位</p>
-<h5 id="1-1通过-id-定位元素：resrouce-id"><a href="#1-1通过-id-定位元素：resrouce-id" class="headerlink" title="1.1通过 id 定位元素：resrouce-id"></a>1.1通过 id 定位元素：resrouce-id</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id</span></span><br><span class="line">driver.find_element_by_id(<span class="string">&quot;保密&quot;</span>)</span><br></pre></td></tr></table></figure>
-
+<h5 id="1-1通过-id-定位元素：resrouce-id"><a href="#1-1通过-id-定位元素：resrouce-id" class="headerlink" title="1.1通过 id 定位元素：resrouce-id"></a>1.1通过 id 定位元素：resrouce-id</h5><pre class=" language-PYTHON"><code class="language-PYTHON">#id
+driver.find_element_by_id("保密")</code></pre>
 <p>有<code>find_element_by_id()</code>就有<code>find_elements_by_id()</code></p>
 <p>可以找到多个，它的返回值一样是列表。它的返回对象一样是 <code>Web element</code>。</p>
 <h5 id="源码："><a href="#源码：" class="headerlink" title="源码："></a>源码：</h5><p>来自于这个文件：</p>
@@ -529,20 +529,19 @@
 <p>在它的下面有个<code>find_element_by_id()</code>。它的方法和 Web 自动化是一样的。</p>
 <h4 id="1-2第二种定位方式-ClassName，ClassName-就是这里的-class-属性。"><a href="#1-2第二种定位方式-ClassName，ClassName-就是这里的-class-属性。" class="headerlink" title="1.2第二种定位方式 ClassName，ClassName 就是这里的 class 属性。"></a>1.2第二种定位方式 ClassName，ClassName 就是这里的 class 属性。</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201003131112.png"></p>
 <p>虽然这里代表的是元素类型，但它同样是 class 属性。</p>
-<h5 id="所以用这种方法就是这样写："><a href="#所以用这种方法就是这样写：" class="headerlink" title="所以用这种方法就是这样写："></a>所以用这种方法就是这样写：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#class</span></span><br><span class="line">driver.find_element_by_class_name(<span class="string">&quot;保密&quot;</span>)</span><br></pre></td></tr></table></figure>
-
+<h5 id="所以用这种方法就是这样写："><a href="#所以用这种方法就是这样写：" class="headerlink" title="所以用这种方法就是这样写："></a>所以用这种方法就是这样写：</h5><pre class=" language-PYThon"><code class="language-PYThon">#class
+driver.find_element_by_class_name("保密")</code></pre>
 <p>这里有点区别，但是方法名还是没有区别的。这个 class 的属性其实没有多大用处，一个页面中肯定很多属性的值和它很像的。所以这种用法不多。</p>
 <p>既然是类别，图片可能有好多种，输入框也有好多种，它代表的是一种元素的类型。</p>
 <p><strong>Web 自动化中 xpath 定位是最常用的，但是 App 自动化中 xpath 是最不想用的。原因是它的效率太低了。</strong></p>
 <p><strong>如果全部只用 xpath 定位，问题会比较大，能不用 xpath 就不用 xpath</strong>。</p>
 <h4 id="1-3通过-AccessibilityId-定位"><a href="#1-3通过-AccessibilityId-定位" class="headerlink" title="1.3通过 AccessibilityId 定位"></a>1.3通过 AccessibilityId 定位</h4><p>AccessibilityId 是移动端特有的定位方式。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> appium.webdriver.common.mobileby <span class="keyword">import</span> MobileBy</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYthon"><code class="language-PYthon">from appium.webdriver.common.mobileby import MobileBy</code></pre>
 <p>这是之前看到的类，这个类当中除了继承了 Web 自动化之外，对于安卓有 2 种，其中一种是<code>ACCESSIBILITY_ID</code>。</p>
 <h5 id="源码如下："><a href="#源码如下：" class="headerlink" title="源码如下："></a>源码如下：</h5><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201003134630.png"></p>
 <p>如果通过这种方式定位，对应的方式就是：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#content-desc</span></span><br><span class="line">driver.find_element_by_accessibility_id()</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYThon"><code class="language-PYThon">#content-desc
+driver.find_element_by_accessibility_id()</code></pre>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201003135248.png"></p>
 <p>此处应输入 content-desc 的值，但是这里是空的，所以不能通过它定位。</p>
 <p>但是<code>find_element_by_accessibility_id()</code>是另外一种 id，代表它在当前这个页面中也是很独特的。只要它有值，基本上可以通过它来定位。</p>
@@ -607,11 +606,11 @@
 <h3 id="2-UiAutomator-的表达式"><a href="#2-UiAutomator-的表达式" class="headerlink" title="2.UiAutomator 的表达式"></a>2.UiAutomator 的表达式</h3><p>使用 UiAutomator 中的 UiSelector 类来处理元素定位。</p>
 <p><code>new UiSelector().函数名称(“定位表达式”)</code></p>
 <p>字符串是双引号，布尔值就不是双引号了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_android_uiautomator(<span class="string">&#x27;new UiSelector().resourceId(&quot;保密&quot;).text(&quot;我的&quot;)&#x27;</span>)<span class="comment">#这种用法，外面只能用单引号或者里面的双引号打个斜杠标明下</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-PYTHON"><code class="language-PYTHON">driver.find_element_by_android_uiautomator('new UiSelector().resourceId("保密").text("我的")')#这种用法，外面只能用单引号或者里面的双引号打个斜杠标明下</code></pre>
 <p>实际上只通过 text 定位就可以了。除了它叫做”我的“，这个页面也没有别人叫做”我的“了。</p>
-<h5 id="所以改成这样："><a href="#所以改成这样：" class="headerlink" title="所以改成这样："></a>所以改成这样：</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># UiAutomator</span></span><br><span class="line">driver.find_element_by_android_uiautomator(<span class="string">&#x27;new UiSelector().text(&quot;我的&quot;)&#x27;</span>)<span class="comment">#这种用法，外面</span></span><br><span class="line"><span class="comment"># 只能用单引号或者里面的双引号打个斜杠标明下</span></span><br></pre></td></tr></table></figure>
-
+<h5 id="所以改成这样："><a href="#所以改成这样：" class="headerlink" title="所以改成这样："></a>所以改成这样：</h5><pre class=" language-PYTHON"><code class="language-PYTHON"># UiAutomator
+driver.find_element_by_android_uiautomator('new UiSelector().text("我的")')#这种用法，外面
+# 只能用单引号或者里面的双引号打个斜杠标明下</code></pre>
 <h3 id="3-什么时候用-UiAutomator-呢？"><a href="#3-什么时候用-UiAutomator-呢？" class="headerlink" title="3.什么时候用 UiAutomator 呢？"></a>3.什么时候用 UiAutomator 呢？</h3><p><strong>如果通过 id 定位、ClassName 定位、AccessibilityId 定位这前 3 种方式都没有让你唯一定位到元素，那就用第 4 种呀！</strong></p>
 <p>第 4 种其实效率很高的，因为是人家框架自己的定位方式呀，都不需要转换。第 5 种 xpath 定位，写法其实和 Web 自动化的 xpath 定位的写法一样。xpath 能干的事，第 4 种方式就能全部搞定了。</p>
 <p>以上 5 种都搞不定的情况下，就需要用坐标了。但是坐标不太稳定，除非实在没有办法了才用坐标，坐标比 xpath 还差劲。</p>
