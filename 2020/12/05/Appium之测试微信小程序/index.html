@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,7 +19,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Archive: 2020 - 清菡的主页</title>
+  <title>Appium之测试微信小程序 - 清菡的主页</title>
+  
+    <meta name="keywords" content="App自动化">
   
 
   
@@ -56,7 +56,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -307,7 +307,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -383,578 +383,299 @@
         
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
+    
+    
+      <h1 class="title">
+        Appium之测试微信小程序
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="">
+    <p>请设置文章作者</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Dec 5, 2020</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Appium之测试微信小程序" data-path="/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202221933.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202221933.png" srcset="data:image/png;base64,666"></p>
+<p>作者：清菡<br>博客：Oschina、云+社区、知乎等各大平台都有。</p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li>一、往期回顾</li>
+<li>二、测试微信小程序<ul>
+<li>1.准备工作</li>
+<li>2.操作步骤</li>
+<li>3.注意</li>
+<li>4.强制设置安卓的进程</li>
+<li>5.指定 BrowserName 等于空</li>
+</ul>
+</li>
+<li>三、代码</li>
+</ul>
+<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><p>如果用手机自带的浏览器去访问各种网页。自然而然都能获取到 WebView 的，不需要开启什么。用原生的、手机自带的浏览器去试下，也能得到对应的结果。</p>
+<p>首先，要确保 WebView 的出现，要识别什么是 WebView，WebView 一出现，就代表有 Html 页面。那么接下来的操作，可能就进入 WebView 里面操作了。</p>
+<p>但是看到了 WebView，要进入 WebView，你就面临了从原生控件的操作，进入了 Html 页面的操作。所以，第一件事情是必须切换，是上下文切换。</p>
+<p>1.要切换到这样的一个 WebView，必须保证我的代码当中能够得到 WebView 的名字。如何保证得到 WebView 的名字？开启 app 的 WebView debug 属性。</p>
+<p>代码中：<code>cons=driver.contexts</code>，能够识别到 WebView 的时候，我们才能够进入到切换阶段，否则你连它的名字是什么，你都得不到它，又如何切换呢？</p>
+<p>2.得到了之后再去切换，切换的时候有 chromedriver 的这个问题，进入 Web 自动化，没有它配合是做不了的。要确保 chromedriver 的版本要与 WebView 的版本匹配，也要放置在对应的位置。</p>
+<p>3.放置之后，你才可能切换成功。切换成功，就是再操作一个 html 页面了。html 页面中的元素该如何识别呢？</p>
+<p><code>--uc-devtool工具识别html页面，定位元素。</code></p>
+<h2 id="二、测试微信小程序"><a href="#二、测试微信小程序" class="headerlink" title="二、测试微信小程序"></a>二、测试微信小程序</h2><p>微信小程序和微信公众号的测试方法都是一样的。微信小程序和微信公众号也就是混合应用。</p>
+<p>公众号、小程序都是 WebView，它是个网页，但是是微信的网页，但是微信的网页是绝对不会对外开放 WebView Debug 的。即便这里看到了 WebView，也获取不到，获取不到就切换不了。</p>
+<p>重点是进入小程序里面，这个里面就是网页了。小程序基本是网页做的，点进来之后，就能看到 WebView。</p>
+<p><strong>这种情况下这样测：</strong></p>
+<p>由于腾讯系 qq、微信等都是基于腾讯自研 x5 内核，安卓是谷歌的 WebView 内核。腾讯系 qq、微信等相当于在谷歌的 WebView 内核上面做了个封装了，不是原生的 WebView 内核，所以用谷歌的 WebView 内核就有点问题了。</p>
+<p>微信小程序，用模拟器可能是搞不定的，模拟器确实很容易闪退，用真机测试比较靠谱。</p>
+<h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h3><ol>
+<li>微信最新版本。</br></li>
+<li>Uc-devtools 工具。</br></li>
+<li>安卓手机（5.0+版本）。</br></li>
+<li>Chromedriver 针对自己的版本，通过 Uc-devtools 工具可以识别到 Chromedriver 应该是什么版本。（它跟 WebView 的版本是不一样的，但它同样也代表 Chrome 的版本，需要下载对应的 Chromedriver 驱动它，虽然他不是我们原生的 WebView，只是包装了下，骨子里还是 WebView。）</br></li>
+<li>Appium 版本-Server 最好在 1.7 以上。</li>
+</ol>
+<h3 id="2-操作步骤"><a href="#2-操作步骤" class="headerlink" title="2.操作步骤"></a>2.操作步骤</h3><p>想要调试微信的小程序或者公众号的时候：</p>
+<ol>
+<li>必须开启它的调试模式，微信的调试功能。</li>
+</ol>
+<p>可以给任意一个聊天窗口（你玩的好的朋友）发送这个链接：debugx5.qq.com</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202204240.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202204240.png" srcset="data:image/png;base64,666"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202200701.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202200701.png" srcset="data:image/png;base64,666"></p>
+<ol start="2">
+<li>平时用微信搜索一个小程序、公众号在主页面一搜就可以了。但是写自动化脚本不行哦，人家做了控制的。</li>
+</ol>
+<p><strong>微信在新版本中对小程序调试入口加上了限制：在微信主窗口下打开小程序（顶部有个下拉，你曾经用过的小程序，只要往下拉一下，全部都能看得见），在这个地方打开小程序是识别不到的，所以自动化代码就会失效。</strong></p>
+<ol start="3">
+<li>打开微信-&gt;发现-&gt;搜一搜，搜索必要商城，点击对应小程序进入到主页面。进入小程序后看到的是个 WebView 页面。</li>
+</ol>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202204308.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202204308.png" srcset="data:image/png;base64,666"></p>
+<p>显示的 webview 版本是 57.xxx，这里就是微信 X5 内核的版本，不是 android System webview 版本。同一台设备，自带的是 39.0，这里就变成 57.0 了。Chromedriver 是支持 57.0 的。这里要注意区别，要下载一个 Chromedriver，放在 Appium 启动的时候指定的对应路径就可以了。同样也可以点击 inspect 查看页面元素。</p>
+<h3 id="3-注意"><a href="#3-注意" class="headerlink" title="3.注意"></a>3.注意</h3><p>页面空白加载不出来，需要 fq；</br><br>还有，如果点击右上角关闭了小程序之后，一定要记得清理下对应的小程序进程（关闭之后小程序还在后台运行），再起点击重启小程序。</p>
+<p>如果没有走这个路径:<code>在微信-&gt;发现-&gt;搜一搜搜索小程序，即可发现在inspect工具中可以将对应url显示出来</code>。去找小程序，可能代码就出现一些问题。</p>
+<p>所以它这个比较麻烦。通过 Uc-devtools 工具识别了元素，得到了 chromedriver 的版本。</p>
+<p>切换的时候还有问题，问题较多：</p>
+<h3 id="4-强制设置安卓的进程"><a href="#4-强制设置安卓的进程" class="headerlink" title="4.强制设置安卓的进程"></a>4.强制设置安卓的进程</h3><p>微信和 qq 很多进程，需要确定当前的 web 网页，当前的操作是处于哪个进程当中。</p>
+<p>官方文档中的描述是这样的：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202211948.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202211948.png" srcset="data:image/png;base64,666"></p>
+<p>现在确实不是内核 WebView，是腾讯封装的。所以这个地方需要将这个东西开启出来：<code>desired_caps[“recreateChromeDriverSessions”]=True</code>，支持 X5 内核应用的自动化配置。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202212434.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202212434.png" srcset="data:image/png;base64,666"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202212619.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202212619.png" srcset="data:image/png;base64,666"></p>
+<p>因为腾讯的 qq，微信有很多的进程，进程容易搞混切错了。所以强制设置了下安卓的进程：<code>desired_caps[&quot;chromeOptions&quot;]=&#123;&quot;androidProcess&quot;:&quot;com.tencent.mm:toolsmp&quot;&#125;</code></p>
+<p>在 cmd 可以看出，操作的网页在<code>com.tencent.mm:toolsmp</code>里面，12042 对应的进程是<code>com.tencent.mm:toolsmp</code>。不能找成了别的进程，别的进程就是在别的页面了。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202213306.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202213306.png" srcset="data:image/png;base64,666"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202212915.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202212915.png" srcset="data:image/png;base64,666"></p>
+<h3 id="5-指定-browserName-等于空"><a href="#5-指定-browserName-等于空" class="headerlink" title="5.指定 browserName 等于空"></a>5.指定 browserName 等于空</h3><p>Web 自动化可以设置参数，这里也是可以设置参数的。</p>
+<p>H5 操作、驱动浏览器的时候，是 Web 网页，有一些 Web 应用。Web 应用的时候就需要制定浏览器是 Chrome 还是别的浏览器。<code>desired_caps[&quot;browserName&quot;]=&quot;&quot;</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202213838.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202213838.png" srcset="data:image/png;base64,666"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202214010.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202214010.png" srcset="data:image/png;base64,666"></p>
+<p>不是真的在一个浏览器当中打开一个应用，只是一个应用当中带着小程序，小程序中带着浏览器性质的。所以指定 browserName 等于空。</p>
+<h2 id="三、代码"><a href="#三、代码" class="headerlink" title="三、代码"></a>三、代码</h2><p>以下代码片段只提供思路，请根据实际情况修改。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 支持X5内核应用自动化配置</span><br><span class="line">desiredCapabilities.setCapability(<span class="string">&quot;recreateChromeDriverSessions&quot;</span>, true);</span><br><span class="line">// ChromeOptions使用来定制启动选项，因为在appium中切换context识别webview的时候,</span><br><span class="line">// 把com.tencent.mm:toolsmp的webview识别成com.tencent.mm的webview.</span><br><span class="line">// 所以为了避免这个问题，加上androidProcess: com.tencent.mm:toolsmp</span><br><span class="line">ChromeOptions options = new ChromeOptions();</span><br><span class="line">options.setExperimentalOption(<span class="string">&quot;androidProcess&quot;</span>, <span class="string">&quot;com.tencent.mm:toolsmp&quot;</span>);</span><br><span class="line">desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, options);</span><br><span class="line">// 初始化会默认将chrome浏览器打开，需要将Browser置为空</span><br><span class="line">desiredCapabilities.setBrowserName(<span class="string">&quot;&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">// 休眠一下</span><br><span class="line">Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">// 找到微信的发现并点击</span><br><span class="line">androidDriver.findElementByAndroidUIAutomator(<span class="string">&quot;new UiSelector().text(\&quot;发现\&quot;)&quot;</span>).click();</span><br><span class="line">// 点击发现里面搜一搜</span><br><span class="line">androidDriver.findElementByAndroidUIAutomator(<span class="string">&quot;new UiSelector().text(\&quot;搜一搜\&quot;)&quot;</span>).click();</span><br><span class="line"></span><br><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">// 点击搜索框</span><br><span class="line">androidDriver.findElement(By.<span class="built_in">id</span>(<span class="string">&quot;com.tencent.mm:id/jd&quot;</span>)).click();</span><br><span class="line">        androidDriver.findElement(By.<span class="built_in">id</span>(<span class="string">&quot;com.tencent.mm:id/jd&quot;</span>)).sendKeys(<span class="string">&quot;xxx软件测试&quot;</span>);</span><br><span class="line"></span><br><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">// 点击搜索结果中的xxx软件测试（采用adb命令坐标点击的方式）</span><br><span class="line">execAdb(<span class="string">&quot;adb shell input tap 300 200&quot;</span>);</span><br><span class="line"></span><br><span class="line">Thread.sleep(<span class="number">4000</span>);</span><br><span class="line"></span><br><span class="line">// 点击xxx软件测试小程序</span><br><span class="line">execAdb(<span class="string">&quot;adb shell input tap 300 500&quot;</span>);</span><br><span class="line"></span><br><span class="line">// 等待小程序加载完成</span><br><span class="line">Thread.sleep(<span class="number">10000</span>);</span><br><span class="line"></span><br><span class="line">// 获取到所有的contexts</span><br><span class="line">System.out.println(<span class="string">&quot;所有的contexts:&quot;</span> + androidDriver.getContextHandles());</span><br><span class="line"></span><br><span class="line">// 切换到小程序webview对应的context中</span><br><span class="line">androidDriver.context(<span class="string">&quot;WEBVIEW_com.tencent.mm:toolsmp&quot;</span>);</span><br><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">// 获取到所有的handles</span><br><span class="line">Set&lt;String&gt; windowHandles = androidDriver.getWindowHandles();</span><br><span class="line">System.out.println(<span class="string">&quot;所有的windowsHandles&quot;</span> + windowHandles);</span><br><span class="line"></span><br><span class="line">// 遍历所有的handles，找到当前页面所在的handle：如果pageSource有包含你想要的元素，就是所要找的handle</span><br><span class="line">// 小程序的页面来回切换也需要：遍历所有的handles，切换到元素所在的handle</span><br><span class="line"><span class="keyword">for</span> (String windowHandle : windowHandles) &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;切换到对应的windowHandle：&quot;</span> + windowHandle);</span><br><span class="line">    androidDriver.switchTo().window(windowHandle);</span><br><span class="line">    Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">    <span class="keyword">if</span> (androidDriver.getPageSource().contains(<span class="string">&quot;xxx&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 点击xx</span><br><span class="line">androidDriver.findElement(By.xpath(<span class="string">&quot;//*[@id=\&quot;js-tab-bar\&quot;]/li[3]&quot;</span>)).click();</span><br><span class="line"></span><br><span class="line">// 通过js滚动到指定的元素 (这个元素已经在文档中间已经存在，但是还是不可见的)</span><br><span class="line">WebElement ele=androidDriver.findElement(By.xpath(<span class="string">&quot;//em[text()=&#x27;xx&#x27;]&quot;</span>));</span><br><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">// 将Driver实例化为js对象</span><br><span class="line">JavascriptExecutor jExecutor=(JavascriptExecutor)androidDriver;</span><br><span class="line">// 滑动到上面定位到的元素的位置</span><br><span class="line">jExecutor.executeScript(<span class="string">&quot;arguments[0].scrollIntoViewIfNeeded(true);&quot;</span>, ele);</span><br><span class="line"></span><br><span class="line">Thread.sleep(<span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 100+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202215251.png" class="lazyload" data-srcset="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201202215251.png" srcset="data:image/png;base64,666"></p>
+<p>感谢关注清菡，欢迎点击在看和转发！</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://example.com/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/>http://example.com/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-05T19:09:27+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 5, 2020</p>
+  </a>
+</div>
+
+        
       
         
           
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/App%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>App自动化</p></a></div>
+
+
         
       
-    
-    
-      
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/05/%E6%88%91%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%8C%E5%8E%9A%E7%9D%80%E8%84%B8%E7%9A%AE%E6%99%92%E7%94%9F%E6%B4%BB/">
-        我第一次，厚着脸皮晒生活
-      </a>
-    </h2>
-  
-  <div class='md'>
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-        大家好，我是小编，我又来了。不得不说，我今天实在不想学习，想水一篇文章。今天给自己做了一顿“老鸭炖萝卜”，没来得及拍照，已下肚，哈哈哈。那就晒晒我之前做的饭叭。
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/&title=Appium之测试微信小程序 - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/&title=Appium之测试微信小程序 - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/&title=Appium之测试微信小程序 - 清菡的主页&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,666">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/12/05/%E6%88%91%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%8C%E5%8E%9A%E7%9D%80%E8%84%B8%E7%9A%AE%E6%99%92%E7%94%9F%E6%B4%BB/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>我第一次，厚着脸皮晒生活</p>
+          <p class='content'>大家好，我是小编，我又来了。不得不说，我今天实在不想学习，想水一篇文章。今天给自己做了一顿“老鸭炖萝卜”，没来得及拍照，已下肚，哈哈哈。那就晒晒我之前做的饭叭。
 
 哈哈哈 ，这张卖相不大好看~
-
-大家看了照片，肯定会说，你这一顿吃这么多，haha，其实这是一天的量呢。
-
-夏天的时候，我还喜欢自己煲绿豆汤喝，有图有真相。
-
-平时忙着学习，几乎没有娱乐的时间，看过经济学原理，自己有限的认知认为时...
+...</p>
+        </a>
       
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-05</time>
-        
-      </div>
       
-        <div>
-          <a class='readmore' href='/2020/12/05/%E6%88%91%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%8C%E5%8E%9A%E7%9D%80%E8%84%B8%E7%9A%AE%E6%99%92%E7%94%9F%E6%B4%BB/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-        Appium之测试微信小程序
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：Oschina、云+社区、知乎等各大平台都有。
-目录
-一、往期回顾
-二、测试微信小程序
-1.准备工作
-2.操作步骤
-3.注意
-4.强制设置安卓的进程
-5.指定 BrowserName 等于空
-
-
-三、代码
-
-一、往期回顾如果用手机自带的浏览器去访问各种网页。自然而然都能获取到 WebView 的，不需要开启什么。用原生的、手机自带的浏览器去试下...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-05</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/12/05/Appium%E4%B9%8B%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/12/05/%E6%88%91%E8%86%A8%E8%83%80%E4%BA%86%EF%BC%8C%E6%B5%8B%E8%AF%95%E5%BF%85%E8%A6%81%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%8C%E7%94%A8%E4%BA%863%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%81/">
-        我膨胀了，测试必要商城小程序，用了3种方式！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
+        <a class='next' href='/2020/12/05/%E6%88%91%E8%86%A8%E8%83%80%E4%BA%86%EF%BC%8C%E6%B5%8B%E8%AF%95%E5%BF%85%E8%A6%81%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%8C%E7%94%A8%E4%BA%863%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%81/'>
+          <p class='title'>我膨胀了，测试必要商城小程序，用了3种方式！<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>坚持原创输出，点击蓝字关注我吧
 作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
 目录
 一、Appium 结合 Python 做小程序自动化
-二、Python 第三方库 Uiautomator2 做微信小程序、公众号自动化
-三、FAuto Test 微信小程序、公众号 H5 自动化神器
-四、总结
-
-一、Appium 结合 Python 做小程序自动化搜一搜：如果从来没有搜索过，...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-12-05</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/12/05/%E6%88%91%E8%86%A8%E8%83%80%E4%BA%86%EF%BC%8C%E6%B5%8B%E8%AF%95%E5%BF%85%E8%A6%81%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%8C%E7%94%A8%E4%BA%863%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
+二、Python 第三方库 Uiaut...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%B8%80)/">
-        Appium上下文和H5测试(一)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、混合应用-H5
-1.混合应用是什么？
-2.怎么样分辨一个 App 页面究竟是原生的还是 Web 的？
-3.如果 App 是 Web 的界面，那界面不会有布局边界显示，如有则说明是原生的界面。
+  </article>
 
 
-二、想要操作这个 Html 页面
-1.想通过代码点击立即购买，那 Web 自动化中用到了什么...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-30</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%B8%80)/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/">
-        Appium上下文和H5测试(二)
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-文章总览图
-一、往期回顾1234loc=&#x27;new UiSelector().text(&quot;全程班&quot;)&#x27;WebDriverWait(driver,20).until(EC.visibility_of_element_located((MobileBy.ANDRO...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-30</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/30/Appium%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8CH5%E6%B5%8B%E8%AF%95(%E4%BA%8C)/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/">
-        更新Appium运行原理讲解
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        点击查看原文上篇文章中，讲解 Appium 运行原理、Web-Selenium 的运行原理的时候，图片放重复了，导致讲解不是很清晰。本篇文章更新一下此处的讲解，多有疏忽，请见谅！
-1.Web-Selenium 运行原理：
-通过 Http 通信，没有改变浏览器访问系统的属性，只要访问就可以了。Appium 做自动化也是如此。
-2.Appium 运行原理：
-安卓和 Ios 都有自己自带的自动化测...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">App自动化测试</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/22/%E6%9B%B4%E6%96%B0Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/">
-        从0开始用Hexo框架搭建个人博客（无坑版）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：Oschina、云+社区、知乎等各大平台都有。
-目录
-一、环境准备
-安装 Node js
 
 
-二、安装 Hexo 博客框架
-三、使用 Hexo 搭建博客（本地启动）
-四、部署到远端（Github）上公开使用
-五、注意
-
-Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解决方式。无论是 Windows 还是 Linux，操作其实都是差不...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-22</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/22/%E4%BB%8E0%E5%BC%80%E5%A7%8B%E7%94%A8Hexo%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E6%97%A0%E5%9D%91%E7%89%88%EF%BC%89/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/%E6%B5%8B%E8%AF%95%E4%BC%98%E6%83%A0%E5%8A%B5%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%9C%BA%E6%99%AF%E9%A1%B9%E7%9B%AE%E5%8F%91%E7%8E%B0%E5%81%B6%E7%8E%B0Bug%EF%BC%8C%E6%82%A8%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84%E5%90%97%EF%BC%9F/">
-        测试优惠劵类复杂场景项目发现偶现Bug，您知道什么原因造成的吗？
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-您有什么观点或建议？后台回复“知识星球”可参与问答。
-
-测试某项目（在测试环境测试）。用户在店铺消费金额累积达到一定金额自动领取优惠券的，但是这个优惠券项目的场景是非常复杂的。
-运营要在后台配置不同的用户、不同的累计金额、是否可重复领取、优惠券过期时间、还有不同的店铺及不同的领取时间等，涉及网页和APP端，主要是在APP上做一个验证。（因为没确定运营要在后台怎么配置，所以测试全部配置都得考...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/%E6%B5%8B%E8%AF%95%E4%BC%98%E6%83%A0%E5%8A%B5%E7%B1%BB%E5%A4%8D%E6%9D%82%E5%9C%BA%E6%99%AF%E9%A1%B9%E7%9B%AE%E5%8F%91%E7%8E%B0%E5%81%B6%E7%8E%B0Bug%EF%BC%8C%E6%82%A8%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E5%8E%9F%E5%9B%A0%E9%80%A0%E6%88%90%E7%9A%84%E5%90%97%EF%BC%9F/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Ui%20Automator%20%E6%A1%86%E6%9E%B6%E5%92%8CUi%20Automator%20Viewer%E4%BD%A0%E4%BC%9A%E7%94%A8%E5%90%97%EF%BC%9F%E9%99%84%E9%80%81%E3%80%8C%E5%BF%85%E5%A4%87adb%E5%91%BD%E4%BB%A4%E3%80%8D%E6%8B%BF%E8%B5%B0%E4%B8%8D%E8%B0%A2%20%EF%BC%81/">
-        Ui Automator 框架和Ui Automator Viewer你会用吗？附送「必备adb命令」拿走不谢 ！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
- 一、往期回顾
-二、了解 adb 命令
-1.adb 的使用和配置
-2.如果现在同时有 2 个设备呢，怎么指定安装到哪个设备上？
-3.Android 8.0 adb shell dumpsys activity activities | findstr mFocusedActivity 获取当...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Ui%20Automator%20%E6%A1%86%E6%9E%B6%E5%92%8CUi%20Automator%20Viewer%E4%BD%A0%E4%BC%9A%E7%94%A8%E5%90%97%EF%BC%9F%E9%99%84%E9%80%81%E3%80%8C%E5%BF%85%E5%A4%87adb%E5%91%BD%E4%BB%A4%E3%80%8D%E6%8B%BF%E8%B5%B0%E4%B8%8D%E8%B0%A2%20%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/20/Python+Appium%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84demo%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%81/">
-        Python+Appium运行简单的demo，你需要理解Appium运行原理！
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        坚持原创输出，点击蓝字关注我吧
-作者：清菡博客：oschina、云+社区、知乎等各大平台都有。
-目录
-一、Appium 的理念
-四个原则
-1.Web-Selenium 的运行原理
-2.Appium 运行原理
 
 
-二、Appium 面板
-三、一段简单的代码来打开应用
-1.前提条件
-2.怎么识别 app？
-3.查看安卓 App 包名的链接
-4.Appium 官网介绍
-5.为什么有平台版本号？
-6...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-20</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/20/Python+Appium%E8%BF%90%E8%A1%8C%E7%AE%80%E5%8D%95%E7%9A%84demo%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E7%90%86%E8%A7%A3Appium%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86%EF%BC%81/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-        <p class="current">
-          1 / 2
-        </p>
-        
-          <a class="next" rel="next" href="/archives/2020/page/2/">
-            <section class="post next white-box shadow">
-              &nbsp;Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i>
-            </section>
-          </a>
-        
-      </div>
-    
-  
-
-
-	
 </div>
 <aside class='l_side'>
   
@@ -962,126 +683,28 @@ Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-        
-          <p><span id="jinrishici-sentence">清菡的主页</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" href="/categories/App%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"
-            id="categoriesAppE887AAE58AA8E58C96E6B58BE8AF95"
-            ><div class='name'>App自动化测试</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%9A%E6%8C%81%E5%8E%9F%E5%88%9B%E8%BE%93%E5%87%BA%EF%BC%8C%E7%82%B9%E5%87%BB%E8%93%9D%E5%AD%97%E5%85%B3%E6%B3%A8%E6%88%91%E5%90%A7"><span class="toc-text">坚持原创输出，点击蓝字关注我吧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BE%80%E6%9C%9F%E5%9B%9E%E9%A1%BE"><span class="toc-text">一、往期回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B5%8B%E8%AF%95%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="toc-text">二、测试微信小程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">1.准备工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="toc-text">2.操作步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B3%A8%E6%84%8F"><span class="toc-text">3.注意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BC%BA%E5%88%B6%E8%AE%BE%E7%BD%AE%E5%AE%89%E5%8D%93%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="toc-text">4.强制设置安卓的进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%8C%87%E5%AE%9A-browserName-%E7%AD%89%E4%BA%8E%E7%A9%BA"><span class="toc-text">5.指定 browserName 等于空</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81"><span class="toc-text">三、代码</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/Appium%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E7%B3%BB%E5%88%97/" style="font-size: 14px; color: #999">Appium自动化测试系列</a> <a href="/tags/App%E8%87%AA%E5%8A%A8%E5%8C%96/" style="font-size: 24px; color: #555">App自动化</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 14px; color: #999">博客</a> <a href="/tags/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/" style="font-size: 14px; color: #999">生活感悟</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
         
@@ -1091,14 +714,14 @@ Hexo 博客框架比较成熟，出了问题，网上可以搜索到很多的解
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Appium之测试微信小程序";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
