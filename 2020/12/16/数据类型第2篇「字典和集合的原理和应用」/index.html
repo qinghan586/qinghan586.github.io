@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="测开入门篇《环境管理、编码规范、项目结构》, 清菡的主页">
+    <meta name="keywords" content="数据类型第2篇「字典和集合的原理和应用」, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>测开入门篇《环境管理、编码规范、项目结构》 | 清菡的主页</title>
+    <title>数据类型第2篇「字典和集合的原理和应用」 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">测开入门篇《环境管理、编码规范、项目结构》</h1>
+                    <h1 class="description center-align post-title">数据类型第2篇「字典和集合的原理和应用」</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-13
+                    2020-12-16
                 </div>
                 
 
@@ -468,273 +468,154 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212172919.png"></p>
-<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
+                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215163131.png"></p>
+<p>作者：清菡<br/><br>博客：oschina、云+社区、知乎等各大平台都有。</p>
+<blockquote>
+<p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
+</blockquote>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、前提准备</li>
-<li>二、虚拟环境<ul>
-<li>1.virtualenv的安装和应用</li>
-<li>2.pipenv的安装和使用</li>
-<li>3.导出虚拟环境为requirements.txt文件</li>
-<li>4.pipenv的相关使用命令</li>
-<li>5.需要在虚拟环境中起项目</li>
+<li>一、集合<ul>
+<li>1.定义个有元素的集合</li>
+<li>2.自动去重</li>
+<li>3.集合常用的五个方法</li>
 </ul>
 </li>
-<li>三、Python代码规范</li>
-<li> 四、工程结构化</li>
+<li>二、集合和字典都是无序的</li>
+<li>三 、字典和集合都是无序的，在内存中是怎么存储？<ul>
+<li>1.为什么说字典和集合是无序的？</li>
+<li>2.字典查找值的过程</li>
+<li>3.Python 里基础数据类型分为三大类</li>
+<li>4.为什么会出现散列冲突？</li>
 </ul>
-<p><code>测试平台是做什么的？</code></p>
-<p>测试开发研发的测试平台<strong>是给点点点的人用的</strong>，可以帮助我们做自动化测试、用例管理、报表生成等，提高测试工作效率。</p>
-<p>例如用市面上的postman做的一些测试，不符合公司项目的实际。但是自动化测试平台可以根据公司实际项目需求做定制化开发。</p>
-<h2 id="一、前提准备"><a href="#一、前提准备" class="headerlink" title="一、前提准备"></a>一、前提准备</h2><p>Python环境：python3.7是python3里面目前最稳定的一个版本，3以上的版本都没有问题。</p>
-<p>电脑：Windows10家庭版</p>
-<h2 id="二、虚拟环境"><a href="#二、虚拟环境" class="headerlink" title="二、虚拟环境"></a>二、虚拟环境</h2><p>Python虚拟环境的主要目的是：为了给不同的工程创建互相独立的运行环境。在虚拟环境下，每一个工程都有自己的依赖包，而与其它的工程无关。</p>
-<p>不同的虚拟环境中同一个包可以有不同的版本。并且，虚拟环境的数量没有限制，我们可以轻松地用virtualenv或pipenv等工具来创建多个虚拟环境。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212085911.png" alt="图片来自网络"></p>
-<h3 id="1-virtualenv的安装和应用"><a href="#1-virtualenv的安装和应用" class="headerlink" title="1.virtualenv的安装和应用"></a>1.virtualenv的安装和应用</h3><h5 id="（windows-安装步骤："><a href="#（windows-安装步骤：" class="headerlink" title="（windows)安装步骤："></a>（windows)安装步骤：</h5><p>1.pip 安装 virtualenv</p>
-<p><code>pip install virtualenv</code></p>
-<p>2.pip安装虚拟环境管理包 </p>
-<p><code>pip install virtualenvwrapper-win</code>(这个是windows下的管理工具)</p>
-<p>注意：如果是用的mac或者在linux上安装，直接<code>pip install virtualenvwrapper</code>即可。</p>
-<p>3.创建一个存放虚拟环境的目录（建议命名为.env或者.virtualenv，也可以叫其它名字，注意不要中文命名)。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212090438.png"></p>
-<p>4.配置环境变量（变量名：<code>WORKON_HOME</code>,值：上面创建的目录路径）</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212090946.png"></p>
-<p>查看电脑中的虚拟环境，输入<code>workon</code>，会显示所有的虚拟环境：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212091208.png"></p>
-<h4 id="创建虚拟环境有一些命令，virtualenv的使用命令："><a href="#创建虚拟环境有一些命令，virtualenv的使用命令：" class="headerlink" title="创建虚拟环境有一些命令，virtualenv的使用命令："></a>创建虚拟环境有一些命令，virtualenv的使用命令：</h4><table>
+</li>
+<li>四、可变和不可变元素：可哈希和不可哈希<ul>
+<li>1.可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算</li>
+<li>2.集合为什么无序？</li>
+<li>3.散列类型为什么是无序的？</li>
+</ul>
+</li>
+<li>五、性能分析</li>
+</ul>
+<p><strong>本篇文章：重点掌握集合的用法即可。</strong></p>
+<p>字典，大家都用得特别多，花括号包起来的，一个键一个值构成一个元素。<strong>集合和字典的表达形式是一样的。</strong></p>
+<p><strong>字典和集合在 Python 中都是使用花括号进行表示的。</strong></p>
+<h2 id="一、集合"><a href="#一、集合" class="headerlink" title="一、集合"></a>一、集合</h2><h3 id="1-定义个有元素的集合"><a href="#1-定义个有元素的集合" class="headerlink" title="1.定义个有元素的集合"></a>1.定义个有元素的集合</h3><p><code>set1 = &#123;1,2,3&#125;</code></p>
+<p>集合和字典相比，集合里面只有值，没有键。</p>
+<h3 id="2-自动去重"><a href="#2-自动去重" class="headerlink" title="2.自动去重"></a>2.自动去重</h3><p><strong>集合有个比较强大的功能：自动去重。</strong> 里面不会存在重复的元素，<strong>集合最常见的应用就是对列表去重。</strong></p>
+<h4 id="2-1-把字典转换成集合，再转换回字典，它会真去重"><a href="#2-1-把字典转换成集合，再转换回字典，它会真去重" class="headerlink" title="2.1 把字典转换成集合，再转换回字典，它会真去重"></a>2.1 把字典转换成集合，再转换回字典，它会真去重</h4><pre class=" language-PYTHON"><code class="language-PYTHON">set1 = &#123;1,2,3,3,3,4,4,4,4,4&#125;
+print(set1)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215111057.png"></p>
+<p>打印出来是集合，重复的元素自动过滤掉了。定义的时候，不管定义多少个重复元素，都自动过滤掉了。</p>
+<h4 id="2-2-用集合对列表去重"><a href="#2-2-用集合对列表去重" class="headerlink" title="2.2 用集合对列表去重"></a>2.2 用集合对列表去重</h4><pre class=" language-PYTHON"><code class="language-PYTHON">li = [1,1,1,2,2,2,3,3,3] # 利用集合对列表去重
+li2 = list(set(li))
+print(li2)</code></pre>
+<p>首先把列表转换成一个集合，自动把里面的重复元素给去除掉了，再转换回列表。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215112111.png"></p>
+<p>集合在 Python 中是用得比较少的数据类型。</p>
+<h3 id="3-集合常用的五个方法"><a href="#3-集合常用的五个方法" class="headerlink" title="3.集合常用的五个方法"></a>3.集合常用的五个方法</h3><table>
 <thead>
 <tr>
-<th>wokon</th>
-<th>列出所有的虚拟环境</th>
+<th>add()</th>
+<th>添加元素</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>workon[name]</td>
-<td>进入指定的虚拟环境</td>
+<td>update()</td>
+<td>更新元素</td>
 </tr>
 <tr>
-<td>deactivate</td>
-<td>退出当前的虚拟环境</td>
+<td>remove()</td>
+<td>删除元素</td>
 </tr>
 <tr>
-<td>mkvirtualenv[name]</td>
-<td>创建虚拟环境</td>
+<td>clear()</td>
+<td>清空里面所有的元素</td>
 </tr>
 <tr>
-<td>rmvirtualenv[name]</td>
-<td>删除虚拟环境</td>
+<td>copy()</td>
+<td>复制元素</td>
 </tr>
 </tbody></table>
-<p><strong>包安装：</strong></p>
-<p>虚拟环境中，安装对应的依赖包，进入虚拟环境直接使用<code>pip install</code>进行安装。</p>
-<p><code>mkvirtualenv -p python3 qinghan</code></p>
-<p>如果电脑里只安装了python3，那么直接输入<code>mkvirtualenv qinghan</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212092338.png"></p>
-<p>后面你看到多了这个虚拟环境名，创建虚拟环境后会自动进入虚拟环境里面。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212093213.png"></p>
-<p>先输入<code>exit();</code>再输入<code>deactivate</code></p>
-<p>进入某个虚拟环境，可以这样输入：例如<code> workon qinghan</code></p>
-<p>删除某个虚拟环境，可以这样输入：<code> rmvirtualenv tester</code></p>
-<p>输入<code>pip list</code>可查看<strong>当前电脑</strong>已安装的python相关的依赖包。</p>
-<p><strong>查看虚拟环境中有多少依赖包：</strong></p>
-<p>先输入<code> workon qinghan</code>再输入<code> pip list</code></p>
-<p>在qinghan这个虚拟环境中安装一个django包：</p>
-<p><code>pip install django</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212100030.png"></p>
-<p>这个包在其它虚拟环境中是看不到的，独立隔开的。</p>
-<p>卸载包<code>pip uninstall django</code></p>
-<h4 id="使用virtualenv这个管理工具有个缺点："><a href="#使用virtualenv这个管理工具有个缺点：" class="headerlink" title="使用virtualenv这个管理工具有个缺点："></a>使用virtualenv这个管理工具有个缺点：</h4><p>安装django的时候，会把django相关的依赖包都安装下来。安装django的时候自带安装的<code>pytz</code>和<code>sqlparse</code>包，卸载的时候并没有卸载。</p>
-<h3 id="2-pipenv的安装和使用"><a href="#2-pipenv的安装和使用" class="headerlink" title="2.pipenv的安装和使用"></a>2.pipenv的安装和使用</h3><p>pipenv集成了pip，virtualenv两者的功能，且完善了两者的一些缺陷。</p>
-<p>过去用virtualenv管理requirements.txt文件可能会有问题，Pipenv使用Pipfile和Pipfile.lock。</p>
-<p>Pipfile文件用来记录项目依赖包列表，Pipfile.lock文件记录了固定版本的详细依赖包列表，查看依赖关系是十分方便。</p>
-<p>支持python2和python3。支持mac，win，linux，在各个平台的命令都是一样的。各个地方使用了哈希校验，无论安装还是卸载包都十分安全。</p>
-<p>安装：<code>pip install pipenv</code></p>
-<h4 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h4><table>
-<thead>
-<tr>
-<th>第一步创建文件夹</th>
-<th align="left">mkdir py3env</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>第二步进入文件夹</td>
-<td align="left">cd py3env</td>
-</tr>
-<tr>
-<td>第三步初始化虚拟环境</td>
-<td align="left">pipenv install</td>
-</tr>
-</tbody></table>
-<p>创建好虚拟环境后会生成：一个Pipfile文件和一个Pipfile.lock。</p>
-<p>项目提交时，可将Pipfile文件和Pipfile.lock文件一并提交，待其他开发克隆下载。</p>
-<p>Pipfile.lock文件是通过hash算法将包的名称和版本，及依赖关系生成哈希值，可以保证包的完整性。</p>
-<h4 id="Pycharm会自动定位到当前工程的路径下面："><a href="#Pycharm会自动定位到当前工程的路径下面：" class="headerlink" title="Pycharm会自动定位到当前工程的路径下面："></a>Pycharm会自动定位到当前工程的路径下面：</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212103615.png"></p>
-<p>我这里是前面已经安装过了。装好之后，不需要配置环境变量，直接就可以用了。</p>
-<p>在工程里创建虚拟环境，直接在工程里面输入<code>pipenv install</code></p>
-<p>这里默认的是python37，所以使用默认的python37解释器创建虚拟环境。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212104807.png"></p>
-<h4 id="pipenv管理模块和包"><a href="#pipenv管理模块和包" class="headerlink" title="pipenv管理模块和包"></a>pipenv管理模块和包</h4><p>在虚拟环境中安装模块或者包 <code>pipenv install 包名</code>（注意在当前项目路径下执行以上命令）</p>
-<p>通过<code>–-dev</code>指明只安装在开发环境中（开发环境是你当前开发的环境，生产环境是上线部署的实际环境）</p>
-<p><code>pipenv install requests --dev</code></p>
-<p>安装包记录是在[dev-packages]部分，或是[packages]部分。</p>
-<p>在安装时，指定<code>–-dev</code>参数，则只安装[dev-packages]下的包；若安装时不指定<code>–-dev</code>参数，只会安装[packages]包下面的模块。</p>
-<table>
-<thead>
-<tr>
-<th>卸载虚拟环境的模块包</th>
-<th>pipenv uninstall 包名</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>查看安装包及依赖关系</td>
-<td>pipenv graph</td>
-</tr>
-<tr>
-<td>生成requirements.txt文件</td>
-<td>pipenv lock -r –dev &gt; requirements.txt</td>
-</tr>
-<tr>
-<td>通过requirements.txt安装环境</td>
-<td>pipenv install -r  requirements.txt</td>
-</tr>
-</tbody></table>
-<h4 id="pipenv-install有3个作用："><a href="#pipenv-install有3个作用：" class="headerlink" title="pipenv install有3个作用："></a>pipenv install有3个作用：</h4><p>1.当前路径下不存在虚拟环境，它就创建虚拟环境。</p>
-<p>2.<code>pipenv install 相关模块名</code>，比如<code>pipenv install requests</code>那么它就是安装一个requests模块的意思。</p>
-<p>3.<code>url = &quot;https://pypi.org/simple&quot;</code>是国外源，需换成Python国内源：清华大学源<code>https://pypi.tuna.tsinghua.edu.cn/simple</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212110539.png"></p>
-<p>现在安装个包：<code>pipenv install requests</code></p>
-<p><strong>安装的时候，会默认把安装的包记录在[packages]下面：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212110830.png"></p>
-<p>如果想安装某个包只想在开发环境下用，不想放在[packages]下面，可以放在[dev-packages]下面，可通过<code>--dev</code>指定一下：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212111349.png"></p>
-<p>一个Pipfile文件和一个Pipfile.lock这两个文件，是用来记录当前环境下的相关的依赖包的，以及在服务器上恢复环境用的。</p>
-<p>Pipfile.lock这个文件记录的更完整，比如在虚拟环境中安装了<code>requests</code>了，但是<code>requests</code>有依赖其它的包吗？那就记录在Pipfile.lock文件里面。<strong>Pipfile.lock这个文件不可随意修改！</strong></p>
-<p><strong>Pipfile.lock文件这个记录的很准确很详细：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212112156.png"></p>
-<p>比如在这个工程下开发了一个项目，那么接下来要把这个项目部署到服务器里面，Pipfile.lock文件和项目代码一起传到服务器上面去。</p>
-<p>在服务器上通过Pipfile.lock文件可以恢复当前开发的环境，通过对应的命令可以进行恢复。</p>
-<p>在哪个路径下运行<code>pipenv</code>这个命令，那么就默认在哪个路径下面创建虚拟环境。</p>
-<p><strong>Pipfile文件中这里是可以修改的：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212113751.png"></p>
-<p><strong>安装的包，要在服务器上用的话，那就装在[packages]里，如果只是开发环境用的话就装在[dev-packages]</strong></p>
-<p><code> = &quot;*&quot;</code> 这个不用管什么意思。</p>
-<p>要在class_01day文件夹里面再创建一个虚拟环境，把Pipfile文件和Pipfile.lock文件复制过来。把项目上传到服务器的时候，同样也把这2个文件拿到服务器里面来。</p>
-<p>比如服务器下面的工程是class_01day，是服务器下面项目的一个路径。</p>
-<p>在服务器下面恢复当前代码运行的环境，进入路径下面，运行命令<code>pipenv install</code>创建个虚拟环境就可以了。</p>
-<p><strong>注意：不是只复制这2个文件就行了啊。要把项目代码和这2个文件一起传过去。通过这2个文件可以把开发时候的所有的环境恢复到服务器上面。</strong></p>
-<p><strong>查看当前虚拟环境下已经安装好的依赖包：</strong></p>
-<p><code>pipenv graph</code></p>
-<p><strong>开发环境里面的包是不会恢复进去的。</strong> </p>
-<p>之前在test_01文件夹下的Pipfile文件里手动添加的<code>flask = &quot;*&quot;</code>。</p>
-<p>在把这2个文件复制到python_ck01文件夹下，<strong>恢复的时候会自动化安装[packages]下面的包。</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212123907.png"></p>
-<p>也可以把[dev-packages]的包恢复进来，输入命令<code>pipenv install --dev</code></p>
-<p>pipenv这个工具比virtualenv强大一些。pipenv是对virtualenv的一个封装。</p>
-<p>在环境里如果要卸载相关的依赖包，例如卸载<code>requests</code>。<code>requests</code>下面有4个相关的依赖包。</p>
-<p>这里卸载<code>requests</code>，会把<code>requests</code>下面依赖的包也会进行卸载。而virtualenv卸载的时候只会卸载<code>requests</code>，<code>requests</code>对应的依赖它是不会卸载的。</p>
-<p>卸载命令：<code>pipenv uninstall requests</code></p>
-<p>一个虚拟环境只能装一个<code>requests</code>。</p>
-<p><strong>requests和依赖包的关系，requests是依赖这些模块实现的：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212131513.png"></p>
-<p>只能通过graph这个看，不能通过json文件看。</p>
-<p>卸载<code>requests</code>后，它的相关依赖是保存下来了，这些包掉到外面来。</p>
-<p>但是将这2个文件拷贝到服务器里面去，在恢复的时候，那么它所依赖的包是不会恢复进去的。</p>
-<p>如果使用virtualenv这个工具，virtualenv也可以把虚拟环境导出来。</p>
-<p><strong>比如把requests卸载了，用virtualenv导出来的相关环境，去服务器上进行恢复的时候，requests虽然没有了，但是requests下面的依赖包也会恢复进去。</strong></p>
-<p>导出virtualenv相关的依赖包，可以导出一个requirements.txt文件，用的virtualenv肯定有这个文件。</p>
-<h3 id="3-导出虚拟环境为requirements-txt文件"><a href="#3-导出虚拟环境为requirements-txt文件" class="headerlink" title="3.导出虚拟环境为requirements.txt文件"></a>3.导出虚拟环境为requirements.txt文件</h3><p>requirements.txt文件，里面记录了当前程序的所有依赖包及版本号。</p>
-<p>其作用是用来在另一个环境上重新构建项目所需要的运行环境依赖。</p>
-<table>
-<thead>
-<tr>
-<th>导出当前环境到requirements.txt</th>
-<th>pip freeze &gt; requirements.txt</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>使用requirements.txt恢复环境</td>
-<td>pip install -r requirements.txt</td>
-</tr>
-</tbody></table>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212140922.png"></p>
-<p>拿到这个文件，也可以恢复到服务器上去。</p>
-<p>pipenv可以通过Pipfile和Pipfile.lock文件进行环境恢复。也可以通过<code>requirements.txt</code>进行环境恢复。</p>
-<h3 id="4-pipenv的相关使用命令"><a href="#4-pipenv的相关使用命令" class="headerlink" title="4.pipenv的相关使用命令"></a>4.pipenv的相关使用命令</h3><table>
-<thead>
-<tr>
-<th>pipenv  –rm</th>
-<th>删除虚拟环境</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pipenv  –where</td>
-<td>列出本地工程路径</td>
-</tr>
-<tr>
-<td>pipenv  –venv</td>
-<td>列出虚拟环境路径</td>
-</tr>
-<tr>
-<td>pipenv  –py</td>
-<td>显示Python解释器信息</td>
-</tr>
-<tr>
-<td>pipenv  graph</td>
-<td>查看包依赖</td>
-</tr>
-<tr>
-<td>pipenv  lock</td>
-<td>生成lock文件</td>
-</tr>
-<tr>
-<td>pipenv   –rm</td>
-<td>删除虚拟环境</td>
-</tr>
-<tr>
-<td>pipenv  shell</td>
-<td>直接进入虚拟环境</td>
-</tr>
-<tr>
-<td>exit</td>
-<td>退出虚拟环境</td>
-</tr>
-</tbody></table>
-<p>pipenv是对virtualenv的封装。pipenv的底层还是virtualenv和pip实现的。<br>pipenv集成了virtualenv和pip两个工具。</p>
-<p>virtualenv只能通过requirements.txt进行环境恢复。</p>
-<p><strong>通过virtualenv，不用看当前所在的路径，通过命令操作所有的虚拟环境。</strong></p>
-<p><strong>通过pipenv，这个命令只能操作当前所在目录下的虚拟环境。</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212143059.png"></p>
-<p>删除完虚拟环境，Pipfile和Pipfile.lock文件以及文件夹不会被删除，需要我们手动来删除。</p>
-<p><strong>通过virtualenv创建的可以这样删除：</strong></p>
-<p><code> rmvirtualenv fff</code></p>
-<p>通过<code>pipenv --where</code>列出当前虚拟环境所在的目录。</p>
-<p>虚拟环境是存放在virtualenv下面的。查看当前虚拟环境存放在哪，输入命令<code>pipenv --venv</code></p>
-<p>卸载了某些包，可以通过<code>pipenv  lock</code>这个命令重新生成lock文件。</p>
-<p>现在这个lock文件是同步生成的。如果把lock文件删除了，可以通过这个命令生成lock文件。</p>
-<h3 id="5-需要在虚拟环境中起项目"><a href="#5-需要在虚拟环境中起项目" class="headerlink" title="5.需要在虚拟环境中起项目"></a>5.需要在虚拟环境中起项目</h3><p>如果没进入虚拟环境，就没有相关的依赖包，启动项目就启动不了。</p>
-<h2 id="三、Python代码规范"><a href="#三、Python代码规范" class="headerlink" title="三、Python代码规范"></a>三、Python代码规范</h2><h3 id="1-pep8-python代码样式规范"><a href="#1-pep8-python代码样式规范" class="headerlink" title="1.pep8(python代码样式规范)"></a>1.pep8(python代码样式规范)</h3><p>文档地址（中文):</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ratsniper/article/details/78954852">https://blog.csdn.net/ratsniper/article/details/78954852</a></p>
-<h3 id="2-pep257-python文档字符串相关的约定-："><a href="#2-pep257-python文档字符串相关的约定-：" class="headerlink" title="2.pep257 (python文档字符串相关的约定)："></a>2.pep257 (python文档字符串相关的约定)：</h3><p>文档地址：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/qiuxiang/pep/blob/master/peps/257.md">https://github.com/qiuxiang/pep/blob/master/peps/257.md</a></p>
-<h3 id="3-pep20-python代码的理念-："><a href="#3-pep20-python代码的理念-：" class="headerlink" title="3.pep20(python代码的理念)："></a>3.pep20(python代码的理念)：</h3><p>文档地址：</p>
-<p><a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-0020/">https://www.python.org/dev/peps/pep-0020/</a></p>
-<p><strong>重点：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212153346.png" alt="图片来自网络"></p>
-<p>调整代码格式：Ctrl+Alt+L</p>
-<p><strong>注释：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212155643.png" alt="图片来自网络"></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212160337.png" alt="图片来自网络"></p>
-<p><strong>模块和包相关规范：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212161432.png" alt="图片来自网络"></p>
-<p><strong>命名规范：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212162106.png" alt="图片来自网络"></p>
-<h2 id="四、工程结构化"><a href="#四、工程结构化" class="headerlink" title="四、工程结构化"></a>四、工程结构化</h2><p>代码要写得简洁明了，项目里面的结构也得简洁明了，别人点开项目文件就知道哪个文件里面放的什么东西。</p>
-<h3 id="结构介绍："><a href="#结构介绍：" class="headerlink" title="结构介绍："></a>结构介绍：</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212163745.png" alt="图片来自网络"></p>
-<p>一个项目里肯定有其它的文件夹，但是一个项目里有这些文件夹，显得规范一些，哈哈哈。</p>
+<p><strong>集合，它里面的元素是无序的。可以修改，集合是可变类型的数据。</strong></p>
+<h4 id="3-1-空集合中怎么添加元素？"><a href="#3-1-空集合中怎么添加元素？" class="headerlink" title="3.1 空集合中怎么添加元素？"></a>3.1 空集合中怎么添加元素？</h4><p><code>add()</code>方法，每次可以往里面添加一个数据进去。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">se = set()  # 空集合
+# 集合添加数据
+se.add('qinghan') # 一次只能添加一个，所以只添加了一个qinghan
+print(se)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215113137.png"></p>
+<h4 id="3-2-删除用-remove"><a href="#3-2-删除用-remove" class="headerlink" title="3.2 删除用 remove()"></a>3.2 删除用 remove()</h4><p>集合可以添加也可以删除。删除用<code>remove()</code>，传入对应的元素就可以进行删除。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215113645.png"></p>
+<p>集合还可以做交集、并集这样的操作，这个对我们用处不大。</p>
+<h4 id="3-3update-更新元素"><a href="#3-3update-更新元素" class="headerlink" title="3.3update() 更新元素"></a>3.3update() 更新元素</h4><p>跟字典的<code>update()</code>一样的。 它是将一个集合更新到这个集合里面，可以往里面一次加入多个元素。</p>
+<p>通过这个方法：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">se = set()  # 空集合
+se.update(&#123;111,22,33,44&#125;)
+print(se)</code></pre>
+<p>可以一次更新进去多个元素。</p>
+<p>看<code>update</code>的源码：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215115657.png"></p>
+<p>接收的是不定量参数，可以传一个也可以传多个。</p>
+<p>可以往里面加元组、列表、字符串，但是一般用的时候选择用集合，将一个集合更新到原来的集合里面。</p>
+<h3 id="3-4clear-清空元素"><a href="#3-4clear-清空元素" class="headerlink" title="3.4clear()清空元素"></a>3.4clear()清空元素</h3><p>还有个常用的方法：<code>clear()</code>清空里面所有的元素。</p>
+<h3 id="3-5-copy-复制元素"><a href="#3-5-copy-复制元素" class="headerlink" title="3.5 copy()复制元素"></a>3.5 copy()复制元素</h3><p><code>copy() # 做一个复制的</code></p>
+<h2 id="二、集合和字典都是无序的"><a href="#二、集合和字典都是无序的" class="headerlink" title="二、集合和字典都是无序的"></a>二、集合和字典都是无序的</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215121810.png"></p>
+<p>Python 里面把它称作散列类型。</p>
+<p>Python 更新到 3.7 之后，字典出现一个新的特性：<strong>3.7 之前的字典是无序的。3.7 之后字典中元素的顺序，它会按你依次添加的顺序进行保存。现在字典，里面的元素实际上是有序的。</strong></p>
+<p>官方文档已声明：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215122415.png"></p>
+<h2 id="三-、字典和集合都是无序的，在内存中是怎么存储？"><a href="#三-、字典和集合都是无序的，在内存中是怎么存储？" class="headerlink" title="三 、字典和集合都是无序的，在内存中是怎么存储？"></a>三 、字典和集合都是无序的，在内存中是怎么存储？</h2><p>dict 与 set 实现原理是一样的，都是将实际的值放到 list 中。</p>
+<p>唯一不同的在于 hash 函数操作的对象，对于 dict，hash 函数操作的是其 key，而对于 set 是直接操作的它的元素。</p>
+<p>假设操作内容为 x，其作为因变量，放入 hash 函数，通过运算后取 list 的余数，转化为一个 list 的下标，此下标位置对于 set 而言用来放其本身。</p>
+<p>而对于 dict 则是创建了两个 list，一个 list 该下表放此 key，另一个 list 中该下标对应的 value。</p>
+<p>其中，我们把实现 set 的方式叫做 Hash Set，实现 dict 的方式叫做 Hash Map/Table（注：map 指的是通过 Key 来寻找 value 的过程）。</p>
+<h3 id="1-为什么说字典和集合是无序的？"><a href="#1-为什么说字典和集合是无序的？" class="headerlink" title="1.为什么说字典和集合是无序的？"></a>1.为什么说字典和集合是无序的？</h3><h4 id="1-1-字典和集合底层都是存储在列表里面"><a href="#1-1-字典和集合底层都是存储在列表里面" class="headerlink" title="1.1 字典和集合底层都是存储在列表里面"></a>1.1 字典和集合底层都是存储在列表里面</h4><p>一个字典，在存储的时候，会拆分成 2 部分，会存在 2 个列表里面，一个列表存键，一个列表存值：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215125858.png" alt="字典存储时的拆分"></p>
+<h4 id="1-2-怎么通过-Key-找到对应的-Value-值呢？"><a href="#1-2-怎么通过-Key-找到对应的-Value-值呢？" class="headerlink" title="1.2 怎么通过 Key 找到对应的 Value 值呢？"></a>1.2 怎么通过 Key 找到对应的 Value 值呢？</h4><p>字典在存储之前，做了个 Hash 操作：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215124924.png" alt="Hash操作如图，图片来自网络"></p>
+<p>拿到字典的键，进行哈希操作。通过对应的哈希算法，然后得出一串数字。</p>
+<p>拿哈希出来的值除以内存分出来的列表的长度，得到余数。这个余数当成对应元素的下标。把键和值通过下标存在列表中对应的位置。</p>
+<h4 id="1-3-散列类型的存储过程"><a href="#1-3-散列类型的存储过程" class="headerlink" title="1.3 散列类型的存储过程"></a>1.3 散列类型的存储过程</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215125422.png" alt="散列类型的存储过程，图片来自网络"></p>
+<p><strong>散列类型的意思就是无序的。</strong> 散列就是哈希。散列内部元素是无序的。</p>
+<p>刚开始内存分了 12 个格子存数据，哈希后，第一个元素得出的余数是 6，有 2 个列表，会把键存在对应的列表里面，把值存在对应的 6 的位置。</p>
+<p>散列表存储数据很松散，不像列表完整得排过来的。散列表里面是分散存储的，会把对应的键存到一个散列表里面。</p>
+<p>查找字典中元素的时候，首先它会拿到你这个键，同样进行哈希运算。运算完毕后得出一个值，然后去散列表里面找对应的键。找到对应的键，然后比较下是不是这个键。</p>
+<p><strong>字典哈希的是它的键，不是它的值。集合是哈希的它的值，所以集合里面的值是不可变类型的，不能有可变类型的值。</strong></p>
+<h3 id="2-字典查找值的过程"><a href="#2-字典查找值的过程" class="headerlink" title="2.字典查找值的过程"></a>2.字典查找值的过程</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215140153.png" alt="字典查找值的过程"></p>
+<p>散列值就是哈希值。拿到键名，进行哈希，哈希过后得到散列值。</p>
+<p>拿到散列值进行相应的运算，然后拿到表元。表元是在散列表中的一个序号。</p>
+<h4 id="2-1-第一种情况"><a href="#2-1-第一种情况" class="headerlink" title="2.1 第一种情况"></a>2.1 第一种情况</h4><p>比如序号是 6，看 6 里面存的这个键，跟你刚才输进来查找的那个键是不是一样的。</p>
+<p>如果是一样的，键相等，会返回表元里面对应的值，会给你找到你所存储的字典的值。</p>
+<p>如果它在这里没找到值的话，这个时候会抛出异常。（也就是字典通过键去找值，没找到的时候就会抛出错误。）</p>
+<h4 id="2-2-第二种情况"><a href="#2-2-第二种情况" class="headerlink" title="2.2 第二种情况"></a>2.2 第二种情况</h4><h5 id="散列冲突："><a href="#散列冲突：" class="headerlink" title="散列冲突："></a>散列冲突：</h5><p>每个元素哈希出来的结果是不一样的。如图，第一个元素计算出来是 6，会找到散列表中第 6 个格子。第二个值，运算之后，如果得出来的也是个 6，那么这个时候就会起散列冲突。</p>
+<h6 id="解决散列冲突有二种方案："><a href="#解决散列冲突有二种方案：" class="headerlink" title="解决散列冲突有二种方案："></a>解决散列冲突有二种方案：</h6><p><strong>方案一：</strong></p>
+<p>有散列冲突的时候，会对散列表进行扩容，扩容后进行重新排序。</p>
+<p><strong>方案二：</strong></p>
+<p>在后面再加个列表。这样的话，第一个元素计算出来是 6，会找到散列表中第 6 个格子。</p>
+<p>第二个值，运算之后，如果得出来的也是个 6，因为加了一个列表（这个列表可存储多个值），就不会起散列冲突了。</p>
+<p><strong>以上是字典，散列类型底层存储。</strong></p>
+<h3 id="3-Python-里基础数据类型分为三大类"><a href="#3-Python-里基础数据类型分为三大类" class="headerlink" title="3.Python 里基础数据类型分为三大类"></a>3.Python 里基础数据类型分为三大类</h3><p><strong>第一类，数值类型：</strong> 1 一个数只有单个元素，像这个 1 就是 1。</p>
+<p><strong>第二类，序列类型：</strong> 字符串、列表、元组。</p>
+<p><strong>第三类，散列类型：</strong> 字典、集合。 特征：内部元素是无序的。</p>
+<h3 id="4-为什么会出现散列冲突？"><a href="#4-为什么会出现散列冲突？" class="headerlink" title="4.为什么会出现散列冲突？"></a>4.为什么会出现散列冲突？</h3><p>举个栗子：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215144551.png"></p>
+<p>这两个数据通过哈希，计算散列值，取余后拿到的余数，如果是一样的话，在储存值的时候，就会造成散列冲突。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215145051.png"></p>
+<p>通过字典的键去哈希，把哈希值存在散列表里面。通过对应的键，然后找到列表中存储的对应元素的值。</p>
+<p><strong>集合相对于列表比较简单一些。集合没有键和值，直接拿到集合里面的值进行哈希操作。</strong></p>
+<h2 id="四、可变和不可变元素：可哈希和不可哈希"><a href="#四、可变和不可变元素：可哈希和不可哈希" class="headerlink" title="四、可变和不可变元素：可哈希和不可哈希"></a>四、可变和不可变元素：可哈希和不可哈希</h2><h3 id="1-可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。"><a href="#1-可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。" class="headerlink" title="1.可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。"></a>1.可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。</h3><p><strong>集合里面只能存储可哈希的对象。意思是集合里面只能存储不可变的数据类型。</strong></p>
+<p>例如：<code>set2 = &#123;1,2,3,[1,2]&#125;</code></p>
+<p><strong>这个集合就报错了：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215152138.png"></p>
+<p>因为列表是可变类型。可变类型是不能进行哈希运算的。</p>
+<p>数值类型、字符串、元组可以，列表、字典、集合不能作为元素储存在这个集合里面。</p>
+<p>集合里面的元素通过哈希操作算出对应值，放到散列表里面。</p>
+<h3 id="2-集合为什么无序？"><a href="#2-集合为什么无序？" class="headerlink" title="2.集合为什么无序？"></a>2.集合为什么无序？</h3><p>因为散列表里面存储元素的时候是没有顺序的，散列表也是会不断变化的（会变化长度、调整元素位置的），所以说散列类型是无序的。</p>
+<h3 id="3-散列类型为什么是无序的？"><a href="#3-散列类型为什么是无序的？" class="headerlink" title="3.散列类型为什么是无序的？"></a>3.散列类型为什么是无序的？</h3><p>通过哈希算法算了之后，然后存到对应的散列表里面，散列表里面数据存储是没有固定顺序的。</p>
+<h2 id="五、性能分析"><a href="#五、性能分析" class="headerlink" title="五、性能分析"></a>五、性能分析</h2><p>字典最占用内存，其次是集合。然后是列表、元组。元组是占用内存最少的。但是查找元素的时候，集合是速度最快的，然后是字典。</p>
+<p>集合用起来不方便，如果知道哪个元素就好查找，但是不知道那个元素在哪里，就不方便从集合里去取那个元素。字典通过键取值，元组、列表通过下标。</p>
 <hr>
-<p>公众号 <strong>“清菡软件测试”</strong>  首发，更多原创文章：<strong>清菡软件测试 105+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201212164351.png"></p>
+<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 107+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><strong><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215162941.png"></strong></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
                 
@@ -762,7 +643,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/13/%E6%B5%8B%E5%BC%80%E5%85%A5%E9%97%A8%E7%AF%87%E3%80%8A%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E3%80%81%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E3%80%8B/">http://example.com/2020/12/13/%E6%B5%8B%E5%BC%80%E5%85%A5%E9%97%A8%E7%AF%87%E3%80%8A%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86%E3%80%81%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E3%80%8B/</a>
+                    <a href="http://example.com/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/">http://example.com/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -971,17 +852,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E3%80%81%E5%91%BD%E5%90%8D%E5%85%83%E7%BB%84%E3%80%8B/">
+                <a href="/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="数据类型· 第1篇《元组和列表的性能分析、命名元组》">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数据类型第2篇「字典和集合的原理和应用」">
                         
-                        <span class="card-title">数据类型· 第1篇《元组和列表的性能分析、命名元组》</span>
+                        <span class="card-title">数据类型第2篇「字典和集合的原理和应用」</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -991,9 +873,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1002,6 +884,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1020,13 +903,13 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/05/%E6%88%91%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%8C%E5%8E%9A%E7%9D%80%E8%84%B8%E7%9A%AE%E6%99%92%E7%94%9F%E6%B4%BB/">
+                <a href="/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E3%80%81%E5%91%BD%E5%90%8D%E5%85%83%E7%BB%84%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="我第一次，厚着脸皮晒生活">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="数据类型· 第1篇《元组和列表的性能分析、命名元组》">
                         
-                        <span class="card-title">我第一次，厚着脸皮晒生活</span>
+                        <span class="card-title">数据类型· 第1篇《元组和列表的性能分析、命名元组》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1037,16 +920,12 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-05
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-16
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/" class="post-category">
-                                    生活感悟
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            清菡
                             
                         </span>
                     </div>
@@ -1054,8 +933,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%94%9F%E6%B4%BB/">
-                        <span class="chip bg-color">生活</span>
+                    <a href="/tags/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97/">
+                        <span class="chip bg-color">测试开发系列</span>
                     </a>
                     
                 </div>
