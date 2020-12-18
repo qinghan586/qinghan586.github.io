@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="数据类型第2篇「字典和集合的原理和应用」, 清菡的主页">
+    <meta name="keywords" content="测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>数据类型第2篇「字典和集合的原理和应用」 | 清菡的主页</title>
+    <title>测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">数据类型第2篇「字典和集合的原理和应用」</h1>
+                    <h1 class="description center-align post-title">测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-16
+                    2020-12-18
                 </div>
                 
 
@@ -468,154 +468,186 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215163131.png"></p>
-<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
-<blockquote>
-<p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
-</blockquote>
+                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217214736.png"></p>
+<p>作者：清菡<br/><br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、集合<ul>
-<li>1.定义个有元素的集合</li>
-<li>2.自动去重</li>
-<li>3.集合常用的五个方法</li>
+<li>一、列表推导式</li>
+<li>二、字典推导式</li>
+<li>三、2种方式创建生成器<ul>
+<li>1.生成器表达式</li>
+<li>2.函数里面，通过 yield 定义生成器</li>
 </ul>
 </li>
-<li>二、集合和字典都是无序的</li>
-<li>三 、字典和集合都是无序的，在内存中是怎么存储？<ul>
-<li>1.为什么说字典和集合是无序的？</li>
-<li>2.字典查找值的过程</li>
-<li>3.Python 里基础数据类型分为三大类</li>
-<li>4.为什么会出现散列冲突？</li>
 </ul>
-</li>
-<li>四、可变和不可变元素：可哈希和不可哈希<ul>
-<li>1.可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算</li>
-<li>2.集合为什么无序？</li>
-<li>3.散列类型为什么是无序的？</li>
-</ul>
-</li>
-<li>五、性能分析</li>
-</ul>
-<p><strong>本篇文章：重点掌握集合的用法即可。</strong></p>
-<p>字典，大家都用得特别多，花括号包起来的，一个键一个值构成一个元素。<strong>集合和字典的表达形式是一样的。</strong></p>
-<p><strong>字典和集合在 Python 中都是使用花括号进行表示的。</strong></p>
-<h2 id="一、集合"><a href="#一、集合" class="headerlink" title="一、集合"></a>一、集合</h2><h3 id="1-定义个有元素的集合"><a href="#1-定义个有元素的集合" class="headerlink" title="1.定义个有元素的集合"></a>1.定义个有元素的集合</h3><p><code>set1 = &#123;1,2,3&#125;</code></p>
-<p>集合和字典相比，集合里面只有值，没有键。</p>
-<h3 id="2-自动去重"><a href="#2-自动去重" class="headerlink" title="2.自动去重"></a>2.自动去重</h3><p><strong>集合有个比较强大的功能：自动去重。</strong> 里面不会存在重复的元素，<strong>集合最常见的应用就是对列表去重。</strong></p>
-<h4 id="2-1-把字典转换成集合，再转换回字典，它会真去重"><a href="#2-1-把字典转换成集合，再转换回字典，它会真去重" class="headerlink" title="2.1 把字典转换成集合，再转换回字典，它会真去重"></a>2.1 把字典转换成集合，再转换回字典，它会真去重</h4><pre class=" language-PYTHON"><code class="language-PYTHON">set1 = &#123;1,2,3,3,3,4,4,4,4,4&#125;
-print(set1)</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215111057.png"></p>
-<p>打印出来是集合，重复的元素自动过滤掉了。定义的时候，不管定义多少个重复元素，都自动过滤掉了。</p>
-<h4 id="2-2-用集合对列表去重"><a href="#2-2-用集合对列表去重" class="headerlink" title="2.2 用集合对列表去重"></a>2.2 用集合对列表去重</h4><pre class=" language-PYTHON"><code class="language-PYTHON">li = [1,1,1,2,2,2,3,3,3] # 利用集合对列表去重
-li2 = list(set(li))
-print(li2)</code></pre>
-<p>首先把列表转换成一个集合，自动把里面的重复元素给去除掉了，再转换回列表。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215112111.png"></p>
-<p>集合在 Python 中是用得比较少的数据类型。</p>
-<h3 id="3-集合常用的五个方法"><a href="#3-集合常用的五个方法" class="headerlink" title="3.集合常用的五个方法"></a>3.集合常用的五个方法</h3><table>
-<thead>
-<tr>
-<th>add()</th>
-<th>添加元素</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>update()</td>
-<td>更新元素</td>
-</tr>
-<tr>
-<td>remove()</td>
-<td>删除元素</td>
-</tr>
-<tr>
-<td>clear()</td>
-<td>清空里面所有的元素</td>
-</tr>
-<tr>
-<td>copy()</td>
-<td>复制元素</td>
-</tr>
-</tbody></table>
-<p><strong>集合，它里面的元素是无序的。可以修改，集合是可变类型的数据。</strong></p>
-<h4 id="3-1-空集合中怎么添加元素？"><a href="#3-1-空集合中怎么添加元素？" class="headerlink" title="3.1 空集合中怎么添加元素？"></a>3.1 空集合中怎么添加元素？</h4><p><code>add()</code>方法，每次可以往里面添加一个数据进去。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">se = set()  # 空集合
-# 集合添加数据
-se.add('qinghan') # 一次只能添加一个，所以只添加了一个qinghan
-print(se)</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215113137.png"></p>
-<h4 id="3-2-删除用-remove"><a href="#3-2-删除用-remove" class="headerlink" title="3.2 删除用 remove()"></a>3.2 删除用 remove()</h4><p>集合可以添加也可以删除。删除用<code>remove()</code>，传入对应的元素就可以进行删除。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215113645.png"></p>
-<p>集合还可以做交集、并集这样的操作，这个对我们用处不大。</p>
-<h4 id="3-3update-更新元素"><a href="#3-3update-更新元素" class="headerlink" title="3.3update() 更新元素"></a>3.3update() 更新元素</h4><p>跟字典的<code>update()</code>一样的。 它是将一个集合更新到这个集合里面，可以往里面一次加入多个元素。</p>
-<p>通过这个方法：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">se = set()  # 空集合
-se.update(&#123;111,22,33,44&#125;)
-print(se)</code></pre>
-<p>可以一次更新进去多个元素。</p>
-<p>看<code>update</code>的源码：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215115657.png"></p>
-<p>接收的是不定量参数，可以传一个也可以传多个。</p>
-<p>可以往里面加元组、列表、字符串，但是一般用的时候选择用集合，将一个集合更新到原来的集合里面。</p>
-<h3 id="3-4clear-清空元素"><a href="#3-4clear-清空元素" class="headerlink" title="3.4clear()清空元素"></a>3.4clear()清空元素</h3><p>还有个常用的方法：<code>clear()</code>清空里面所有的元素。</p>
-<h3 id="3-5-copy-复制元素"><a href="#3-5-copy-复制元素" class="headerlink" title="3.5 copy()复制元素"></a>3.5 copy()复制元素</h3><p><code>copy() # 做一个复制的</code></p>
-<h2 id="二、集合和字典都是无序的"><a href="#二、集合和字典都是无序的" class="headerlink" title="二、集合和字典都是无序的"></a>二、集合和字典都是无序的</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215121810.png"></p>
-<p>Python 里面把它称作散列类型。</p>
-<p>Python 更新到 3.7 之后，字典出现一个新的特性：<strong>3.7 之前的字典是无序的。3.7 之后字典中元素的顺序，它会按你依次添加的顺序进行保存。现在字典，里面的元素实际上是有序的。</strong></p>
-<p>官方文档已声明：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215122415.png"></p>
-<h2 id="三-、字典和集合都是无序的，在内存中是怎么存储？"><a href="#三-、字典和集合都是无序的，在内存中是怎么存储？" class="headerlink" title="三 、字典和集合都是无序的，在内存中是怎么存储？"></a>三 、字典和集合都是无序的，在内存中是怎么存储？</h2><p>dict 与 set 实现原理是一样的，都是将实际的值放到 list 中。</p>
-<p>唯一不同的在于 hash 函数操作的对象，对于 dict，hash 函数操作的是其 key，而对于 set 是直接操作的它的元素。</p>
-<p>假设操作内容为 x，其作为因变量，放入 hash 函数，通过运算后取 list 的余数，转化为一个 list 的下标，此下标位置对于 set 而言用来放其本身。</p>
-<p>而对于 dict 则是创建了两个 list，一个 list 该下表放此 key，另一个 list 中该下标对应的 value。</p>
-<p>其中，我们把实现 set 的方式叫做 Hash Set，实现 dict 的方式叫做 Hash Map/Table（注：map 指的是通过 Key 来寻找 value 的过程）。</p>
-<h3 id="1-为什么说字典和集合是无序的？"><a href="#1-为什么说字典和集合是无序的？" class="headerlink" title="1.为什么说字典和集合是无序的？"></a>1.为什么说字典和集合是无序的？</h3><h4 id="1-1-字典和集合底层都是存储在列表里面"><a href="#1-1-字典和集合底层都是存储在列表里面" class="headerlink" title="1.1 字典和集合底层都是存储在列表里面"></a>1.1 字典和集合底层都是存储在列表里面</h4><p>一个字典，在存储的时候，会拆分成 2 部分，会存在 2 个列表里面，一个列表存键，一个列表存值：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215125858.png" alt="字典存储时的拆分"></p>
-<h4 id="1-2-怎么通过-Key-找到对应的-Value-值呢？"><a href="#1-2-怎么通过-Key-找到对应的-Value-值呢？" class="headerlink" title="1.2 怎么通过 Key 找到对应的 Value 值呢？"></a>1.2 怎么通过 Key 找到对应的 Value 值呢？</h4><p>字典在存储之前，做了个 Hash 操作：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215124924.png" alt="Hash操作如图，图片来自网络"></p>
-<p>拿到字典的键，进行哈希操作。通过对应的哈希算法，然后得出一串数字。</p>
-<p>拿哈希出来的值除以内存分出来的列表的长度，得到余数。这个余数当成对应元素的下标。把键和值通过下标存在列表中对应的位置。</p>
-<h4 id="1-3-散列类型的存储过程"><a href="#1-3-散列类型的存储过程" class="headerlink" title="1.3 散列类型的存储过程"></a>1.3 散列类型的存储过程</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215125422.png" alt="散列类型的存储过程，图片来自网络"></p>
-<p><strong>散列类型的意思就是无序的。</strong> 散列就是哈希。散列内部元素是无序的。</p>
-<p>刚开始内存分了 12 个格子存数据，哈希后，第一个元素得出的余数是 6，有 2 个列表，会把键存在对应的列表里面，把值存在对应的 6 的位置。</p>
-<p>散列表存储数据很松散，不像列表完整得排过来的。散列表里面是分散存储的，会把对应的键存到一个散列表里面。</p>
-<p>查找字典中元素的时候，首先它会拿到你这个键，同样进行哈希运算。运算完毕后得出一个值，然后去散列表里面找对应的键。找到对应的键，然后比较下是不是这个键。</p>
-<p><strong>字典哈希的是它的键，不是它的值。集合是哈希的它的值，所以集合里面的值是不可变类型的，不能有可变类型的值。</strong></p>
-<h3 id="2-字典查找值的过程"><a href="#2-字典查找值的过程" class="headerlink" title="2.字典查找值的过程"></a>2.字典查找值的过程</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215140153.png" alt="字典查找值的过程"></p>
-<p>散列值就是哈希值。拿到键名，进行哈希，哈希过后得到散列值。</p>
-<p>拿到散列值进行相应的运算，然后拿到表元。表元是在散列表中的一个序号。</p>
-<h4 id="2-1-第一种情况"><a href="#2-1-第一种情况" class="headerlink" title="2.1 第一种情况"></a>2.1 第一种情况</h4><p>比如序号是 6，看 6 里面存的这个键，跟你刚才输进来查找的那个键是不是一样的。</p>
-<p>如果是一样的，键相等，会返回表元里面对应的值，会给你找到你所存储的字典的值。</p>
-<p>如果它在这里没找到值的话，这个时候会抛出异常。（也就是字典通过键去找值，没找到的时候就会抛出错误。）</p>
-<h4 id="2-2-第二种情况"><a href="#2-2-第二种情况" class="headerlink" title="2.2 第二种情况"></a>2.2 第二种情况</h4><h5 id="散列冲突："><a href="#散列冲突：" class="headerlink" title="散列冲突："></a>散列冲突：</h5><p>每个元素哈希出来的结果是不一样的。如图，第一个元素计算出来是 6，会找到散列表中第 6 个格子。第二个值，运算之后，如果得出来的也是个 6，那么这个时候就会起散列冲突。</p>
-<h6 id="解决散列冲突有二种方案："><a href="#解决散列冲突有二种方案：" class="headerlink" title="解决散列冲突有二种方案："></a>解决散列冲突有二种方案：</h6><p><strong>方案一：</strong></p>
-<p>有散列冲突的时候，会对散列表进行扩容，扩容后进行重新排序。</p>
-<p><strong>方案二：</strong></p>
-<p>在后面再加个列表。这样的话，第一个元素计算出来是 6，会找到散列表中第 6 个格子。</p>
-<p>第二个值，运算之后，如果得出来的也是个 6，因为加了一个列表（这个列表可存储多个值），就不会起散列冲突了。</p>
-<p><strong>以上是字典，散列类型底层存储。</strong></p>
-<h3 id="3-Python-里基础数据类型分为三大类"><a href="#3-Python-里基础数据类型分为三大类" class="headerlink" title="3.Python 里基础数据类型分为三大类"></a>3.Python 里基础数据类型分为三大类</h3><p><strong>第一类，数值类型：</strong> 1 一个数只有单个元素，像这个 1 就是 1。</p>
-<p><strong>第二类，序列类型：</strong> 字符串、列表、元组。</p>
-<p><strong>第三类，散列类型：</strong> 字典、集合。 特征：内部元素是无序的。</p>
-<h3 id="4-为什么会出现散列冲突？"><a href="#4-为什么会出现散列冲突？" class="headerlink" title="4.为什么会出现散列冲突？"></a>4.为什么会出现散列冲突？</h3><p>举个栗子：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215144551.png"></p>
-<p>这两个数据通过哈希，计算散列值，取余后拿到的余数，如果是一样的话，在储存值的时候，就会造成散列冲突。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215145051.png"></p>
-<p>通过字典的键去哈希，把哈希值存在散列表里面。通过对应的键，然后找到列表中存储的对应元素的值。</p>
-<p><strong>集合相对于列表比较简单一些。集合没有键和值，直接拿到集合里面的值进行哈希操作。</strong></p>
-<h2 id="四、可变和不可变元素：可哈希和不可哈希"><a href="#四、可变和不可变元素：可哈希和不可哈希" class="headerlink" title="四、可变和不可变元素：可哈希和不可哈希"></a>四、可变和不可变元素：可哈希和不可哈希</h2><h3 id="1-可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。"><a href="#1-可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。" class="headerlink" title="1.可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。"></a>1.可变类型的数据不可进行哈希运算，不可变的数据类型可进行哈希运算。</h3><p><strong>集合里面只能存储可哈希的对象。意思是集合里面只能存储不可变的数据类型。</strong></p>
-<p>例如：<code>set2 = &#123;1,2,3,[1,2]&#125;</code></p>
-<p><strong>这个集合就报错了：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215152138.png"></p>
-<p>因为列表是可变类型。可变类型是不能进行哈希运算的。</p>
-<p>数值类型、字符串、元组可以，列表、字典、集合不能作为元素储存在这个集合里面。</p>
-<p>集合里面的元素通过哈希操作算出对应值，放到散列表里面。</p>
-<h3 id="2-集合为什么无序？"><a href="#2-集合为什么无序？" class="headerlink" title="2.集合为什么无序？"></a>2.集合为什么无序？</h3><p>因为散列表里面存储元素的时候是没有顺序的，散列表也是会不断变化的（会变化长度、调整元素位置的），所以说散列类型是无序的。</p>
-<h3 id="3-散列类型为什么是无序的？"><a href="#3-散列类型为什么是无序的？" class="headerlink" title="3.散列类型为什么是无序的？"></a>3.散列类型为什么是无序的？</h3><p>通过哈希算法算了之后，然后存到对应的散列表里面，散列表里面数据存储是没有固定顺序的。</p>
-<h2 id="五、性能分析"><a href="#五、性能分析" class="headerlink" title="五、性能分析"></a>五、性能分析</h2><p>字典最占用内存，其次是集合。然后是列表、元组。元组是占用内存最少的。但是查找元素的时候，集合是速度最快的，然后是字典。</p>
-<p>集合用起来不方便，如果知道哪个元素就好查找，但是不知道那个元素在哪里，就不方便从集合里去取那个元素。字典通过键取值，元组、列表通过下标。</p>
+<h2 id="一、列表推导式"><a href="#一、列表推导式" class="headerlink" title="一、列表推导式"></a>一、列表推导式</h2><p>推导式可以帮助我们快速创建列表、创建字典。比如现在要创建一个列表。</p>
+<p>做自动化测试的时候，比如创建个 url 列表，url 列表里面可能是存储了网站的页数：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217070428.png"></p>
+<p>一直到 100，生成 100 个页面，但是这 100 个页面有规律，url 地址，前面这一部分是不变的，只有后面的 1,2,3,4 这部分的变化。</p>
+<p>如果去生成这样一个列表，不用列表推导式，用之前的方法的话，可以这样做，先定义一个空列表：</p>
+<p><code>urls = []</code></p>
+<p>然后来个 for 循环 set 100 个：</p>
+<p><code>for i in range(1,101):</code></p>
+<p>前面字符串这部分是确定的，比如说一个 page，后面这部分不确定，就来个<code>format()</code>给它填进去。</p>
+<p><code>url = &#39;page&#123;&#125;&#39;.format(i)</code></p>
+<p>通过<code>append()</code>把 url 加进去。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># url = ['page1','page2']
+
+urls = []
+
+for i in range(1,101):
+   url =  'page&#123;&#125;'.format(i)
+   urls.append(url)
+
+print(urls)</code></pre>
+<p>能够生成 1-100 个页面。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217073010.png"></p>
+<p>推导式有个优势，一行就能解决。推导式可以看成 for 循环的一个解体。</p>
+<p>写起来特别简单，同样的功能，推导式可以这样写：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217074931.png" alt="图片中应为推导式不是倒，字打错了，图是我截得"></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 列表推导式
+
+urls1 = [i for i in range(1,101)]
+print(urls1)</code></pre>
+<p><strong>这段列表推导式代码解释是：</strong></p>
+<p><code>for</code> 循环，<code>i</code> 从 <code>range</code> 里面循环，循环出来拿出一个 <code>i</code>，然后往前面放到这个列表里面。</p>
+<p>再拿出一个 <code>i</code> 放到这个列表里面，这样重复（拿出一个 <code>i</code> 放到列表里面），直到把 <code>for</code> 循环遍历完。</p>
+<p>将里面所有的元素都拿出来放到列表里面，最后生成一个新的列表，这就是列表推导式。</p>
+<p><strong>里面是 1-100 个数字：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217080347.png" alt="图片中应为推导式不是倒，字打错了，图是我截得"></p>
+<p>如果用列表推导式生成这个 page1，到 100 页。代码就修改成这样：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">urls1 = ['page&#123;&#125;'.format(i)  for i in range(1,101)]
+print(urls1)</code></pre>
+<p><code>&#39;page&#123;&#125;&#39;.format(i)</code></p>
+<p><code>format()</code>格式化字符串的函数。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217092254.png" alt="图片中应为推导式不是倒，字打错了，图是我截得"></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 列表推导式
+
+urls1 = ['page&#123;&#125;'.format(i)  for i in range(1,101)]
+print(urls1)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217095421.png"></p>
+<p>简而言之，就是遍历出来的元素放到这个前面就行了。然后在前面，你可以做其它操作。</p>
+<p>以上，这就是用列表推导式快速生成一个列表。</p>
+<h2 id="二、字典推导式"><a href="#二、字典推导式" class="headerlink" title="二、字典推导式"></a>二、字典推导式</h2><p>字典推导式和列表推导式，它的原理是一样的。都用 for 循环去遍历，然后拿出对应的值在前面，生成对应的值。</p>
+<p>每遍历一轮，会把前面你写的内容放到字典里面去。前面写个键，键就是遍历出来的<code>i</code>，对应的值就是<code>i+1</code>。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217111405.png"></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">dict1 = &#123;i:i+1 for i in range(10)&#125;
+print(dict1)</code></pre>
+<p>键就是遍历出来的<code>i</code>，值就是键的基础上加 1。每循环遍历一轮，这个就生成一个键值对。</p>
+<p>推导式可以推导出字典，也可以推导出列表。大括号、中括号、花括号都可以。</p>
+<p><code>推导式改成小括号后是什么？</code></p>
+<p>中括号是列表，花括号是字典，小括号是元组。</p>
+<p><strong>推导式改成小括号后，不再是个元组了，是个生成器。</strong></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># () 生成器表达式
+
+tu = (i for i in range(10)) #生成器对象
+print(tu)</code></pre>
+<h2 id="三、2种方式创建生成器"><a href="#三、2种方式创建生成器" class="headerlink" title="三、2种方式创建生成器"></a>三、2种方式创建生成器</h2><h3 id="1-生成器表达式"><a href="#1-生成器表达式" class="headerlink" title="1.生成器表达式"></a>1.生成器表达式</h3><h4 id="1-1-什么是生成器？"><a href="#1-1-什么是生成器？" class="headerlink" title="1.1 什么是生成器？"></a>1.1 什么是生成器？</h4><p>这里有很多数据，可以把它装到一个 “就像自动取筷盒，拿出一双筷子，自动下来一双筷子”，就是你要用的时候，它给你生成一个出来。</p>
+<p>生成器不像列表，比如创建个列表，比如列表里面有一千个元素，创建列表的时候，那么这一千个元素已经被创建好放在列表里面了。生成器不是这样，它内部只保留了一个生成器计算的规则。</p>
+<h4 id="1-2-使用生成器的好处"><a href="#1-2-使用生成器的好处" class="headerlink" title="1.2 使用生成器的好处"></a>1.2 使用生成器的好处</h4><h5 id="生成器要生成一千个元素，这样："><a href="#生成器要生成一千个元素，这样：" class="headerlink" title="生成器要生成一千个元素，这样："></a>生成器要生成一千个元素，这样：</h5><p><code>tu = [i for i in range(1000)]#生成器对象</code></p>
+<p>直接生成一千个元素的列表。改成生成器，这个生成器对象里面存储的是一个计算公式，并没有存储这一千条数据啊。</p>
+<p>使用生成器来存储这些数据的话，相对于列表的优势是：<strong>不那么占内存。</strong></p>
+<p>一千条数据可能看不出效果，如果是一千万条数据往列表里面一放，那得占用多大的内存啊。如果是个生成器，里面就是个计算的规则，就是个生成的规则，没有那么多数据，节约内存，可以提高代码的性能。</p>
+<h4 id="1-3-拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？"><a href="#1-3-拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？" class="headerlink" title="1.3 拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？"></a>1.3 拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？</h4><p>生成器表达式，打印出来是个生成器。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217121033.png"></p>
+<p>当然，可以通过<code>list</code>把它转换成一个列表。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">tu = (i for i in range(1000))#生成器对象
+print(list(tu))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217121635.png"></p>
+<p>它可以把生成器里面所有的元素都拿出来转换成列表。</p>
+<p><code>通过生成器表达式来定义生成器，一次想拿一个元素，怎么拿呢？</code></p>
+<p>Python 里面有个内置的函数，叫做<code>next()</code>。把生成器对象放进去，得到一个结果：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># () 生成器表达式
+tu = (i for i in range(1000))#生成器对象
+a = next(tu)
+print(a)
+print(next(tu))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217125707.png"></p>
+<h5 id="交互环境中可以看到："><a href="#交互环境中可以看到：" class="headerlink" title="交互环境中可以看到："></a>交互环境中可以看到：</h5><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217132304.png"></p>
+<p>它依次生成，要的时候，从生成器里面拿一个出来就行了。你要用的时候就去拿，它就一直生成，它就把里面所有的元素都取出来。</p>
+<h4 id="1-4-所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？"><a href="#1-4-所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？" class="headerlink" title="1.4 所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？"></a>1.4 所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217132939.png"></p>
+<p>会报错。</p>
+<p>生成器可以用来节约内存，提高代码性能。<strong>生成器在于你什么时候用，你什么时候去取值。</strong></p>
+<h3 id="2-函数里面，通过-yield-定义生成器"><a href="#2-函数里面，通过-yield-定义生成器" class="headerlink" title="2.函数里面，通过 yield 定义生成器"></a>2.函数里面，通过 yield 定义生成器</h3><p>除了生成器表达式可以创建生成器，还有另外一个方式。Python 关键字里面有个<code>yield</code>参数。</p>
+<p><code>yield</code>这个关键字是用在函数里面的，这个关键字只能在函数里面用。</p>
+<p>函数定义完之后，只要在函数里面调用函数，那就会执行函数里面的代码。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def gen_fun():
+    print('清菡 加油')
+gen_fun()</code></pre>
+<p>如果当一个函数里面，有<code>yield</code>这个关键字：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def gen_fun():
+    yield
+    print('清菡 加油')
+gen_fun()</code></pre>
+<p>这个时候再去运行这个函数，这个函数不会立即运行。</p>
+<h4 id="2-1-为什么不会立即运行呢？"><a href="#2-1-为什么不会立即运行呢？" class="headerlink" title="2.1 为什么不会立即运行呢？"></a>2.1 为什么不会立即运行呢？</h4><p>这个函数运行的时候，默认是没有写<code>return</code>的。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def gen_fun():
+    # yield
+    print('清菡 加油')
+res = gen_fun()
+print(res)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217143002.png"></p>
+<p>如果函数里面出现了<code>yield</code>这个关键字，这个时候再看下。</p>
+<p>函数没有写<code>return</code>，调用函数，它里面，代码没有执行，但是有返回结果，返回的结果是：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217150648.png"></p>
+<p>返回的是一个生成器。</p>
+<p>通过<code>yield</code>定义出来的这个函数，是个生成器函数。</p>
+<p>调用这个函数的时候，它会给你返回一个生成器对象。既然它是一个生成器对象，那么就可以通过<code>next()</code>来对它进行取值。</p>
+<h5 id="运行结果如下："><a href="#运行结果如下：" class="headerlink" title="运行结果如下："></a>运行结果如下：</h5><pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
+def gen_fun():
+    yield
+    print('清菡 加油')
+
+res = gen_fun()  #返回生成器对象
+print(next(res))</code></pre>
+<p>你看到输出结果是：None</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217150509.png"></p>
+<h4 id="2-2-为什么是-None-呢？"><a href="#2-2-为什么是-None-呢？" class="headerlink" title="2.2 为什么是 None 呢？"></a>2.2 为什么是 None 呢？</h4><p>生成器生成的元素在<code>yield</code>关键字后面。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
+def gen_fun():
+    yield 100
+    print('清菡 加油')
+
+res = gen_fun()  #返回生成器对象
+print(next(res))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217151133.png"></p>
+<p>再写 2 个<code>yield</code>:</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
+def gen_fun():
+    yield 100
+    print('清菡 加油')
+    yield 1000
+
+    yield 100100
+
+res = gen_fun()  #返回生成器对象
+print(next(res))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217170106.png"></p>
+<p><strong>生成器函数：</strong> 只有通过<code>next()</code>取值的时候，它才会执行函数里面的代码。</p>
+<p><code>next()</code>一次，就运行到第一个<code>yield</code>这里，把这个结果返回出来。然后到这个地方，暂停了不动了，不会往下走了。</p>
+<p>如果在下面再<code>next()</code>，<strong>从生成器里面再获取一个元素：</strong></p>
+<p><code>print(next(res))</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217153046.png"></p>
+<p>直到等到下一个<code>next()</code>取值。当你下一次从生成器函数里面取值的时候，才会触发下一个<code>yield</code>。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
+def gen_fun():
+    yield 100
+    print('清菡 加油')
+    yield 1000
+
+    yield 100100
+
+res = gen_fun()  #返回生成器对象
+print(next(res))
+print(next(res))
+print(next(res))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217153621.png"></p>
+<p>但是如果全部都生成完了，再去取一次，就会报错：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217153819.png"></p>
+<p>因为里面已经没有元素了。</p>
+<p>以上，生成器只有通过这 2 种方式定义。</p>
 <hr>
-<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 107+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><strong><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201215162941.png"></strong></p>
+<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 108+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217211840.png"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
                 
@@ -643,7 +675,7 @@ print(se)</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/">http://example.com/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/</a>
+                    <a href="http://example.com/2020/12/18/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%812%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">http://example.com/2020/12/18/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%812%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -852,9 +884,10 @@ print(se)</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2020/12/18/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%812%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">
                     <div class="card-image">
@@ -872,9 +905,9 @@ print(se)</code></pre>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -883,6 +916,7 @@ print(se)</code></pre>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -901,13 +935,13 @@ print(se)</code></pre>
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E3%80%81%E5%91%BD%E5%90%8D%E5%85%83%E7%BB%84%E3%80%8B/">
+                <a href="/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="数据类型· 第1篇《元组和列表的性能分析、命名元组》">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数据类型第2篇「字典和集合的原理和应用」">
                         
-                        <span class="card-title">数据类型· 第1篇《元组和列表的性能分析、命名元组》</span>
+                        <span class="card-title">数据类型第2篇「字典和集合的原理和应用」</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
