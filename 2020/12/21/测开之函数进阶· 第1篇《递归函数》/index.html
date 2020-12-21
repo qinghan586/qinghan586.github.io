@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="测开之数据类型· 第4篇《迭代器、生成器》, 清菡的主页">
+    <meta name="keywords" content="测开之函数进阶· 第1篇《递归函数》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>测开之数据类型· 第4篇《迭代器、生成器》 | 清菡的主页</title>
+    <title>测开之函数进阶· 第1篇《递归函数》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">测开之数据类型· 第4篇《迭代器、生成器》</h1>
+                    <h1 class="description center-align post-title">测开之函数进阶· 第1篇《递归函数》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-19
+                    2020-12-21
                 </div>
                 
 
@@ -468,192 +468,235 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201218144235.png"></p>
+                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220162312.png"></p>
 <p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <blockquote>
 <p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
 </blockquote>
-<h1 id="文章总览图"><a href="#文章总览图" class="headerlink" title="文章总览图"></a>文章总览图</h1><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201218164309.png"></p>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、迭代器<ul>
-<li>1.迭代协议</li>
-<li>2.什么是迭代器呢？</li>
-<li>3.可迭代对象</li>
-<li>4.这个是可迭代对象和迭代器的区别</li>
+<li>一、往期回顾<ul>
+<li>1.生成器代码详解</li>
+<li>2.生成器的三个方法</li>
 </ul>
 </li>
-<li>二、生成器<ul>
-<li>1.什么是迭代操作？</li>
-<li>2.生成器和迭代器有什么不同呢？</li>
-<li>3.生成器比迭代器多了 3 种方法</li>
-<li>4.为什么生成器有的方法，迭代器没有？</li>
-<li>5.数据发送到生成器，在哪个地方呢？</li>
+<li>二、递归函数<ul>
+<li>1.什么是递归函数</li>
+<li>2.递归函数调用原理图</li>
+<li>3.递归边界</li>
+<li>4.通过递归函数实现的任意数的阶乘</li>
+<li>5.这个递归函数的递归临界点在哪？</li>
+<li>6.斐波那契数列</li>
 </ul>
 </li>
 <li>三、系列推荐</li>
 </ul>
-<h2 id="一、迭代器"><a href="#一、迭代器" class="headerlink" title="一、迭代器"></a>一、迭代器</h2><h3 id="1-迭代协议"><a href="#1-迭代协议" class="headerlink" title="1.迭代协议"></a>1.迭代协议</h3><p>一种是包含<code>iter</code>方法的，另一种是包含<code>getitem</code>方法的（比如<code>str</code>对象就没有<code>iter</code>方法，但是一样能够迭代），只要对象中包含了这两种方法的任意一种，那么这个对象就可以进行迭代操作，也就是实现了迭代协议。</p>
-<h3 id="2-什么是迭代器呢？"><a href="#2-什么是迭代器呢？" class="headerlink" title="2.什么是迭代器呢？"></a>2.什么是迭代器呢？</h3><p>生成器是迭代器的一种。迭代器的范围比生成器更广。只要可以通过<code>next()</code>，从里面一个一个往外面取值，都被称为迭代器。</p>
-<p>关于要创建一个迭代器对象，那么内部要实现一个迭代器的协议。</p>
-<h4 id="2-1-迭代器协议"><a href="#2-1-迭代器协议" class="headerlink" title="2.1 迭代器协议"></a>2.1 迭代器协议</h4><ul>
-<li>实现了迭代器协议的对象（实现方式：对象内部定义了一个<code>iter()</code>方法）。</li>
-<li>对象实现了<code>__next__</code>方法。</li>
-<li><code>__next__</code>方法返回了某个数值（当然一般情况下，我们需要的是返回这个对象的特定的数字，并且按照一定的顺序进行依次返回）。</li>
-<li><code>__next__</code>方法需要在值取完的时候，抛出<code>stopiteration</code>的错误信息。</li>
-</ul>
-<h3 id="3-可迭代对象"><a href="#3-可迭代对象" class="headerlink" title="3.可迭代对象"></a>3.可迭代对象</h3><p><strong>有个东西需要区分，一个是迭代器，一个是可迭代对象。</strong></p>
-<p>只要内部实现了迭代协议的就是一个可迭代对象（可迭代对象可以进行相关的迭代操作，比如<code>for</code>循环，<code>map</code>函数等）。</p>
-<p>可以用 for 循环进行遍历的，那么都是可迭代对象。可迭代对象不一定是迭代器，迭代器是在可迭代基础上，它内部要首先定义一个<code>__next_</code>方法。</p>
-<p>迭代器内部实现了一个<code>__next_</code>方法，实现了这个方法之后，通过<code>__next_</code>这个函数才可以对这个迭代器进行一个取值。</p>
-<p>还有个<code>iter()</code>方法，这个方法可将可迭代对象转换成一个迭代器。</p>
-<p><code>yield</code>和<code>return</code>是 2 个东西。<code>yield</code>只是暂停那个生成器函数。<code>yield</code>可以从生成器里面生成一个内容。</p>
-<p><strong>列表可以进行 for 循环，可以进行 for 循环遍历，它就是个可迭代对象。</strong> 列表是可以通过 for 循环遍历的，但是它不是迭代器。</p>
-<p><strong>迭代器是可以通过<code>next()</code>进行取值的。</strong></p>
-<p><strong>生成器也是迭代器，生成器是可以通过<code>next()</code>去取值。那么，生成器它是迭代器的一种，是属于迭代器的。</strong></p>
-<p>你看，报错了：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 列表
-# 可迭代对象：可以for循环遍历的都是可迭代对象
-li = [1,2,3,4]
-next(li)
-print(next(li))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217170039.png"></p>
-<p>提示：列表它不是一个迭代器。</p>
-<p>不是个迭代器，不能通过这个去取值。<strong>要把一个可迭代对象转换成一个迭代器的话，通过<code>iter()</code>这个函数把可迭代对象放进去，它能够返回一个迭代器。</strong></p>
-<p>你看，这样就能获取到了：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 列表
-# 可迭代对象：可以for循环遍历的都是可迭代对象
-li = [1,2,3,4]
-li1 = iter(li)
-print(next(li1))
-print(next(li1))</code></pre>
-<p>通过<code>iter()</code>这个函数，来处理某个对象，它实际上相当于触发这个对象内部的一个<code>__iter__</code>这个方法。</p>
-<p><strong>咱们看看<code>list()</code>的源码：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217172351.png"></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217172641.png"></p>
-<p>通过<code>iter()</code>这个函数把对象<code>li</code>传进去的时候，它会触发<code>li</code>这个对象对应的<code>__iter_</code>这个方法。</p>
-<p>如果通过<code>next()</code>去取值，把<code>li1</code>这个对象传进去的时候，实际上是触发这个对象的<code>__next__</code>方法。</p>
-<p>它的类里面只有这个<code>__iter__</code>方法。</p>
-<p>迭代器可以通过<code>__next__</code>取值。迭代器内部实现了<code>__next__</code>方法。</p>
-<p><strong>迭代器内部实现了 <code>__iter__</code>方法之外，还实现了<code>__next__</code> 方法。</strong></p>
-<h3 id="4-这个是可迭代对象和迭代器的区别"><a href="#4-这个是可迭代对象和迭代器的区别" class="headerlink" title="4.这个是可迭代对象和迭代器的区别"></a>4.这个是可迭代对象和迭代器的区别</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217175649.png"></p>
-<h2 id="二、生成器"><a href="#二、生成器" class="headerlink" title="二、生成器"></a>二、生成器</h2><p><strong>生成器是迭代器的一种。</strong></p>
-<p><strong>迭代器是在可迭代对象的基础上实现了<code>__iter_</code>方法。迭代器和生成器都可以支持迭代操作。</strong></p>
-<h3 id="1-什么是迭代操作？"><a href="#1-什么是迭代操作？" class="headerlink" title="1.什么是迭代操作？"></a>1.什么是迭代操作？</h3><p>for 循环。</p>
-<h3 id="2-生成器和迭代器有什么不同呢？"><a href="#2-生成器和迭代器有什么不同呢？" class="headerlink" title="2.生成器和迭代器有什么不同呢？"></a>2.生成器和迭代器有什么不同呢？</h3><p><strong>生成器是迭代器的一种。</strong> 刚才用起来的时候好像没有什么区别，打印下这个类型看看。</p>
-<p><strong>可以看到，它返回的是个列表迭代器对象：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217180611.png"></p>
-<p><strong>这个是生成器对象：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217181940.png"></p>
-<p><code>li1 = iter(li)</code>这个是可迭代对象。然后通过<code>iter()</code>转换成一个迭代器。</p>
-<h3 id="3-生成器比迭代器多了-3-种方法"><a href="#3-生成器比迭代器多了-3-种方法" class="headerlink" title="3.生成器比迭代器多了 3 种方法"></a>3.生成器比迭代器多了 3 种方法</h3><table>
+<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><h3 id="1-生成器代码详解"><a href="#1-生成器代码详解" class="headerlink" title="1.生成器代码详解"></a>1.生成器代码详解</h3><pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
+    for i in range(5):
+        j = yield i
+        print(j)
+
+
+# send:与生成器进行交互
+g = gen()
+
+print(next(g))
+print(next(g))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220113415.png"></p>
+<p>第一个<code>print(next(g))</code>打印的 0，就是生成器生成的元素。第二个<code>print(next(g))</code>打印的 1 也是生成器生成的元素，None 是<code>print(j)</code>打印的<code>j</code>。</p>
+<p>通过生成器获取元素的时候，首先生成器进去的话，当调用生成器获取里面的值，它会从上往下走，走到<code>j = yield i</code>这里，把<code>yield</code>这里的<code>i</code>这个值返回出来，调用完<code>gen()</code>返回一个生成器<code>g</code>。</p>
+<p>通过这个生成器<code>next(g)</code>去拿值的时候，然后它从上往下执行代码，走到<code>j = yield i</code>这里，<code>yield</code>相当于把<code>i</code>，通过<code>yield</code>返回出去。</p>
+<p>从生成器里面返回出来，就生成一个数据。生成这个<code>i</code>，到第一个<code>print(next(g))</code>这里，打印的就是<code>i</code>。</p>
+<p>第二个<code>print(next(g))</code>，再用<code>next()</code>调用生成器的时候，那么这个生成器会从<code>yield</code>之后继续往下执行。</p>
+<p>通过<code>next()</code>去触发生成器的时候，<code>yield</code>之后是没有内容的，<code>j</code>接收的就是空的，所以打印<code>j</code>的时候，打印出来的是个<code>None</code>。</p>
+<h3 id="2-生成器的三个方法"><a href="#2-生成器的三个方法" class="headerlink" title="2.生成器的三个方法"></a>2.生成器的三个方法</h3><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
+
+def gen():
+    for i in range(5):
+        j = yield i
+        print(j)
+
+
+# send:与生成器进行交互
+g = gen()
+
+print(g.send(100))
+print(next(g))
+print(next(g))</code></pre>
+<p>运行后报错：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220115752.png"></p>
+<p>生成器的<code>send()</code>方法，它运行的时候会从上一个<code>yield</code>结束的地方来进行运行。</p>
+<p>在这里只创建了<code>gen()</code>这个生成器，这个生成器还没有生成过任何数据，这个时候生成器就暂停在函数最开始的地方<code>def gen():</code>这里。</p>
+<p>这里<code>send(100)</code>这个值进去的话，在这里运行，直接运行<code>for i in range(5):</code>这个语句，<code>send(100)</code>生成进去的这个值没有地方接收，所以报错了。</p>
+<p><strong><code>send()</code>必须在调用了一次<code>next()</code>之后才调用。可以和<code>next()</code>一样，去获取生成器里面的内容。</strong></p>
+<h4 id="2-1next-获取生成器里面的内容："><a href="#2-1next-获取生成器里面的内容：" class="headerlink" title="2.1next()获取生成器里面的内容："></a>2.1<code>next()</code>获取生成器里面的内容：</h4><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
+
+def gen():
+    for i in range(5):
+        j = yield i
+        print(j)
+
+
+# send:与生成器进行交互
+g = gen()
+
+print(next(g))
+print(next(g))
+# print(g.send(100))
+
+</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220121125.png"></p>
+<h4 id="2-2send-在调用了一次next-之后调用，获取生成器里面的内容："><a href="#2-2send-在调用了一次next-之后调用，获取生成器里面的内容：" class="headerlink" title="2.2send()在调用了一次next()之后调用，获取生成器里面的内容："></a>2.2<code>send()</code>在调用了一次<code>next()</code>之后调用，获取生成器里面的内容：</h4><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
+
+def gen():
+    for i in range(5):
+        j = yield i
+        print(j)
+
+
+# send:与生成器进行交互
+g = gen()
+
+print(next(g))
+print(g.send(100))
+# print(next(g))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220120838.png"></p>
+<p><strong><code>yield</code>只能在函数里面用。</strong><code>yield</code>关键字是用在创建生成器的时候，只要函数里面使用了<code>yield</code>关键字，在调用函数的时候，函数不会立马被执行。</p>
+<p>因为这个函数不是简单的函数了，它是个生成器。</p>
+<p>在函数外面，是没办法用<code>yield</code>关键字的。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220121948.png"></p>
+<h4 id="2-3close-关闭生成器"><a href="#2-3close-关闭生成器" class="headerlink" title="2.3close():关闭生成器"></a>2.3<code>close()</code>:关闭生成器</h4><pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
+    for i in range(5):
+        j = yield i
+        print(j)
+
+yield 100
+
+# send:与生成器进行交互
+g = gen()
+
+print(next(g))
+# print(next(g))
+# print(g.send(100))
+
+# close:关闭生成器
+g.close()
+print(next(g))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220124019.png"></p>
+<h4 id="2-4throw-方法：在生成器内部主动引发一个异常。参数：1-异常类型。2-异常信息。"><a href="#2-4throw-方法：在生成器内部主动引发一个异常。参数：1-异常类型。2-异常信息。" class="headerlink" title="2.4throw()方法：在生成器内部主动引发一个异常。参数：1.异常类型。2.异常信息。"></a>2.4<code>throw()</code>方法：在生成器内部主动引发一个异常。参数：1.异常类型。2.异常信息。</h4><p>这个方法可以接收 2 个参数，第一个参数：<code>Exception</code> 异常类型。第二个参数：传入异常的信息。</p>
+<p>Exception 报错：</p>
+<p><code>g.throw(Exception,&quot;Method throw called!&quot;)</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220125434.png"></p>
+<p>ValueError：</p>
+<p><code>g.throw(ValueError,&quot;清菡，大事不好，报错了，嘤嘤嘤~&quot;)</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220125556.png"></p>
+<h2 id="二、递归函数"><a href="#二、递归函数" class="headerlink" title="二、递归函数"></a>二、递归函数</h2><h3 id="1-什么是递归函数"><a href="#1-什么是递归函数" class="headerlink" title="1.什么是递归函数"></a>1.什么是递归函数</h3><p><strong>在函数中调用函数自身，我们把这样的函数叫做递归函数。</strong></p>
+<h3 id="2-递归函数调用原理图"><a href="#2-递归函数调用原理图" class="headerlink" title="2.递归函数调用原理图"></a>2.递归函数调用原理图</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220154308.png" alt="递归函数调用自身的图，图片来自网络"></p>
+<h3 id="3-递归边界"><a href="#3-递归边界" class="headerlink" title="3.递归边界"></a>3.递归边界</h3><p>递归边界：<strong>退出递归的终止条件。</strong></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def func():
+    print('99999')
+    func()
+
+func()</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220132818.png"></p>
+<p>在外面调用函数，直接陷入一个死循环。在函数内部调用<code>func()</code>这个函数，又到<code>def func():</code>这里来执行，然后<code>print(&#39;99999&#39;)</code>，又<code>func()</code>调用。</p>
+<p>不断得自身调用，这样就造成了死循环。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220133811.png"></p>
+<p><strong>Pycharm 有个检测机制：</strong> 当它内部检测到这个是个无限递归，没有递归临界点的一个递归函数，那么这个时候，它递归多少次之后，会自动给终止了。</p>
+<p>使用递归函数的时候，一定要注意一个点：<strong>就是一定要设置递归的边界。递归的边界就是递归函数的终止条件。</strong></p>
+<p>如果你不设置递归边界，那么你定义的递归函数就是个死循环，一直无限得调用自身。</p>
+<h3 id="4-通过递归函数实现的任意数的阶乘"><a href="#4-通过递归函数实现的任意数的阶乘" class="headerlink" title="4.通过递归函数实现的任意数的阶乘"></a>4.通过递归函数实现的任意数的阶乘</h3><h4 id="4-1-什么是阶乘？"><a href="#4-1-什么是阶乘？" class="headerlink" title="4.1 什么是阶乘？"></a>4.1 什么是阶乘？</h4><table>
 <thead>
 <tr>
-<th>send()方法</th>
-<th>发送数据</th>
+<th>1 的阶乘</th>
+<th>1</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>close() 方法</td>
-<td>关闭生成器</td>
+<td>2 的阶乘</td>
+<td>1 *2</td>
 </tr>
 <tr>
-<td>throw() 方法</td>
-<td>使用的 throw 指令抛出错误</td>
+<td>3 的阶乘</td>
+<td>1*  2 * 3</td>
+</tr>
+<tr>
+<td>4 的阶乘</td>
+<td>1 *  2 * 3 *  4</td>
 </tr>
 </tbody></table>
-<p><strong>生成器是有<code>send</code>这个方法的，迭代器是没有的。</strong></p>
-<p>例如，前面有个生成器叫做<code>tu</code>：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># () 生成器表达式
-tu = (i for i in range(1000))#生成器对象
-print(tu)</code></pre>
-<p><code>tu</code>可以调用<code>send()</code>这个方法，可以与生成器进行交互，可将数据传输到生成器里面。</p>
-<h3 id="4-为什么生成器有的方法，迭代器没有？"><a href="#4-为什么生成器有的方法，迭代器没有？" class="headerlink" title="4.为什么生成器有的方法，迭代器没有？"></a>4.为什么生成器有的方法，迭代器没有？</h3><p>举个栗子：</p>
-<p><strong>生成器是迭代器的一种。</strong></p>
-<p>例如定义了一个父类，再有个子类，父类创建出一个对象，子类创建出一个对象。子类有自己的方法。<strong>父类创建的出来的对象里面，肯定没有子类对象里面的方法。</strong> 子类里面有的方法，父类里面没有。</p>
-<p>迭代器就是“父类”。生成器就是“子类”。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i  in range(1,5):
-        yield i
+<p>递归能实现的，通过循环都能实现。</p>
+<p>Python 中递归用得不多，不太建议使用递归，因为递归不太好用，用递归还不如用循环。</p>
+<h4 id="4-2-怎么去算阶乘呢？"><a href="#4-2-怎么去算阶乘呢？" class="headerlink" title="4.2 怎么去算阶乘呢？"></a>4.2 怎么去算阶乘呢？</h4><p>定义个函数，算任意数的阶乘。传 1，就算 1 的阶乘，传 10 就算 10 的阶乘。</p>
+<p><strong>可以这样做：</strong></p>
+<p>首先要判断下它传进来的这个参数是不是等于 1，如果是等于 1 的话，就直接给它<code>return</code>返回出去。然后，如果它不等于 1 的话，就返回<code>return n * (n-1)*(n-2)</code>。</p>
+<p>n 传进来是 1，那应该返回 1；如果传的是 2，应该返回<code>return n * (n-1)</code>。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220141705.png"></p>
+<p>如果在这里用递归函数，调用<code>func(1)</code>。那么这个时候，这个<code>func(1)</code>调用递归函数。</p>
+<p><code>这个函数返回的是什么？</code></p>
+<p>调用这段代码:</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 1:
+        return 1</code></pre>
+<p>返回的是个 1。</p>
+<p>将代码修改成如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> n <span class="token operator">*</span> fun<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span>
 
-gen()</code></pre>
-<p>生成器运行的时候，调用函数<code>gen()</code>，调用这个函数的时候，这个函数里面的代码不会直接运行。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217185852.png"></p>
-<p>代码修改成这样：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i  in range(1,5):
-        yield i
+fun<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
+<p>如果是<code>fun(3)</code>,3 传进来:</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
+    if n == 1:
+        return 1</code></pre>
+<p>肯定是不成立的。</p>
+<p><code>else</code>后面的代码<code>return n * fun(n-1)</code>。</p>
+<p>这里的 n 是个 3，<code>fun(n-1)</code>就是<code>fun(2)</code>，那么就是<code>3 * fun(2)</code>。</p>
+<p>这个时候会再次调用自身这个函数：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220143534.png"></p>
+<p><code>这个时候 n 是什么？</code></p>
+<p><code>fun(2)</code>的时候 n 是个 2，就是<code>3 *2* fun(1)</code>。 <code>fun(1)</code>再执行下，出来的结果是个 1。那这里就是个 1,就是<code>3*2*1</code>。</p>
+<p>等于 3 的时候，返回的结果就是<code>3*2*1</code>。</p>
+<h4 id="4-3-改成fun-4-看看："><a href="#4-3-改成fun-4-看看：" class="headerlink" title="4.3 改成fun(4)看看："></a>4.3 改成<code>fun(4)</code>看看：</h4><p>首先 4 进来，n 等于 4，<code>fun(n-1)</code>就是<code>fun(3)</code>。调用<code>fun(3)</code>就相当于再次调用<code>fun(n)</code>，就是<code>4 *3* fun(2)</code>。</p>
+<p>再次调用<code>fun(2)</code>，再进来，前面<code>return n * fun(n-1)</code>这一截得到 2，<code>fun(3-1)</code>得到 2，所以最终得到<code>4*3*2* fun(1)</code>。</p>
+<p><code>fun(1)</code>调用，结果出来就是个 1。就是<code>4*3*2*1</code>。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
+    if n == 1:
+        return 1
+    else:
+        return n * fun(n-1) # 4 *3*2*1
 
-g = gen()
-print(g)</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217190216.png"></p>
-<p>只有通过<code>next()</code>方法往生成器里面取值的时候，它才会从代码上面往下面运行。</p>
-<p>这个<code>send()</code>方法可将数据传到生成器里面。使用<code>next()</code>，从生成器里面获取出一个值。如果使用<code>send()</code>方法，它也能够获取出来一条数据。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i  in range(1,5):
-        se = yield i
-        print(se)
+fun(4)</code></pre>
+<h3 id="5-这个递归函数的递归临界点在哪？"><a href="#5-这个递归函数的递归临界点在哪？" class="headerlink" title="5.这个递归函数的递归临界点在哪？"></a>5.这个递归函数的递归临界点在哪？</h3><pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 1:
+        return 1</code></pre>
+<p>当<code>n=1</code>的时候就不会调用自身了。当满足某个条件，不再调用自身，那么这个就被称为递归临界点。</p>
+<p>例如改成<code>n==-1</code></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"> if n == -1:
+        return 1</code></pre>
+<p><code>这个时候，这个函数的递归临界点在哪？</code></p>
+<p>这个递归临界点就是<code>-1</code>。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token comment" spellcheck="true"># 递归临界点：当达到递归临界点的时候，就不再调用自身函数的条件</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> n <span class="token operator">*</span> fun<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 4 *3*2*1</span>
 
-g = gen()
-print(next(g))
-print(g.send(100))</code></pre>
-<p><code>send()</code>方法可以往生成器里面传入一个值。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217191508.png"></p>
-<p>通过<code>send()</code>方法生成数据的时候，它也可以往里面发送一个 100 的值。</p>
-<h3 id="5-数据发送到生成器，在哪个地方呢？"><a href="#5-数据发送到生成器，在哪个地方呢？" class="headerlink" title="5.数据发送到生成器，在哪个地方呢？"></a>5.数据发送到生成器，在哪个地方呢？</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217191854.png"></p>
-<p>如果通过<code>next()</code>去取值的话，这个<code>yield</code>完毕后是没有返回内容的。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217192311.png"></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217192834.png"></p>
-<p><strong>代码详解：</strong></p>
-<p><strong>第一轮：</strong> 循环进来，通过<code>next()</code>去取值生成了一个 1：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i  in range(1,5):
-        se = yield i
-        print(se)
-
-g = gen()
-print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217193205.png"></p>
-<p><strong>第二轮：</strong> 通过<code>print(g.send(100))</code>去发送值，然后打印：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i  in range(1,5):
-        se = yield i
-        print('se的值：',se)
-
-g = gen()
-print(next(g))
-print(g.send(100))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217194010.png"></p>
-<p>在第一轮结束之后，在<code>yield</code>这里，<code>yield</code>完毕就停止了。在第一轮<code>yield</code>完之后，第二轮通过<code>send()</code>传值进去，传到<code>se</code>那里，打印出来 100。</p>
-<p>然后再往上返回一个数据，又暂停，返回第二条数据就是个 2。</p>
-<p><strong>第三轮：</strong> 通过<code>next()</code>再去生成一条元素，又触发了<code>yield i</code>这个地方，这里释放了，往后面走，往后面走的话，但是没有放数据进来，这个时候<code>se</code>是空的，打印出来的<code>se</code>是空的。</p>
-<p>然后再往上，生成一条元素到 3，然后又停在<code>yield i</code>这个地方了，生成完元素，把这个值返回出去。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i  in range(1,5):
-        se = yield i
-        print('se的值：',se)
-
-g = gen()
-print(next(g))
-print(g.send(100))
-print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217194529.png"></p>
-<p>再次<code>next()</code>或者<code>send()</code>来触发它的时候，它会这样走：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217195737.png"></p>
-<p><strong>注意：</strong> <code>yield</code>接收不是存在<code>i</code>中，这个<code>yield</code>返回出来的<code>i</code>是遍历出来的内容。</p>
-<p><code>send()</code>发进去的，是<code>yield i</code>这里运行完毕之后，当下一个<code>send()</code>触发的时候，它把这个值发送到<code>yield i</code>这里运行完毕之后的一个结果。</p>
-<p><code>yield i</code>这里把这个<code>i</code>返回出去，就停在这里不动了。<code>send()</code>发送个数据进去，那么数据就发送到个<code>yield i</code>这地方。</p>
-<p>相当于<code>yield i</code>这个地方返回的一个结果，也就是<code>send()</code>发进去的内容，如果<code>send()</code>不发进去内容，返回出来是个空的。</p>
-<p><strong>温馨提示：</strong><code>生成器&lt;迭代器&lt;可迭代对象</code></p>
+fun<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span></code></pre>
+<p>任何递归函数，它的原理都是一样的。定义一个递归函数，在递归函数里面它其实就是不断得调用自身，然后设置递归函数的时候，一定不能忘了递归条件。</p>
+<h3 id="6-斐波那契数列"><a href="#6-斐波那契数列" class="headerlink" title="6.斐波那契数列"></a>6.斐波那契数列</h3><p><strong>后面的数都是等于前 2 个数相加的结果。</strong></p>
+<p>斐波那契数列的第一个数值是 1，第二个数值也是个 1，第三个数等于前两个数相加的结果（那就是 2），第四个数等于于前两个数相加的结果（那就是 3）。</p>
+<p><code>[1,1,2,3,5]</code></p>
+<p>以此类推。</p>
 <h2 id="三、系列推荐"><a href="#三、系列推荐" class="headerlink" title="三、系列推荐"></a>三、系列推荐</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/aXKYIZ8K4f7dWOfCQCDBXg">测开入门篇《环境管理、编码规范、项目结构》</a></li>
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/6bKgDRYONbM9V8vUxCH0ug">数据类型· 第 1 篇《元组和列表的性能分析、命名元组》</a></li>
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/baCQFwWwR8KbXkFYBsLaJA">数据类型第 2 篇「字典和集合的原理和应用」</a></li>
 <li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/McgUcQxjujBILR9QtzJ95w">测开之数据类型· 第 3 篇《列表推导式、字典推导式、2 种方式创建生成器》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yCifHeeN6DbXNXazr_pFRQ">《Web 自动化》基础知识脑图</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/drShVcnZJQRMoOPF_ReS2g">测开之数据类型· 第 4 篇《迭代器、生成器》</a></li>
 </ul>
 <hr>
-<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 109+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217211840.png"></p>
+<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 110+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220161356.jpg"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
                 
@@ -681,7 +724,7 @@ print(next(g))</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/19/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">http://example.com/2020/12/19/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/</a>
+                    <a href="http://example.com/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/">http://example.com/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -890,9 +933,10 @@ print(next(g))</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/">
                     <div class="card-image">
@@ -910,9 +954,9 @@ print(next(g))</code></pre>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-21
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -921,6 +965,7 @@ print(next(g))</code></pre>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -939,13 +984,13 @@ print(next(g))</code></pre>
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/18/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%812%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">
+                <a href="/2020/12/19/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="测开之数据类型· 第4篇《迭代器、生成器》">
                         
-                        <span class="card-title">测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》</span>
+                        <span class="card-title">测开之数据类型· 第4篇《迭代器、生成器》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -956,7 +1001,7 @@ print(next(g))</code></pre>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
                             </span>
                         <span class="publish-author">
                             
