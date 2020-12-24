@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="测开之函数进阶· 第1篇《递归函数》, 清菡的主页">
+    <meta name="keywords" content="测开之函数进阶· 第2篇《纯函数》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>测开之函数进阶· 第1篇《递归函数》 | 清菡的主页</title>
+    <title>测开之函数进阶· 第2篇《纯函数》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">测开之函数进阶· 第1篇《递归函数》</h1>
+                    <h1 class="description center-align post-title">测开之函数进阶· 第2篇《纯函数》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-21
+                    2020-12-22
                 </div>
                 
 
@@ -468,213 +468,27 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220162312.png"></p>
-<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
+                <h3 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201222145159.png"></p>
+<p>作者：清菡<br/><br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <blockquote>
 <p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
 </blockquote>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、往期回顾<ul>
-<li>1.生成器代码详解</li>
-<li>2.生成器的三个方法</li>
+<li>一、纯函数的概念<ul>
+<li>1.纯函数</li>
+<li>2.非纯函数</li>
+<li>3.纯函数：相同的输入保证相同的输出</li>
+<li>4.纯函数和非纯函数对比</li>
 </ul>
 </li>
-<li>二、递归函数<ul>
-<li>1.什么是递归函数</li>
-<li>2.递归函数调用原理图</li>
-<li>3.递归边界</li>
-<li>4.通过递归函数实现的任意数的阶乘</li>
-<li>5.这个递归函数的递归临界点在哪？</li>
-<li>6.斐波那契数列</li>
+<li>二、纯函数的 3 个原则</li>
+<li>三、函数的副作用</li>
+<li>四、Python 中的内置函数</li>
 </ul>
-</li>
-<li>三、系列推荐</li>
-</ul>
-<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><h3 id="1-生成器代码详解"><a href="#1-生成器代码详解" class="headerlink" title="1.生成器代码详解"></a>1.生成器代码详解</h3><pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220113415.png"></p>
-<p>第一个<code>print(next(g))</code>打印的 0，就是生成器生成的元素。第二个<code>print(next(g))</code>打印的 1 也是生成器生成的元素，None 是<code>print(j)</code>打印的<code>j</code>。</p>
-<p>通过生成器获取元素的时候，首先生成器进去的话，当调用生成器获取里面的值，它会从上往下走，走到<code>j = yield i</code>这里，把<code>yield</code>这里的<code>i</code>这个值返回出来，调用完<code>gen()</code>返回一个生成器<code>g</code>。</p>
-<p>通过这个生成器<code>next(g)</code>去拿值的时候，然后它从上往下执行代码，走到<code>j = yield i</code>这里，<code>yield</code>相当于把<code>i</code>，通过<code>yield</code>返回出去。</p>
-<p>从生成器里面返回出来，就生成一个数据。生成这个<code>i</code>，到第一个<code>print(next(g))</code>这里，打印的就是<code>i</code>。</p>
-<p>第二个<code>print(next(g))</code>，再用<code>next()</code>调用生成器的时候，那么这个生成器会从<code>yield</code>之后继续往下执行。</p>
-<p>通过<code>next()</code>去触发生成器的时候，<code>yield</code>之后是没有内容的，<code>j</code>接收的就是空的，所以打印<code>j</code>的时候，打印出来的是个<code>None</code>。</p>
-<h3 id="2-生成器的三个方法"><a href="#2-生成器的三个方法" class="headerlink" title="2.生成器的三个方法"></a>2.生成器的三个方法</h3><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
-
-def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(g.send(100))
-print(next(g))
-print(next(g))</code></pre>
-<p>运行后报错：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220115752.png"></p>
-<p>生成器的<code>send()</code>方法，它运行的时候会从上一个<code>yield</code>结束的地方来进行运行。</p>
-<p>在这里只创建了<code>gen()</code>这个生成器，这个生成器还没有生成过任何数据，这个时候生成器就暂停在函数最开始的地方<code>def gen():</code>这里。</p>
-<p>这里<code>send(100)</code>这个值进去的话，在这里运行，直接运行<code>for i in range(5):</code>这个语句，<code>send(100)</code>生成进去的这个值没有地方接收，所以报错了。</p>
-<p><strong><code>send()</code>必须在调用了一次<code>next()</code>之后才调用。可以和<code>next()</code>一样，去获取生成器里面的内容。</strong></p>
-<h4 id="2-1next-获取生成器里面的内容："><a href="#2-1next-获取生成器里面的内容：" class="headerlink" title="2.1next()获取生成器里面的内容："></a>2.1<code>next()</code>获取生成器里面的内容：</h4><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
-
-def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-print(next(g))
-# print(g.send(100))
-
-</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220121125.png"></p>
-<h4 id="2-2send-在调用了一次next-之后调用，获取生成器里面的内容："><a href="#2-2send-在调用了一次next-之后调用，获取生成器里面的内容：" class="headerlink" title="2.2send()在调用了一次next()之后调用，获取生成器里面的内容："></a>2.2<code>send()</code>在调用了一次<code>next()</code>之后调用，获取生成器里面的内容：</h4><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
-
-def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-print(g.send(100))
-# print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220120838.png"></p>
-<p><strong><code>yield</code>只能在函数里面用。</strong><code>yield</code>关键字是用在创建生成器的时候，只要函数里面使用了<code>yield</code>关键字，在调用函数的时候，函数不会立马被执行。</p>
-<p>因为这个函数不是简单的函数了，它是个生成器。</p>
-<p>在函数外面，是没办法用<code>yield</code>关键字的。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220121948.png"></p>
-<h4 id="2-3close-关闭生成器"><a href="#2-3close-关闭生成器" class="headerlink" title="2.3close():关闭生成器"></a>2.3<code>close()</code>:关闭生成器</h4><pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-yield 100
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-# print(next(g))
-# print(g.send(100))
-
-# close:关闭生成器
-g.close()
-print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220124019.png"></p>
-<h4 id="2-4throw-方法：在生成器内部主动引发一个异常。参数：1-异常类型。2-异常信息。"><a href="#2-4throw-方法：在生成器内部主动引发一个异常。参数：1-异常类型。2-异常信息。" class="headerlink" title="2.4throw()方法：在生成器内部主动引发一个异常。参数：1.异常类型。2.异常信息。"></a>2.4<code>throw()</code>方法：在生成器内部主动引发一个异常。参数：1.异常类型。2.异常信息。</h4><p>这个方法可以接收 2 个参数，第一个参数：<code>Exception</code> 异常类型。第二个参数：传入异常的信息。</p>
-<p>Exception 报错：</p>
-<p><code>g.throw(Exception,&quot;Method throw called!&quot;)</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220125434.png"></p>
-<p>ValueError：</p>
-<p><code>g.throw(ValueError,&quot;清菡，大事不好，报错了，嘤嘤嘤~&quot;)</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220125556.png"></p>
-<h2 id="二、递归函数"><a href="#二、递归函数" class="headerlink" title="二、递归函数"></a>二、递归函数</h2><h3 id="1-什么是递归函数"><a href="#1-什么是递归函数" class="headerlink" title="1.什么是递归函数"></a>1.什么是递归函数</h3><p><strong>在函数中调用函数自身，我们把这样的函数叫做递归函数。</strong></p>
-<h3 id="2-递归函数调用原理图"><a href="#2-递归函数调用原理图" class="headerlink" title="2.递归函数调用原理图"></a>2.递归函数调用原理图</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220154308.png" alt="递归函数调用自身的图，图片来自网络"></p>
-<h3 id="3-递归边界"><a href="#3-递归边界" class="headerlink" title="3.递归边界"></a>3.递归边界</h3><p>递归边界：<strong>退出递归的终止条件。</strong></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def func():
-    print('99999')
-    func()
-
-func()</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220132818.png"></p>
-<p>在外面调用函数，直接陷入一个死循环。在函数内部调用<code>func()</code>这个函数，又到<code>def func():</code>这里来执行，然后<code>print(&#39;99999&#39;)</code>，又<code>func()</code>调用。</p>
-<p>不断得自身调用，这样就造成了死循环。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220133811.png"></p>
-<p><strong>Pycharm 有个检测机制：</strong> 当它内部检测到这个是个无限递归，没有递归临界点的一个递归函数，那么这个时候，它递归多少次之后，会自动给终止了。</p>
-<p>使用递归函数的时候，一定要注意一个点：<strong>就是一定要设置递归的边界。递归的边界就是递归函数的终止条件。</strong></p>
-<p>如果你不设置递归边界，那么你定义的递归函数就是个死循环，一直无限得调用自身。</p>
-<h3 id="4-通过递归函数实现的任意数的阶乘"><a href="#4-通过递归函数实现的任意数的阶乘" class="headerlink" title="4.通过递归函数实现的任意数的阶乘"></a>4.通过递归函数实现的任意数的阶乘</h3><h4 id="4-1-什么是阶乘？"><a href="#4-1-什么是阶乘？" class="headerlink" title="4.1 什么是阶乘？"></a>4.1 什么是阶乘？</h4><table>
-<thead>
-<tr>
-<th>1 的阶乘</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2 的阶乘</td>
-<td>1 *2</td>
-</tr>
-<tr>
-<td>3 的阶乘</td>
-<td>1*  2 * 3</td>
-</tr>
-<tr>
-<td>4 的阶乘</td>
-<td>1 *  2 * 3 *  4</td>
-</tr>
-</tbody></table>
-<p>递归能实现的，通过循环都能实现。</p>
-<p>Python 中递归用得不多，不太建议使用递归，因为递归不太好用，用递归还不如用循环。</p>
-<h4 id="4-2-怎么去算阶乘呢？"><a href="#4-2-怎么去算阶乘呢？" class="headerlink" title="4.2 怎么去算阶乘呢？"></a>4.2 怎么去算阶乘呢？</h4><p>定义个函数，算任意数的阶乘。传 1，就算 1 的阶乘，传 10 就算 10 的阶乘。</p>
-<p><strong>可以这样做：</strong></p>
-<p>首先要判断下它传进来的这个参数是不是等于 1，如果是等于 1 的话，就直接给它<code>return</code>返回出去。然后，如果它不等于 1 的话，就返回<code>return n * (n-1)*(n-2)</code>。</p>
-<p>n 传进来是 1，那应该返回 1；如果传的是 2，应该返回<code>return n * (n-1)</code>。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220141705.png"></p>
-<p>如果在这里用递归函数，调用<code>func(1)</code>。那么这个时候，这个<code>func(1)</code>调用递归函数。</p>
-<p><code>这个函数返回的是什么？</code></p>
-<p>调用这段代码:</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 1:
-        return 1</code></pre>
-<p>返回的是个 1。</p>
-<p>将代码修改成如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">1</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> n <span class="token operator">*</span> fun<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span>
-
-fun<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
-<p>如果是<code>fun(3)</code>,3 传进来:</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
-    if n == 1:
-        return 1</code></pre>
-<p>肯定是不成立的。</p>
-<p><code>else</code>后面的代码<code>return n * fun(n-1)</code>。</p>
-<p>这里的 n 是个 3，<code>fun(n-1)</code>就是<code>fun(2)</code>，那么就是<code>3 * fun(2)</code>。</p>
-<p>这个时候会再次调用自身这个函数：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220143534.png"></p>
-<p><code>这个时候 n 是什么？</code></p>
-<p><code>fun(2)</code>的时候 n 是个 2，就是<code>3 *2* fun(1)</code>。 <code>fun(1)</code>再执行下，出来的结果是个 1。那这里就是个 1,就是<code>3*2*1</code>。</p>
-<p>等于 3 的时候，返回的结果就是<code>3*2*1</code>。</p>
-<h4 id="4-3-改成fun-4-看看："><a href="#4-3-改成fun-4-看看：" class="headerlink" title="4.3 改成fun(4)看看："></a>4.3 改成<code>fun(4)</code>看看：</h4><p>首先 4 进来，n 等于 4，<code>fun(n-1)</code>就是<code>fun(3)</code>。调用<code>fun(3)</code>就相当于再次调用<code>fun(n)</code>，就是<code>4 *3* fun(2)</code>。</p>
-<p>再次调用<code>fun(2)</code>，再进来，前面<code>return n * fun(n-1)</code>这一截得到 2，<code>fun(3-1)</code>得到 2，所以最终得到<code>4*3*2* fun(1)</code>。</p>
-<p><code>fun(1)</code>调用，结果出来就是个 1。就是<code>4*3*2*1</code>。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
-    if n == 1:
-        return 1
-    else:
-        return n * fun(n-1) # 4 *3*2*1
-
-fun(4)</code></pre>
-<h3 id="5-这个递归函数的递归临界点在哪？"><a href="#5-这个递归函数的递归临界点在哪？" class="headerlink" title="5.这个递归函数的递归临界点在哪？"></a>5.这个递归函数的递归临界点在哪？</h3><pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 1:
-        return 1</code></pre>
-<p>当<code>n=1</code>的时候就不会调用自身了。当满足某个条件，不再调用自身，那么这个就被称为递归临界点。</p>
-<p>例如改成<code>n==-1</code></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"> if n == -1:
-        return 1</code></pre>
-<p><code>这个时候，这个函数的递归临界点在哪？</code></p>
-<p>这个递归临界点就是<code>-1</code>。</p>
+<p>重点需要记住纯函数的概念和函数的副作用，面试会问，哈哈。</p>
+<h2 id="一、纯函数的概念"><a href="#一、纯函数的概念" class="headerlink" title="一、纯函数的概念"></a>一、纯函数的概念</h2><p>一个函数的返回结果只依赖于它的参数，并且在执行过程里面没有副作用，我们就把这个函数叫做纯函数。</p>
+<p>纯函数不是特定的语法，不是特定的功能，它只是一个概念。就是一个函数使用的时候的一种规则。</p>
+<h3 id="1-纯函数"><a href="#1-纯函数" class="headerlink" title="1.纯函数"></a>1.纯函数</h3><p>虽然这是个递归函数，它也是纯函数的一种：</p>
 <pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token comment" spellcheck="true"># 递归临界点：当达到递归临界点的时候，就不再调用自身函数的条件</span>
         <span class="token keyword">return</span> <span class="token number">1</span>
@@ -682,21 +496,100 @@ fun(4)</code></pre>
         <span class="token keyword">return</span> n <span class="token operator">*</span> fun<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 4 *3*2*1</span>
 
 fun<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span></code></pre>
-<p>任何递归函数，它的原理都是一样的。定义一个递归函数，在递归函数里面它其实就是不断得调用自身，然后设置递归函数的时候，一定不能忘了递归条件。</p>
-<h3 id="6-斐波那契数列"><a href="#6-斐波那契数列" class="headerlink" title="6.斐波那契数列"></a>6.斐波那契数列</h3><p><strong>后面的数都是等于前 2 个数相加的结果。</strong></p>
-<p>斐波那契数列的第一个数值是 1，第二个数值也是个 1，第三个数等于前两个数相加的结果（那就是 2），第四个数等于于前两个数相加的结果（那就是 3）。</p>
-<p><code>[1,1,2,3,5]</code></p>
-<p>以此类推。</p>
-<h2 id="三、系列推荐"><a href="#三、系列推荐" class="headerlink" title="三、系列推荐"></a>三、系列推荐</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/aXKYIZ8K4f7dWOfCQCDBXg">测开入门篇《环境管理、编码规范、项目结构》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/6bKgDRYONbM9V8vUxCH0ug">数据类型· 第 1 篇《元组和列表的性能分析、命名元组》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/baCQFwWwR8KbXkFYBsLaJA">数据类型第 2 篇「字典和集合的原理和应用」</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/McgUcQxjujBILR9QtzJ95w">测开之数据类型· 第 3 篇《列表推导式、字典推导式、2 种方式创建生成器》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/drShVcnZJQRMoOPF_ReS2g">测开之数据类型· 第 4 篇《迭代器、生成器》</a></li>
-</ul>
+<h3 id="2-非纯函数"><a href="#2-非纯函数" class="headerlink" title="2.非纯函数"></a>2.非纯函数</h3><p>函数里面进行一系列计算，它返回的结果是根据传入的数据相关。不再依赖于任何的其它数据，比如定义个<code>a = 100</code>，那么在：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 0:# 递归临界点：当达到递归临界点的时候，就不再调用自身函数的条件
+        return 1
+    else:
+        return n * fun(n-1) # 4 *3*2*1</code></pre>
+<p>这段代码，也就是纯函数里面用到了外面的变量：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">a = 100
+def fun(n):
+    print(a)
+    if n == 0:# 递归临界点：当达到递归临界点的时候，就不再调用自身函数的条件
+        return 1
+    else:
+        return n * fun(n-1) # 4 *3*2*1
+
+fun(4)</code></pre>
+<p>那这种函数就不再叫做纯函数了。<code>print(a)</code>因为它对外部变量有引用。</p>
+<h3 id="3-纯函数：相同的输入保证相同的输出"><a href="#3-纯函数：相同的输入保证相同的输出" class="headerlink" title="3.纯函数：相同的输入保证相同的输出"></a>3.纯函数：相同的输入保证相同的输出</h3><p>纯函数不会引用外部的变量，它调用的结果只对你传入进去的参数<code>fun(4)</code>有关。</p>
+<p>例如：</p>
+<p>定义<code>a=100</code>，<code>return a</code>返回一个 a，传入参数<code>i</code>，<code>def func(i):</code>。</p>
+<p><code>这个时候调用这个函数，传进去的参数跟它的返回值有关吗？</code></p>
+<p>这个函数和它的返回值没有关系。传进去的<code>func(10)</code>，不管传什么，不会影响返回值<code>return a</code>。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">a = 100
+def func(i):
+    print('99999')
+    print(i)
+    return a
+
+func(10)</code></pre>
+<p>纯函数是传进去的参数是什么，返回的结果只跟你的参数有关。</p>
+<p><strong>纯函数：不管在什么时候调用（不管在哪里调用），传入的参数相同，返回的结果就一定是一样的。</strong></p>
+<p>例如：</p>
+<p>这个函数，调用的时候传个 10 进去，它返回的时候应该是多少呢？</p>
+<p>它返回的结果是 110。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">a = 100
+def func(i):
+    i = i + a
+    return i
+
+res = func(10)
+print(res)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201222124321.png"></p>
+<p>在下面对 a 进行修改，对 a 再赋个值：</p>
+<p><code>a = a+1111</code></p>
+<p>那么这个时候，a 的值肯定发生变化了。这个时候在这里再调用函数，再传入 10，<code>func(10)</code>。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">
+a = 100
+def func(i):
+    i = i + a
+    return i
+
+res = func(10)
+print(res)
+
+a = a+1111
+res2 = func(10)
+print(res2)</code></pre>
+<p>同样调用的是同一个函数，传入的参数都是相同的<code>func(10)</code>，但是拿到的返回值却不是相同的。</p>
+<p>像这种函数，它会受外部环境变量的影响，那么这种函数不能称为纯函数。</p>
+<h3 id="4-纯函数和非纯函数对比"><a href="#4-纯函数和非纯函数对比" class="headerlink" title="4.纯函数和非纯函数对比"></a>4.纯函数和非纯函数对比</h3><pre class=" language-PYTHON"><code class="language-PYTHON"># 函数func1返回的结果为两个参数相加的结果
+
+def func1(a,b):
+    return a + b
+
+
+var1=100
+#函数func2返回的结果为参数a和外部变量var1相加的结果
+def func2(a):
+    return var1+a
+
+
+#在上面两个案例中func1返回的结果只受传入的参数的影响，而func2不仅
+# 受传入参数的影响还会受外部变量var1的影响，像func1这样的返回值只跟
+#传入参数有关的函数，我们把它叫做纯函数。</code></pre>
+<h2 id="二、纯函数的-3-个原则"><a href="#二、纯函数的-3-个原则" class="headerlink" title="二、纯函数的 3 个原则"></a>二、纯函数的 3 个原则</h2><p>原则一：变量都只在函数作用域内获取，作为的函数的参数传入。</p>
+<p>原则二：不会产生副作用，不会改变被传入的数据或者其它数据（全局变量）。</p>
+<p>原则三：相同的输入保证相同的输出。</p>
+<p>解释原则一：</p>
+<p>纯函数的变量只在函数的作用域内获得，<strong>也就是说纯函数里面要么使用的是函数内部定义的，要么使用的是传进来的参数，不会再使用其它任何的变量了。</strong></p>
+<p>解释原则二：</p>
+<p>纯函数是不会产生副作用的。</p>
+<p>解释原则三：</p>
+<p>任何时候调用，只要你传入的参数是相同的，它给你返回的结果都是一样的。</p>
+<h2 id="三、函数的副作用"><a href="#三、函数的副作用" class="headerlink" title="三、函数的副作用"></a>三、函数的副作用</h2><p>函数的副作用就是当函数被调用的时候，既完成了（函数既定的计算任务）函数相关的功能，在完成函数相关功能的时候，你这个函数访问了外部变量，尤其是对外部的数据进行了写操作。</p>
+<p>比如在函数内部用到了外面的列表，在这里面还往列表里面加了个元素。这个时候修改了全局变量，造成外部环境发生了改变。这种就叫做函数的副作用。</p>
+<h2 id="四、Python-中的内置函数"><a href="#四、Python-中的内置函数" class="headerlink" title="四、Python 中的内置函数"></a>四、Python 中的内置函数</h2><p><strong>内置函数：</strong> <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.7/library/functions.html">https://docs.python.org/zh-cn/3.7/library/functions.html</a></p>
+<p>Python 中的内置函数包含的不仅仅是内置函数还有很多的内置类型。</p>
+<p>虽然内置类型是个类，不是函数。Python 官方也把内置类型归纳在内置函数里面，把它称为内置函数。</p>
+<p><code>str()</code>底层是个类，但是 Python 官方是把它归纳在内置函数里面的。</p>
+<p>不管什么时候调用内置函数，内置函数返回的结果只跟传入的参数相关，任何时候传进去的参数是一样的，那么内置函数返回的结果都是一样的。</p>
+<p>内置函数是没有副作用的，全部是属于纯函数的一种，都是属于纯函数。</p>
+<p><code>str()</code>不是个函数，其实是个类。虽然算个内置函数，但是不能称为纯函数。</p>
 <hr>
-<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 110+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220161356.jpg"></p>
+<p>公众号 <strong>清菡软件测试</strong> 首发，更多原创文章：清菡软件测试 111+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201222141104.jpg"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
                 
@@ -724,7 +617,7 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/">http://example.com/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/</a>
+                    <a href="http://example.com/2020/12/22/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC2%E7%AF%87%E3%80%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E3%80%8B/">http://example.com/2020/12/22/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC2%E7%AF%87%E3%80%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -937,13 +830,13 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/12/22/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC2%E7%AF%87%E3%80%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E3%80%8B/">
+                <a href="/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="测开之函数进阶· 第2篇《纯函数》">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》">
                         
-                        <span class="card-title">测开之函数进阶· 第2篇《纯函数》</span>
+                        <span class="card-title">函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -954,7 +847,7 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-24
                         </span>
                         <span class="publish-author">
                             
@@ -982,13 +875,13 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/19/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">
+                <a href="/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="测开之数据类型· 第4篇《迭代器、生成器》">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="测开之函数进阶· 第1篇《递归函数》">
                         
-                        <span class="card-title">测开之数据类型· 第4篇《迭代器、生成器》</span>
+                        <span class="card-title">测开之函数进阶· 第1篇《递归函数》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -999,7 +892,7 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-21
                             </span>
                         <span class="publish-author">
                             

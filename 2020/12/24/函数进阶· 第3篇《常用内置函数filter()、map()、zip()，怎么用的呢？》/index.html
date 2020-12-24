@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="测开之函数进阶· 第1篇《递归函数》, 清菡的主页">
+    <meta name="keywords" content="函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>测开之函数进阶· 第1篇《递归函数》 | 清菡的主页</title>
+    <title>函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">测开之函数进阶· 第1篇《递归函数》</h1>
+                    <h1 class="description center-align post-title">函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-21
+                    2020-12-24
                 </div>
                 
 
@@ -468,235 +468,229 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220162312.png"></p>
-<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
+                <h3 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224165601.png"></p>
+<p>作者：清菡<br/><br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <blockquote>
 <p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
 </blockquote>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、往期回顾<ul>
-<li>1.生成器代码详解</li>
-<li>2.生成器的三个方法</li>
+<li>一、filter()函数<ul>
+<li>1.filter()过滤序列</li>
+<li>2.生成器、迭代器都是可迭代对象</li>
 </ul>
 </li>
-<li>二、递归函数<ul>
-<li>1.什么是递归函数</li>
-<li>2.递归函数调用原理图</li>
-<li>3.递归边界</li>
-<li>4.通过递归函数实现的任意数的阶乘</li>
-<li>5.这个递归函数的递归临界点在哪？</li>
-<li>6.斐波那契数列</li>
+<li>二、map()函数</li>
+<li>三、zip()函数<ul>
+<li>1.什么是 zip()函数</li>
+<li>2.zip()可以快速创建字典</li>
 </ul>
 </li>
-<li>三、系列推荐</li>
 </ul>
-<h2 id="一、往期回顾"><a href="#一、往期回顾" class="headerlink" title="一、往期回顾"></a>一、往期回顾</h2><h3 id="1-生成器代码详解"><a href="#1-生成器代码详解" class="headerlink" title="1.生成器代码详解"></a>1.生成器代码详解</h3><pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220113415.png"></p>
-<p>第一个<code>print(next(g))</code>打印的 0，就是生成器生成的元素。第二个<code>print(next(g))</code>打印的 1 也是生成器生成的元素，None 是<code>print(j)</code>打印的<code>j</code>。</p>
-<p>通过生成器获取元素的时候，首先生成器进去的话，当调用生成器获取里面的值，它会从上往下走，走到<code>j = yield i</code>这里，把<code>yield</code>这里的<code>i</code>这个值返回出来，调用完<code>gen()</code>返回一个生成器<code>g</code>。</p>
-<p>通过这个生成器<code>next(g)</code>去拿值的时候，然后它从上往下执行代码，走到<code>j = yield i</code>这里，<code>yield</code>相当于把<code>i</code>，通过<code>yield</code>返回出去。</p>
-<p>从生成器里面返回出来，就生成一个数据。生成这个<code>i</code>，到第一个<code>print(next(g))</code>这里，打印的就是<code>i</code>。</p>
-<p>第二个<code>print(next(g))</code>，再用<code>next()</code>调用生成器的时候，那么这个生成器会从<code>yield</code>之后继续往下执行。</p>
-<p>通过<code>next()</code>去触发生成器的时候，<code>yield</code>之后是没有内容的，<code>j</code>接收的就是空的，所以打印<code>j</code>的时候，打印出来的是个<code>None</code>。</p>
-<h3 id="2-生成器的三个方法"><a href="#2-生成器的三个方法" class="headerlink" title="2.生成器的三个方法"></a>2.生成器的三个方法</h3><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
-
-def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(g.send(100))
-print(next(g))
-print(next(g))</code></pre>
-<p>运行后报错：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220115752.png"></p>
-<p>生成器的<code>send()</code>方法，它运行的时候会从上一个<code>yield</code>结束的地方来进行运行。</p>
-<p>在这里只创建了<code>gen()</code>这个生成器，这个生成器还没有生成过任何数据，这个时候生成器就暂停在函数最开始的地方<code>def gen():</code>这里。</p>
-<p>这里<code>send(100)</code>这个值进去的话，在这里运行，直接运行<code>for i in range(5):</code>这个语句，<code>send(100)</code>生成进去的这个值没有地方接收，所以报错了。</p>
-<p><strong><code>send()</code>必须在调用了一次<code>next()</code>之后才调用。可以和<code>next()</code>一样，去获取生成器里面的内容。</strong></p>
-<h4 id="2-1next-获取生成器里面的内容："><a href="#2-1next-获取生成器里面的内容：" class="headerlink" title="2.1next()获取生成器里面的内容："></a>2.1<code>next()</code>获取生成器里面的内容：</h4><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
-
-def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-print(next(g))
-# print(g.send(100))
-
-</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220121125.png"></p>
-<h4 id="2-2send-在调用了一次next-之后调用，获取生成器里面的内容："><a href="#2-2send-在调用了一次next-之后调用，获取生成器里面的内容：" class="headerlink" title="2.2send()在调用了一次next()之后调用，获取生成器里面的内容："></a>2.2<code>send()</code>在调用了一次<code>next()</code>之后调用，获取生成器里面的内容：</h4><pre class=" language-PYTHON"><code class="language-PYTHON"># 生成器的三个方法： send  close  throw
-
-def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-print(g.send(100))
-# print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220120838.png"></p>
-<p><strong><code>yield</code>只能在函数里面用。</strong><code>yield</code>关键字是用在创建生成器的时候，只要函数里面使用了<code>yield</code>关键字，在调用函数的时候，函数不会立马被执行。</p>
-<p>因为这个函数不是简单的函数了，它是个生成器。</p>
-<p>在函数外面，是没办法用<code>yield</code>关键字的。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220121948.png"></p>
-<h4 id="2-3close-关闭生成器"><a href="#2-3close-关闭生成器" class="headerlink" title="2.3close():关闭生成器"></a>2.3<code>close()</code>:关闭生成器</h4><pre class=" language-PYTHON"><code class="language-PYTHON">def gen():
-    for i in range(5):
-        j = yield i
-        print(j)
-
-yield 100
-
-# send:与生成器进行交互
-g = gen()
-
-print(next(g))
-# print(next(g))
-# print(g.send(100))
-
-# close:关闭生成器
-g.close()
-print(next(g))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220124019.png"></p>
-<h4 id="2-4throw-方法：在生成器内部主动引发一个异常。参数：1-异常类型。2-异常信息。"><a href="#2-4throw-方法：在生成器内部主动引发一个异常。参数：1-异常类型。2-异常信息。" class="headerlink" title="2.4throw()方法：在生成器内部主动引发一个异常。参数：1.异常类型。2.异常信息。"></a>2.4<code>throw()</code>方法：在生成器内部主动引发一个异常。参数：1.异常类型。2.异常信息。</h4><p>这个方法可以接收 2 个参数，第一个参数：<code>Exception</code> 异常类型。第二个参数：传入异常的信息。</p>
-<p>Exception 报错：</p>
-<p><code>g.throw(Exception,&quot;Method throw called!&quot;)</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220125434.png"></p>
-<p>ValueError：</p>
-<p><code>g.throw(ValueError,&quot;清菡，大事不好，报错了，嘤嘤嘤~&quot;)</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220125556.png"></p>
-<h2 id="二、递归函数"><a href="#二、递归函数" class="headerlink" title="二、递归函数"></a>二、递归函数</h2><h3 id="1-什么是递归函数"><a href="#1-什么是递归函数" class="headerlink" title="1.什么是递归函数"></a>1.什么是递归函数</h3><p><strong>在函数中调用函数自身，我们把这样的函数叫做递归函数。</strong></p>
-<h3 id="2-递归函数调用原理图"><a href="#2-递归函数调用原理图" class="headerlink" title="2.递归函数调用原理图"></a>2.递归函数调用原理图</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220154308.png" alt="递归函数调用自身的图，图片来自网络"></p>
-<h3 id="3-递归边界"><a href="#3-递归边界" class="headerlink" title="3.递归边界"></a>3.递归边界</h3><p>递归边界：<strong>退出递归的终止条件。</strong></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def func():
-    print('99999')
-    func()
-
-func()</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220132818.png"></p>
-<p>在外面调用函数，直接陷入一个死循环。在函数内部调用<code>func()</code>这个函数，又到<code>def func():</code>这里来执行，然后<code>print(&#39;99999&#39;)</code>，又<code>func()</code>调用。</p>
-<p>不断得自身调用，这样就造成了死循环。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220133811.png"></p>
-<p><strong>Pycharm 有个检测机制：</strong> 当它内部检测到这个是个无限递归，没有递归临界点的一个递归函数，那么这个时候，它递归多少次之后，会自动给终止了。</p>
-<p>使用递归函数的时候，一定要注意一个点：<strong>就是一定要设置递归的边界。递归的边界就是递归函数的终止条件。</strong></p>
-<p>如果你不设置递归边界，那么你定义的递归函数就是个死循环，一直无限得调用自身。</p>
-<h3 id="4-通过递归函数实现的任意数的阶乘"><a href="#4-通过递归函数实现的任意数的阶乘" class="headerlink" title="4.通过递归函数实现的任意数的阶乘"></a>4.通过递归函数实现的任意数的阶乘</h3><h4 id="4-1-什么是阶乘？"><a href="#4-1-什么是阶乘？" class="headerlink" title="4.1 什么是阶乘？"></a>4.1 什么是阶乘？</h4><table>
-<thead>
-<tr>
-<th>1 的阶乘</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2 的阶乘</td>
-<td>1 *2</td>
-</tr>
-<tr>
-<td>3 的阶乘</td>
-<td>1*  2 * 3</td>
-</tr>
-<tr>
-<td>4 的阶乘</td>
-<td>1 *  2 * 3 *  4</td>
-</tr>
-</tbody></table>
-<p>递归能实现的，通过循环都能实现。</p>
-<p>Python 中递归用得不多，不太建议使用递归，因为递归不太好用，用递归还不如用循环。</p>
-<h4 id="4-2-怎么去算阶乘呢？"><a href="#4-2-怎么去算阶乘呢？" class="headerlink" title="4.2 怎么去算阶乘呢？"></a>4.2 怎么去算阶乘呢？</h4><p>定义个函数，算任意数的阶乘。传 1，就算 1 的阶乘，传 10 就算 10 的阶乘。</p>
-<p><strong>可以这样做：</strong></p>
-<p>首先要判断下它传进来的这个参数是不是等于 1，如果是等于 1 的话，就直接给它<code>return</code>返回出去。然后，如果它不等于 1 的话，就返回<code>return n * (n-1)*(n-2)</code>。</p>
-<p>n 传进来是 1，那应该返回 1；如果传的是 2，应该返回<code>return n * (n-1)</code>。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220141705.png"></p>
-<p>如果在这里用递归函数，调用<code>func(1)</code>。那么这个时候，这个<code>func(1)</code>调用递归函数。</p>
-<p><code>这个函数返回的是什么？</code></p>
-<p>调用这段代码:</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 1:
-        return 1</code></pre>
-<p>返回的是个 1。</p>
-<p>将代码修改成如下：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token number">1</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> n <span class="token operator">*</span> fun<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span>
-
-fun<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span></code></pre>
-<p>如果是<code>fun(3)</code>,3 传进来:</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
-    if n == 1:
-        return 1</code></pre>
-<p>肯定是不成立的。</p>
-<p><code>else</code>后面的代码<code>return n * fun(n-1)</code>。</p>
-<p>这里的 n 是个 3，<code>fun(n-1)</code>就是<code>fun(2)</code>，那么就是<code>3 * fun(2)</code>。</p>
-<p>这个时候会再次调用自身这个函数：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220143534.png"></p>
-<p><code>这个时候 n 是什么？</code></p>
-<p><code>fun(2)</code>的时候 n 是个 2，就是<code>3 *2* fun(1)</code>。 <code>fun(1)</code>再执行下，出来的结果是个 1。那这里就是个 1,就是<code>3*2*1</code>。</p>
-<p>等于 3 的时候，返回的结果就是<code>3*2*1</code>。</p>
-<h4 id="4-3-改成fun-4-看看："><a href="#4-3-改成fun-4-看看：" class="headerlink" title="4.3 改成fun(4)看看："></a>4.3 改成<code>fun(4)</code>看看：</h4><p>首先 4 进来，n 等于 4，<code>fun(n-1)</code>就是<code>fun(3)</code>。调用<code>fun(3)</code>就相当于再次调用<code>fun(n)</code>，就是<code>4 *3* fun(2)</code>。</p>
-<p>再次调用<code>fun(2)</code>，再进来，前面<code>return n * fun(n-1)</code>这一截得到 2，<code>fun(3-1)</code>得到 2，所以最终得到<code>4*3*2* fun(1)</code>。</p>
-<p><code>fun(1)</code>调用，结果出来就是个 1。就是<code>4*3*2*1</code>。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
-    if n == 1:
-        return 1
-    else:
-        return n * fun(n-1) # 4 *3*2*1
-
-fun(4)</code></pre>
-<h3 id="5-这个递归函数的递归临界点在哪？"><a href="#5-这个递归函数的递归临界点在哪？" class="headerlink" title="5.这个递归函数的递归临界点在哪？"></a>5.这个递归函数的递归临界点在哪？</h3><pre class=" language-PYTHON"><code class="language-PYTHON">    if n == 1:
-        return 1</code></pre>
-<p>当<code>n=1</code>的时候就不会调用自身了。当满足某个条件，不再调用自身，那么这个就被称为递归临界点。</p>
-<p>例如改成<code>n==-1</code></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"> if n == -1:
-        return 1</code></pre>
-<p><code>这个时候，这个函数的递归临界点在哪？</code></p>
-<p>这个递归临界点就是<code>-1</code>。</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token comment" spellcheck="true"># 递归临界点：当达到递归临界点的时候，就不再调用自身函数的条件</span>
-        <span class="token keyword">return</span> <span class="token number">1</span>
-    <span class="token keyword">else</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> n <span class="token operator">*</span> fun<span class="token punctuation">(</span>n<span class="token number">-1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 4 *3*2*1</span>
-
-fun<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span></code></pre>
-<p>任何递归函数，它的原理都是一样的。定义一个递归函数，在递归函数里面它其实就是不断得调用自身，然后设置递归函数的时候，一定不能忘了递归条件。</p>
-<h3 id="6-斐波那契数列"><a href="#6-斐波那契数列" class="headerlink" title="6.斐波那契数列"></a>6.斐波那契数列</h3><p><strong>后面的数都是等于前 2 个数相加的结果。</strong></p>
-<p>斐波那契数列的第一个数值是 1，第二个数值也是个 1，第三个数等于前两个数相加的结果（那就是 2），第四个数等于于前两个数相加的结果（那就是 3）。</p>
-<p><code>[1,1,2,3,5]</code></p>
-<p>以此类推。</p>
-<h2 id="三、系列推荐"><a href="#三、系列推荐" class="headerlink" title="三、系列推荐"></a>三、系列推荐</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/aXKYIZ8K4f7dWOfCQCDBXg">测开入门篇《环境管理、编码规范、项目结构》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/6bKgDRYONbM9V8vUxCH0ug">数据类型· 第 1 篇《元组和列表的性能分析、命名元组》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/baCQFwWwR8KbXkFYBsLaJA">数据类型第 2 篇「字典和集合的原理和应用」</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/McgUcQxjujBILR9QtzJ95w">测开之数据类型· 第 3 篇《列表推导式、字典推导式、2 种方式创建生成器》</a></li>
-<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/drShVcnZJQRMoOPF_ReS2g">测开之数据类型· 第 4 篇《迭代器、生成器》</a></li>
+<p><strong>常用的内置函数：</strong></p>
+<ul>
+<li>map()函数：会根据提供的函数对指定序列做映射。</li>
+<li>filter()函数：函数用于过滤序列。</li>
+<li>zip()函数：函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组。</li>
 </ul>
+<h2 id="一、filter-函数"><a href="#一、filter-函数" class="headerlink" title="一、filter()函数"></a>一、filter()函数</h2><h3 id="1-filter-过滤序列"><a href="#1-filter-过滤序列" class="headerlink" title="1.filter()过滤序列"></a>1.filter()过滤序列</h3><p><strong>filter:过滤序列。第一参数是函数；第二参数是可迭代对象。</strong></p>
+<p>看看<code>filter()</code>这个内置函数的源码：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">class filter(object):
+    """
+    filter(function or None, iterable) --> filter object
+
+    Return an iterator yielding those items of iterable for which function(item)
+    is true. If function is None, return the items that are true.
+    """
+    def __getattribute__(self, *args, **kwargs): # real signature unknown
+        """ Return getattr(self, name). """
+        pass
+
+    def __init__(self, function_or_None, iterable): # real signature unknown; restored from __doc__
+        pass
+
+    def __iter__(self, *args, **kwargs): # real signature unknown
+        """ Implement iter(self). """
+        pass
+
+    @staticmethod # known case of __new__
+    def __new__(*args, **kwargs): # real signature unknown
+        """ Create and return a new object.  See help(type) for accurate signature. """
+        pass
+
+    def __next__(self, *args, **kwargs): # real signature unknown
+        """ Implement next(self). """
+        pass
+
+    def __reduce__(self, *args, **kwargs): # real signature unknown
+        """ Return state information for pickling. """
+        pass</code></pre>
+<p>看源码发现居然是个类。</p>
+<p><code>它接收到的是2个参数，2个参数在哪里看呢？</code></p>
+<p><code>__init__</code>方法里面看。既然是个类，调用的时候创建一个对象。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201222135731.png"></p>
+<p>Python 中的可迭代对象在一个模块里面。迭代器、生成器、可迭代对象都在这个模块里面。</p>
+<p><code>from collections import Iterator,Iterable,Generator</code></p>
+<p>生成器属于迭代器，生成器是可迭代对象。</p>
+<p>列表是个可迭代对象。<code>filter()</code>这个内置函数传 2 个参数后，会返回出一个对象。</p>
+<p>看<code>filter()</code>源码可以看出它是个类，调用它给它传参，类返回的结果肯定是个对象。</p>
+<p><code>filter()</code>的作用是过滤，它会进行迭代操作。</p>
+<p>它会把后面传入的可迭代对象，里面的元素全部遍历一遍。然后把遍历出来的元素当作参数传到这个<code>fun</code>函数里面。</p>
+<p>当前这个<code>fun()</code>函数没有定义参数，这个时候运行看看：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 内置函数
+def fun():
+    pass
+
+li = [1,2,122,331,11,22,33,4,6,7,2,88,31]
+
+res=filter(fun,li)
+print(list(res))</code></pre>
+<p>返回列表的时候报错了，<code>fun()</code>需要 0 个参数，但是这里给了一个参数：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224130742.png"></p>
+<p>当我们把它转换成列表的时候，在这里传进去，它会返回一个对象，这个对象里有一个函数，还有个可迭代对象<code>filter(fun,li)</code>。</p>
+<p>使用<code>filter()</code>传出来的数据也是个迭代器。它也是个可迭代对象，就可以通过<code>list</code>把它转换成列表。</p>
+<p>当你转换的时候，它会把第一个参数拿到，传到<code>fun()</code>里面去，会自动传参的。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224131730.png"></p>
+<p>加个参数，再运行：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 内置函数
+def fun(n):
+    pass
+
+li = [1,2,122,331,11,22,33,4,6,7,2,88,31]
+
+res=filter(fun,li)
+print(list(res))</code></pre>
+<p>运行结果：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224132059.png"></p>
+<p>这个列表是空的。因为函数<code>pass</code>掉了。只写个<code>pass</code>，调用这个函数，返回的值是没有结果的。</p>
+<p><code>filter()</code>会根据传进去的参数，调用<code>func()</code>函数，这个函数根据返回值<code>pass</code>，来确定函数<code>li</code>要不要添加到新的列表里面。</p>
+<p>如果将代码修改成这样<code>return True</code>：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token boolean">True</span>
+
+li <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">122</span><span class="token punctuation">,</span><span class="token number">331</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">88</span><span class="token punctuation">,</span><span class="token number">31</span><span class="token punctuation">]</span>
+
+res<span class="token operator">=</span>filter<span class="token punctuation">(</span>fun<span class="token punctuation">,</span>li<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>list<span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<p>返回结果：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224133607.png"></p>
+<p>返回一个 False:</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224133723.png"></p>
+<p>输出结果是一个都没有了。</p>
+<p><code>filter()</code>函数可以过滤，可以写过滤条件。比如要保留<code>n&lt;10</code>的数据要保留下来，<code>n&lt;10</code>是个比较语句。</p>
+<p><code>n&lt;10</code>返回的是个 True（当前传入的参数保留，添加到新的列表里面），<code>n&gt;10</code>返回的是个 False（就把数据去掉不要了）：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
+    return n<10
+
+li = [1,2,122,331,11,22,33,4,6,7,2,88,31]
+
+res=filter(fun,li)
+print(list(res))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224134818.png"></p>
+<p>其实和这段代码的操作是一样一样的：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">li1 = []
+for i in li:
+    if i > 10:
+        li1.append(i)</code></pre>
+<p><strong>内部操作是这样的：</strong></p>
+<p>定义了个新的列表<code>li1</code>，在这里面来了一个<code>for</code>循环，判断<code>i</code>是不是大于 10，如果大于 10，就把它添加到新的列表里面。</p>
+<p>会根据你传入的参数<code>fun(n)</code>进行相应的判断和比较。根据函数返回的是<code>True</code>还是<code>None</code>，来决定这个数据要不要保留起来。</p>
+<h3 id="2-生成器、迭代器都是可迭代对象"><a href="#2-生成器、迭代器都是可迭代对象" class="headerlink" title="2.生成器、迭代器都是可迭代对象"></a>2.生成器、迭代器都是可迭代对象</h3><p>定义个生成器、可迭代对象、迭代器：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">from collections import Iterator,Iterable,Generator
+def fun(n):
+    return n < 10
+
+# 列表就是可迭代对象
+li = [1, 2, 122, 331, 11, 22, 33, 4, 6, 7, 2, 88, 31]
+res = filter(fun, li)
+
+# 定义个迭代器
+# 可以把一个可迭代对象转换成一个迭代器
+li2 = iter(li)
+
+# 定义个生成器
+li3 = (i for i in range(5))
+
+# 用isinstance 判断下列表是不是个可迭代对象
+print(isinstance(li,Iterable))
+print(isinstance(li2,Iterable))
+print(isinstance(li3,Iterable))</code></pre>
+<p><code>isinstance()</code> 函数来判断一个对象是否是一个已知的类型，类似 <code>type()</code>。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224143240.png"></p>
+<p>返回都是<code>True</code>，所以它们 3 个都是可迭代对象。</p>
+<p>生成器属于迭代器，那么生成器也是可迭代对象。迭代器是可迭代对象，但是迭代器不是生成器。</p>
+<h2 id="二、map-函数"><a href="#二、map-函数" class="headerlink" title="二、map()函数"></a>二、map()函数</h2><p><code>map()</code>的机制和<code>filter()</code>是一样的。它也会将后面的可迭代对象里面的数据迭代出来，放到第一个函数里面。</p>
+<p>它接收的也是 2 个参数。<strong>第一个参数：<code>func</code> ，第二个参数：可迭代对象。</strong></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
+    return n < 10
+
+# 列表就是可迭代对象
+li = [1, 2, 122, 331, 11, 22, 33, 4, 6, 7, 2, 88, 31]
+res = filter(fun, li)
+
+# map:将可迭代对象中的数据迭代出来，一个一个传到函数中去调用，将返回结果放到新的对象中。
+res2=map(fun,li)
+print(list(res2))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224144608.png"></p>
+<p>它返回的结果全是<code>True</code>和<code>False</code>。</p>
+<p><strong>map()函数可以用来做：</strong></p>
+<p>1.把这些数据做统一的处理，比如算这些数据的阶乘，有一批数据要算阶乘，可以一起拿过去。</p>
+<p>2.它会把数据当作个参数，放到函数里去调用。</p>
+<p>3.然后把函数的返回值放到一个列表里面。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224145551.png"></p>
+<p>它返回什么就放什么，改成返回 1000：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224150209.png"></p>
+<p>改成<code>n*2</code>:</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224150453.png"></p>
+<p><code>map()</code>将可迭代对象里面的元素迭代出来，每个元素当作一个参数，传到前面这个函数<code>fun</code>里面，然后把函数的返回值添加到新的列表里面。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224150903.png"></p>
+<p>要统一处理一批数据的时候，就可以通过它来做。</p>
+<h2 id="三、zip-函数"><a href="#三、zip-函数" class="headerlink" title="三、zip()函数"></a>三、zip()函数</h2><h3 id="1-什么是-zip-函数"><a href="#1-什么是-zip-函数" class="headerlink" title="1.什么是 zip()函数"></a>1.什么是 zip()函数</h3><p><strong>zip()函数后面接收的是个可迭代对象，后面可接收多个可迭代对象。</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224151656.png"></p>
+<p><strong>来看看 zip 的源码：</strong></p>
+<p>它的内部其实也是个类，那么它返回的就是个可迭代对象。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224151929.png"></p>
+<p>准确得来说，它是个迭代器，迭代器也属于可迭代对象。</p>
+<p>例如：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
+res3 = zip([1, 2, 3], [11, 22, 33])
+print(res3)</code></pre>
+<p>在 Python2 的时候，<code>filter()</code>、<code>map()</code>、<code>zip()</code>函数返回出来的直接是列表。Python3 做了个性能的优化，返回的是个迭代器，可以节约内存。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224152817.png"></p>
+<p>通过<code>next()</code>去取值，能获取出来内容的话，说明它就是个迭代器：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224152948.png"></p>
+<p>直接一次性把它转换成列表，方便看结果：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
+res3 = zip([1, 2, 3], [11, 22, 33])
+print(list(res3))</code></pre>
+<p><strong>它是这样打包的：</strong></p>
+<p>使用<code>zip()</code>函数传入 2 个可迭代对象，把第一个可迭代对象的第一个元素和第二个可迭代对象的第一个元素拿出来打包成一个元组，后面以此类推。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224153650.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224154015.png"></p>
+<p><code>为什么里面放的是元组？</code></p>
+<p>元组省内存啊。</p>
+<p><code>如果可迭代对象里面元素多少不一样（长短不一）怎么办？</code></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
+res3 = zip([1, 2, 3], [11, 22, 33,44,55],[111,222,333],[111,222,333])
+print(list(res3))</code></pre>
+<p>它会只会保留最短的。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224154916.png"></p>
+<p>代码中最短的一组：这里只有 3 个元素。</p>
+<p>那么这里的话，只会分成 3 组。就算第二组有 5 个元素，只会拿第一个、第二个、第三个。多余的数据清除掉了，不要了。</p>
+<h3 id="2-zip-可以快速创建字典"><a href="#2-zip-可以快速创建字典" class="headerlink" title="2.zip()可以快速创建字典"></a>2.zip()可以快速创建字典</h3><p>你看，和字典<code>items()</code>取值出来的数据是一样的：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224161106.png"></p>
+<p>通过<code>dict</code>转换下，你看，它变成了一个字典：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
+res3 = zip([1, 2, 3], [11, 22, 33])
+print(dict(list(res3)))
+
+dict1=&#123;"key1":1,"key2":2,"key3":3&#125;
+print(list(dict1.items()))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224161248.png"></p>
+<p>创建字典的时候，可通过这种方式快速创建字典。</p>
+<p>把键放在一个列表里，把值放在一个列表里，通过<code>zip()</code>打包一下，通过<code>dit()</code>就能把它转换成一个字典。</p>
 <hr>
-<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 110+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220161356.jpg"></p>
+<p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：<strong>清菡软件测试 112+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224165124.jpg"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
                 
@@ -724,7 +718,7 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/">http://example.com/2020/12/21/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0%E3%80%8B/</a>
+                    <a href="http://example.com/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/">http://example.com/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -933,17 +927,18 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2020/12/22/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC2%E7%AF%87%E3%80%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E3%80%8B/">
+                <a href="/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="测开之函数进阶· 第2篇《纯函数》">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》">
                         
-                        <span class="card-title">测开之函数进阶· 第2篇《纯函数》</span>
+                        <span class="card-title">函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -953,9 +948,9 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -964,6 +959,7 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -982,13 +978,13 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/19/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">
+                <a href="/2020/12/22/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC2%E7%AF%87%E3%80%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="测开之数据类型· 第4篇《迭代器、生成器》">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="测开之函数进阶· 第2篇《纯函数》">
                         
-                        <span class="card-title">测开之数据类型· 第4篇《迭代器、生成器》</span>
+                        <span class="card-title">测开之函数进阶· 第2篇《纯函数》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -999,7 +995,7 @@ fun<span class="token punctuation">(</span><span class="token number">4</span><s
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-22
                             </span>
                         <span class="publish-author">
                             
