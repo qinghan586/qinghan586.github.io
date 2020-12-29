@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》, 清菡的主页">
+    <meta name="keywords" content="测开之函数进阶· 第4篇《匿名函数》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》 | 清菡的主页</title>
+    <title>测开之函数进阶· 第4篇《匿名函数》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》</h1>
+                    <h1 class="description center-align post-title">测开之函数进阶· 第4篇《匿名函数》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-24
+                    2020-12-28
                 </div>
                 
 
@@ -468,229 +468,107 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224165601.png"></p>
+                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228154656.png"></p>
 <p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <blockquote>
 <p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
 </blockquote>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、filter()函数<ul>
-<li>1.filter()过滤序列</li>
-<li>2.生成器、迭代器都是可迭代对象</li>
+<li>一、匿名函数<ul>
+<li>1.匿名函数格式</li>
+<li>2.匿名函数适用的场景</li>
+<li>3.如何调用 lambda 函数</li>
+<li>4.运算符的优先级</li>
+<li>5.用 lambda 实现过滤</li>
+<li>6.在列表推导式中怎么用？</li>
 </ul>
 </li>
-<li>二、map()函数</li>
-<li>三、zip()函数<ul>
-<li>1.什么是 zip()函数</li>
-<li>2.zip()可以快速创建字典</li>
+<li>二、三目运算符</li>
+<li>三、精彩推荐</li>
 </ul>
-</li>
+<h2 id="一、匿名函数"><a href="#一、匿名函数" class="headerlink" title="一、匿名函数"></a>一、匿名函数</h2><p>Python 中有一种特殊的函数，不需要使用<code>def</code>去定义，也不用给函数起名字。用<code>lambda</code>表达式来定义，这种函数叫做匿名函数。</p>
+<h3 id="1-匿名函数格式"><a href="#1-匿名函数格式" class="headerlink" title="1.匿名函数格式"></a>1.匿名函数格式</h3><p><code>lambda 参数：表达式（返回值）</code></p>
+<p><code>lambda</code>定义函数和<code>def</code>定义函数的时候，格式是不一样的。</p>
+<p>这个匿名函数<code>lambda a,b:a+b</code>和这个普通函数：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def func(a,b):
+    return a+b</code></pre>
+<p>效果是一样的。</p>
+<p><code>def</code>后面跟着函数名字<code>func()</code>，<code>lambda</code>后面是没有函数名字的，直接写参数，参数后面是个冒号。冒号后面的<code>a+b</code>就是个返回值。</p>
+<h3 id="2-匿名函数适用的场景"><a href="#2-匿名函数适用的场景" class="headerlink" title="2.匿名函数适用的场景"></a>2.匿名函数适用的场景</h3><p><strong>简单的函数定义（只有一个表达式）。</strong></p>
+<p>例如普通函数：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">def func(a,b):
+    c = a+b
+    print(c)
+    return a+b</code></pre>
+<p>这个函数里面有多条语句，这种的话就不适用于这个匿名函数<code>lambda a,b:a+b</code>语句。</p>
+<p><code>lambda</code>只有一条<code>return</code>的内容。<code>return</code>根据参数进行相关操作，进行返回。</p>
+<h3 id="3-如何调用-lambda-函数"><a href="#3-如何调用-lambda-函数" class="headerlink" title="3.如何调用 lambda 函数"></a>3.如何调用 lambda 函数</h3><h4 id="错误方式一："><a href="#错误方式一：" class="headerlink" title="错误方式一："></a>错误方式一：</h4><p><code>lambda a,b:a+b(11,22)</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228113938.png"></p>
+<p>没看到输出结果。其实是调用了，只是你没看到。调用完毕后，返回值需要接收一下。</p>
+<p>这样是调用不了的：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">res = lambda a,b:a+b(11,22)
+print(res)</code></pre>
+<p>打印一个 <code>lambda</code> 函数对象：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228114302.png"></p>
+<p><code>lambda a,b:a+b</code>这块是个匿名函数，<code>lambda a,b:a+b(11,22)</code>这样写，会把<code>a+b(11,22)</code>全部当作一个表达式。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">res = lambda a,b:a+b(11,22)
+print(res(11,22))</code></pre>
+<p>这时候运行就会报错：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228115229.png"></p>
+<p>报错提示：<code>int</code>对象没有调用的方法。</p>
+<h4 id="错误方式二："><a href="#错误方式二：" class="headerlink" title="错误方式二："></a>错误方式二：</h4><p>还有，这种写法定义函数，也不会去用：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">f=lambda a:a*9
+f(10)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228120907.png"></p>
+<p>匿名函数讲究即用即释放，就是定义这个函数，使用完毕后，内存里面就释放这个内存了。</p>
+<p>因为没有任何变量指向这个函数，所以内存就马上释放了，可以节约内存。</p>
+<p>定义完毕后：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">f=lambda a:a*9
+f(10)</code></pre>
+<p><code>f</code> 就相当于一个函数名了，调用完毕后，再想用这个 <code>f</code>， 还是可以够得到的。那这个函数始终都存在内存里面了。</p>
+<h4 id="正确调用方式："><a href="#正确调用方式：" class="headerlink" title="正确调用方式："></a>正确调用方式：</h4><pre class=" language-PYTHON"><code class="language-PYTHON">res = lambda a,b:a+b
+print(res(11,22))</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228114618.png"></p>
+<h3 id="4-运算符的优先级"><a href="#4-运算符的优先级" class="headerlink" title="4.运算符的优先级"></a>4.运算符的优先级</h3><p>如果分不清哪个先用，哪个后用，可以加个括号把它扩起来：</p>
+<p><code>(lambda a,b:a+b)(1,2)</code></p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">res = (lambda a,b:a+b)(1,2)
+print(res)</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228120313.png"></p>
+<p>通过<code>lambda</code>直接定义直接调用，例如<code>(lambda a,b:a+b)(1,2)</code>中<code>(lambda a,b:a+b)</code>调用完毕后，马上从内存里给删除掉了，立马释放内存。</p>
+<h3 id="5-用-lambda-实现过滤"><a href="#5-用-lambda-实现过滤" class="headerlink" title="5.用 lambda 实现过滤"></a>5.用 lambda 实现过滤</h3><p><code>lambda</code> 用的最多的是在 <code>filter()</code>、<code>zip()</code>函数。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">li = [1, 2, 122, 331, 11, 22, 33, 4, 6, 7, 2, 88, 31]
+
+res2=filter(lambda x:x<10,li)
+print(list(res2))
+</code></pre>
+<p>这样就实现了一个快速的过滤，之前还要定义一个函数，这样写更加节省内存，而且语法更加舒适：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228122410.png"></p>
+<p><code>x&lt;10</code>的都保留下来，当然你也可以修改成<code>x&lt;33</code>或者其它的，具体看列表里面的元素，设置的条件不一样，输出的结果就不同。</p>
+<p><code>res2=filter(lambda x:x&lt;10,li)</code>中过滤条件是<code>lambda x:x&lt;10</code>，后面传可迭代对象<code>li</code>。</p>
+<h3 id="6-在列表推导式中怎么用？"><a href="#6-在列表推导式中怎么用？" class="headerlink" title="6.在列表推导式中怎么用？"></a>6.在列表推导式中怎么用？</h3><p>生成 10 个数：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">li2=[(lambda x:x%5==0)(i) for i in range(10)]
+print(li2)</code></pre>
+<p><code>lambda x:x%5==0</code>这是个<code>lambda</code>的表达式，需要个<code>x</code>的参数，是能够被 5 整除的意思。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228132847.png"></p>
+<h2 id="二、三目运算符"><a href="#二、三目运算符" class="headerlink" title="二、三目运算符"></a>二、三目运算符</h2><pre class=" language-PYTHON"><code class="language-PYTHON">a=100
+if a>100:
+    print(100)
+else:
+    print(22)</code></pre>
+<p>写成三目运算符是这样：</p>
+<p><code>print(100) if a&gt;100 else print(22)</code></p>
+<p>三目运算符适用于条件成立的时候做什么事情，条件不成立的时候做什么事情。有些很简单的条件控制，通过这种方式来做。</p>
+<p>和<code>lambda</code>一样，可以简化代码。原来需要定义这个函数，再传进去，通过<code>lambda</code>表达式也可以把函数直接写在那行代码里面了，不需要去单独去定义函数了。<code>lambda</code>表达式用得多，三目运算符用得少。</p>
+<h2 id="三、精彩推荐"><a href="#三、精彩推荐" class="headerlink" title="三、精彩推荐"></a>三、精彩推荐</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/baCQFwWwR8KbXkFYBsLaJA">数据类型第 2 篇「字典和集合的原理和应用」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/McgUcQxjujBILR9QtzJ95w">测开之数据类型· 第 3 篇《列表推导式、字典推导式、2 种方式创建生成器》</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/drShVcnZJQRMoOPF_ReS2g">测开之数据类型· 第 4 篇《迭代器、生成器》</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/syb8kDjvGDV7RNHXUe84Ag">测开之函数进阶· 第 2 篇《纯函数》</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/-v3dRLdLqtFqxCB4NaKBxA">函数进阶· 第 3 篇《常用内置函数 filter()、map()、zip()，怎么用的呢？》</a></li>
 </ul>
-<p><strong>常用的内置函数：</strong></p>
-<ul>
-<li>map()函数：会根据提供的函数对指定序列做映射。</li>
-<li>filter()函数：函数用于过滤序列。</li>
-<li>zip()函数：函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组。</li>
-</ul>
-<h2 id="一、filter-函数"><a href="#一、filter-函数" class="headerlink" title="一、filter()函数"></a>一、filter()函数</h2><h3 id="1-filter-过滤序列"><a href="#1-filter-过滤序列" class="headerlink" title="1.filter()过滤序列"></a>1.filter()过滤序列</h3><p><strong>filter:过滤序列。第一参数是函数；第二参数是可迭代对象。</strong></p>
-<p>看看<code>filter()</code>这个内置函数的源码：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">class filter(object):
-    """
-    filter(function or None, iterable) --> filter object
-
-    Return an iterator yielding those items of iterable for which function(item)
-    is true. If function is None, return the items that are true.
-    """
-    def __getattribute__(self, *args, **kwargs): # real signature unknown
-        """ Return getattr(self, name). """
-        pass
-
-    def __init__(self, function_or_None, iterable): # real signature unknown; restored from __doc__
-        pass
-
-    def __iter__(self, *args, **kwargs): # real signature unknown
-        """ Implement iter(self). """
-        pass
-
-    @staticmethod # known case of __new__
-    def __new__(*args, **kwargs): # real signature unknown
-        """ Create and return a new object.  See help(type) for accurate signature. """
-        pass
-
-    def __next__(self, *args, **kwargs): # real signature unknown
-        """ Implement next(self). """
-        pass
-
-    def __reduce__(self, *args, **kwargs): # real signature unknown
-        """ Return state information for pickling. """
-        pass</code></pre>
-<p>看源码发现居然是个类。</p>
-<p><code>它接收到的是2个参数，2个参数在哪里看呢？</code></p>
-<p><code>__init__</code>方法里面看。既然是个类，调用的时候创建一个对象。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201222135731.png"></p>
-<p>Python 中的可迭代对象在一个模块里面。迭代器、生成器、可迭代对象都在这个模块里面。</p>
-<p><code>from collections import Iterator,Iterable,Generator</code></p>
-<p>生成器属于迭代器，生成器是可迭代对象。</p>
-<p>列表是个可迭代对象。<code>filter()</code>这个内置函数传 2 个参数后，会返回出一个对象。</p>
-<p>看<code>filter()</code>源码可以看出它是个类，调用它给它传参，类返回的结果肯定是个对象。</p>
-<p><code>filter()</code>的作用是过滤，它会进行迭代操作。</p>
-<p>它会把后面传入的可迭代对象，里面的元素全部遍历一遍。然后把遍历出来的元素当作参数传到这个<code>fun</code>函数里面。</p>
-<p>当前这个<code>fun()</code>函数没有定义参数，这个时候运行看看：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 内置函数
-def fun():
-    pass
-
-li = [1,2,122,331,11,22,33,4,6,7,2,88,31]
-
-res=filter(fun,li)
-print(list(res))</code></pre>
-<p>返回列表的时候报错了，<code>fun()</code>需要 0 个参数，但是这里给了一个参数：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224130742.png"></p>
-<p>当我们把它转换成列表的时候，在这里传进去，它会返回一个对象，这个对象里有一个函数，还有个可迭代对象<code>filter(fun,li)</code>。</p>
-<p>使用<code>filter()</code>传出来的数据也是个迭代器。它也是个可迭代对象，就可以通过<code>list</code>把它转换成列表。</p>
-<p>当你转换的时候，它会把第一个参数拿到，传到<code>fun()</code>里面去，会自动传参的。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224131730.png"></p>
-<p>加个参数，再运行：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 内置函数
-def fun(n):
-    pass
-
-li = [1,2,122,331,11,22,33,4,6,7,2,88,31]
-
-res=filter(fun,li)
-print(list(res))</code></pre>
-<p>运行结果：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224132059.png"></p>
-<p>这个列表是空的。因为函数<code>pass</code>掉了。只写个<code>pass</code>，调用这个函数，返回的值是没有结果的。</p>
-<p><code>filter()</code>会根据传进去的参数，调用<code>func()</code>函数，这个函数根据返回值<code>pass</code>，来确定函数<code>li</code>要不要添加到新的列表里面。</p>
-<p>如果将代码修改成这样<code>return True</code>：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">return</span> <span class="token boolean">True</span>
-
-li <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">122</span><span class="token punctuation">,</span><span class="token number">331</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">22</span><span class="token punctuation">,</span><span class="token number">33</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">88</span><span class="token punctuation">,</span><span class="token number">31</span><span class="token punctuation">]</span>
-
-res<span class="token operator">=</span>filter<span class="token punctuation">(</span>fun<span class="token punctuation">,</span>li<span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span>list<span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
-<p>返回结果：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224133607.png"></p>
-<p>返回一个 False:</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224133723.png"></p>
-<p>输出结果是一个都没有了。</p>
-<p><code>filter()</code>函数可以过滤，可以写过滤条件。比如要保留<code>n&lt;10</code>的数据要保留下来，<code>n&lt;10</code>是个比较语句。</p>
-<p><code>n&lt;10</code>返回的是个 True（当前传入的参数保留，添加到新的列表里面），<code>n&gt;10</code>返回的是个 False（就把数据去掉不要了）：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
-    return n<10
-
-li = [1,2,122,331,11,22,33,4,6,7,2,88,31]
-
-res=filter(fun,li)
-print(list(res))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224134818.png"></p>
-<p>其实和这段代码的操作是一样一样的：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">li1 = []
-for i in li:
-    if i > 10:
-        li1.append(i)</code></pre>
-<p><strong>内部操作是这样的：</strong></p>
-<p>定义了个新的列表<code>li1</code>，在这里面来了一个<code>for</code>循环，判断<code>i</code>是不是大于 10，如果大于 10，就把它添加到新的列表里面。</p>
-<p>会根据你传入的参数<code>fun(n)</code>进行相应的判断和比较。根据函数返回的是<code>True</code>还是<code>None</code>，来决定这个数据要不要保留起来。</p>
-<h3 id="2-生成器、迭代器都是可迭代对象"><a href="#2-生成器、迭代器都是可迭代对象" class="headerlink" title="2.生成器、迭代器都是可迭代对象"></a>2.生成器、迭代器都是可迭代对象</h3><p>定义个生成器、可迭代对象、迭代器：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">from collections import Iterator,Iterable,Generator
-def fun(n):
-    return n < 10
-
-# 列表就是可迭代对象
-li = [1, 2, 122, 331, 11, 22, 33, 4, 6, 7, 2, 88, 31]
-res = filter(fun, li)
-
-# 定义个迭代器
-# 可以把一个可迭代对象转换成一个迭代器
-li2 = iter(li)
-
-# 定义个生成器
-li3 = (i for i in range(5))
-
-# 用isinstance 判断下列表是不是个可迭代对象
-print(isinstance(li,Iterable))
-print(isinstance(li2,Iterable))
-print(isinstance(li3,Iterable))</code></pre>
-<p><code>isinstance()</code> 函数来判断一个对象是否是一个已知的类型，类似 <code>type()</code>。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224143240.png"></p>
-<p>返回都是<code>True</code>，所以它们 3 个都是可迭代对象。</p>
-<p>生成器属于迭代器，那么生成器也是可迭代对象。迭代器是可迭代对象，但是迭代器不是生成器。</p>
-<h2 id="二、map-函数"><a href="#二、map-函数" class="headerlink" title="二、map()函数"></a>二、map()函数</h2><p><code>map()</code>的机制和<code>filter()</code>是一样的。它也会将后面的可迭代对象里面的数据迭代出来，放到第一个函数里面。</p>
-<p>它接收的也是 2 个参数。<strong>第一个参数：<code>func</code> ，第二个参数：可迭代对象。</strong></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def fun(n):
-    return n < 10
-
-# 列表就是可迭代对象
-li = [1, 2, 122, 331, 11, 22, 33, 4, 6, 7, 2, 88, 31]
-res = filter(fun, li)
-
-# map:将可迭代对象中的数据迭代出来，一个一个传到函数中去调用，将返回结果放到新的对象中。
-res2=map(fun,li)
-print(list(res2))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224144608.png"></p>
-<p>它返回的结果全是<code>True</code>和<code>False</code>。</p>
-<p><strong>map()函数可以用来做：</strong></p>
-<p>1.把这些数据做统一的处理，比如算这些数据的阶乘，有一批数据要算阶乘，可以一起拿过去。</p>
-<p>2.它会把数据当作个参数，放到函数里去调用。</p>
-<p>3.然后把函数的返回值放到一个列表里面。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224145551.png"></p>
-<p>它返回什么就放什么，改成返回 1000：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224150209.png"></p>
-<p>改成<code>n*2</code>:</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224150453.png"></p>
-<p><code>map()</code>将可迭代对象里面的元素迭代出来，每个元素当作一个参数，传到前面这个函数<code>fun</code>里面，然后把函数的返回值添加到新的列表里面。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224150903.png"></p>
-<p>要统一处理一批数据的时候，就可以通过它来做。</p>
-<h2 id="三、zip-函数"><a href="#三、zip-函数" class="headerlink" title="三、zip()函数"></a>三、zip()函数</h2><h3 id="1-什么是-zip-函数"><a href="#1-什么是-zip-函数" class="headerlink" title="1.什么是 zip()函数"></a>1.什么是 zip()函数</h3><p><strong>zip()函数后面接收的是个可迭代对象，后面可接收多个可迭代对象。</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224151656.png"></p>
-<p><strong>来看看 zip 的源码：</strong></p>
-<p>它的内部其实也是个类，那么它返回的就是个可迭代对象。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224151929.png"></p>
-<p>准确得来说，它是个迭代器，迭代器也属于可迭代对象。</p>
-<p>例如：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
-res3 = zip([1, 2, 3], [11, 22, 33])
-print(res3)</code></pre>
-<p>在 Python2 的时候，<code>filter()</code>、<code>map()</code>、<code>zip()</code>函数返回出来的直接是列表。Python3 做了个性能的优化，返回的是个迭代器，可以节约内存。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224152817.png"></p>
-<p>通过<code>next()</code>去取值，能获取出来内容的话，说明它就是个迭代器：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224152948.png"></p>
-<p>直接一次性把它转换成列表，方便看结果：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
-res3 = zip([1, 2, 3], [11, 22, 33])
-print(list(res3))</code></pre>
-<p><strong>它是这样打包的：</strong></p>
-<p>使用<code>zip()</code>函数传入 2 个可迭代对象，把第一个可迭代对象的第一个元素和第二个可迭代对象的第一个元素拿出来打包成一个元组，后面以此类推。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224153650.png"></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224154015.png"></p>
-<p><code>为什么里面放的是元组？</code></p>
-<p>元组省内存啊。</p>
-<p><code>如果可迭代对象里面元素多少不一样（长短不一）怎么办？</code></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
-res3 = zip([1, 2, 3], [11, 22, 33,44,55],[111,222,333],[111,222,333])
-print(list(res3))</code></pre>
-<p>它会只会保留最短的。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224154916.png"></p>
-<p>代码中最短的一组：这里只有 3 个元素。</p>
-<p>那么这里的话，只会分成 3 组。就算第二组有 5 个元素，只会拿第一个、第二个、第三个。多余的数据清除掉了，不要了。</p>
-<h3 id="2-zip-可以快速创建字典"><a href="#2-zip-可以快速创建字典" class="headerlink" title="2.zip()可以快速创建字典"></a>2.zip()可以快速创建字典</h3><p>你看，和字典<code>items()</code>取值出来的数据是一样的：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224161106.png"></p>
-<p>通过<code>dict</code>转换下，你看，它变成了一个字典：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># zip # 打包
-res3 = zip([1, 2, 3], [11, 22, 33])
-print(dict(list(res3)))
-
-dict1=&#123;"key1":1,"key2":2,"key3":3&#125;
-print(list(dict1.items()))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224161248.png"></p>
-<p>创建字典的时候，可通过这种方式快速创建字典。</p>
-<p>把键放在一个列表里，把值放在一个列表里，通过<code>zip()</code>打包一下，通过<code>dit()</code>就能把它转换成一个字典。</p>
 <hr>
-<p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：<strong>清菡软件测试 112+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201224165124.jpg"></p>
+<p>公众号 <strong>清菡软件测试</strong> 首发，更多原创文章：<strong>清菡软件测试 113+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201220161356.jpg"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
                 
@@ -718,7 +596,7 @@ print(list(dict1.items()))</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/">http://example.com/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/</a>
+                    <a href="http://example.com/2020/12/28/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E3%80%8B/">http://example.com/2020/12/28/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -927,9 +805,10 @@ print(list(dict1.items()))</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2020/12/28/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E3%80%8B/">
                     <div class="card-image">
@@ -947,9 +826,9 @@ print(list(dict1.items()))</code></pre>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-28
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -958,6 +837,7 @@ print(list(dict1.items()))</code></pre>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -976,13 +856,13 @@ print(list(dict1.items()))</code></pre>
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/22/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC2%E7%AF%87%E3%80%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E3%80%8B/">
+                <a href="/2020/12/24/%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%B8%B8%E7%94%A8%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0filter()%E3%80%81map()%E3%80%81zip()%EF%BC%8C%E6%80%8E%E4%B9%88%E7%94%A8%E7%9A%84%E5%91%A2%EF%BC%9F%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="测开之函数进阶· 第2篇《纯函数》">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》">
                         
-                        <span class="card-title">测开之函数进阶· 第2篇《纯函数》</span>
+                        <span class="card-title">函数进阶· 第3篇《常用内置函数filter()、map()、zip()，怎么用的呢？》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -993,7 +873,7 @@ print(list(dict1.items()))</code></pre>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-24
                             </span>
                         <span class="publish-author">
                             
