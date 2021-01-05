@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》, 清菡的主页">
+    <meta name="keywords" content="测开之函数进阶· 第5篇《偏函数》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》 | 清菡的主页</title>
+    <title>测开之函数进阶· 第5篇《偏函数》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">测开之数据类型· 第3篇《列表推导式、字典推导式、2种方式创建生成器》</h1>
+                    <h1 class="description center-align post-title">测开之函数进阶· 第5篇《偏函数》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-12-18
+                    2020-12-30
                 </div>
                 
 
@@ -468,187 +468,66 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h2><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217214736.png"></p>
-<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、列表推导式</li>
-<li>二、字典推导式</li>
-<li>三、2种方式创建生成器<ul>
-<li>1.生成器表达式</li>
-<li>2.函数里面，通过 yield 定义生成器</li>
+                <h2 id="什么是偏函数"><a href="#什么是偏函数" class="headerlink" title="什么是偏函数"></a>什么是偏函数</h2><p>偏函数在<code>functools</code>的模块里有个<code>partial</code>，这个东西就叫做偏函数。</p>
+<h2 id="怎么用偏函数？"><a href="#怎么用偏函数？" class="headerlink" title="怎么用偏函数？"></a>怎么用偏函数？</h2><p><strong>当函数的参数个数太多，需要简化时，使用 functools.partial 可以创建一个新的函数，这个新函数可固定住原函数的部分参数，从而在调用时更简单。</strong></p>
+<p>偏函数可以帮我们固定参数，简化参数调用的流程。如果当前有个接口，去调用这个接口的时候，这个接口需要传 50 个参数，你发现前面 49 个参数都是一样的不会变化的，这 49 个参数设置成必须要传的参数，只有一个变化的参数，调用的时候非常不方便。</p>
+<p>偏函数可以将前面 49 个参数固定住，再次调用的时候只需要传一个参数（只需传那个变化的参数）。</p>
+<p>之前学到的内置函数中<code>filter</code>中，调用的时候需要传入 2 个参数，第一个是函数，第二个是需要过滤的可迭代类型的数据。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># 可以通过传入不同的过滤条件去过滤出来我们需要的数据
+
+filter(lambda x:x>3,li)
+filter(lambda x:x>5,li)</code></pre>
+<p>用偏函数，代码可以这样写：</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">from functools import partial
+
+# 过滤掉小于5的数据，大于5的数据全部保留下来了
+
+li1 = [1, 2, 3, 11, 22, 33]
+li2 = [1, 2, 3, 11, 22, 33]
+li3 = [1, 2, 3, 11, 22, 33]
+li4 = [1, 2, 3, 11, 22, 33]
+li5 = [1, 2, 3, 11, 22, 33]
+li6 = [1, 2, 3, 11, 22, 33]
+li7 = [1, 2, 3, 11, 22, 33]
+
+
+# 之前的写法
+
+# filter(lambda x:x>5,li)
+# filter(lambda x:x>5,li2)
+# filter(lambda x:x>5,li3)
+# filter(lambda x:x>5,li4)
+
+#那么这个时候每次都要传入同样的参数，比较麻烦。
+
+#通过偏函数创建一个新函数，提前传入原函数所需要的参数，调用的时候更简单。
+
+li = [1, 2, 122, 331, 11, 22, 33, 4, 6, 7, 2, 88, 31]
+filter2 = partial(filter, lambda x: x > 5)
+res=filter2(li)
+print(list(res))
+res2=filter2(li2)
+print(list(res2))</code></pre>
+<p>看<code>functools</code>的源码：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228142652.png"></p>
+<p>它的意思是不定行参数（随便多少参数都可以）。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201228143014.png"></p>
+<ul>
+<li><strong>郑重声明</strong>：公众号“清菡软件测试”首发，更多原创文章：清菡软件测试 114+原创文章，欢迎关注、交流，禁止第三方未经同意擅自转载。</li>
 </ul>
-</li>
+<h2 id="热文精选"><a href="#热文精选" class="headerlink" title="热文精选"></a>热文精选</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vOUangCmD8xowDJIBMMbXg">我膨胀了，测试必要商城小程序，用了 3 种方式！:)</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/3VNXSJ-Xx7II3upfbtkVXQ">Appium 之测试微信小程序</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/tedriSZ1LXEXOW8S4LD9Iw">Appium 上下文和 H5 测试(二)</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_l0_CvKn2H4rYnIqiMt87g">Appium 上下文和 H5 测试(一)</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/MRMgDJVYKX6GP74eyTD8vQ">从 0 开始用 Hexo 框架搭建个人博客（无坑版）</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/BFcTxsXb78MpuK40J6VjYQ">Appium 常用操作之「Toast 提示信息获取」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/cLbKoGWNu1lcGWTA1bQ2vA">放假整理的四个知识，附带小工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/laI3KeE2d6Vmlo3UcBDr7w">Appium 常用操作之「元素定位、swipe 滑屏操作」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/vDLnrW1NbJKqi5PbumLzVQ">举个华为计算器的栗子「Appium 环境配置与调试 ​」</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/hnKH2JFxStm0rI10cbox8A">Jenkins 持续集成「编译打包、代码检查、单元测试、环境部署、软件测试 ​」</a></li>
 </ul>
-<h2 id="一、列表推导式"><a href="#一、列表推导式" class="headerlink" title="一、列表推导式"></a>一、列表推导式</h2><p>推导式可以帮助我们快速创建列表、创建字典。比如现在要创建一个列表。</p>
-<p>做自动化测试的时候，比如创建个 url 列表，url 列表里面可能是存储了网站的页数：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217070428.png"></p>
-<p>一直到 100，生成 100 个页面，但是这 100 个页面有规律，url 地址，前面这一部分是不变的，只有后面的 1,2,3,4 这部分的变化。</p>
-<p>如果去生成这样一个列表，不用列表推导式，用之前的方法的话，可以这样做，先定义一个空列表：</p>
-<p><code>urls = []</code></p>
-<p>然后来个 for 循环 set 100 个：</p>
-<p><code>for i in range(1,101):</code></p>
-<p>前面字符串这部分是确定的，比如说一个 page，后面这部分不确定，就来个<code>format()</code>给它填进去。</p>
-<p><code>url = &#39;page&#123;&#125;&#39;.format(i)</code></p>
-<p>通过<code>append()</code>把 url 加进去。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># url = ['page1','page2']
-
-urls = []
-
-for i in range(1,101):
-   url =  'page&#123;&#125;'.format(i)
-   urls.append(url)
-
-print(urls)</code></pre>
-<p>能够生成 1-100 个页面。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217073010.png"></p>
-<p>推导式有个优势，一行就能解决。推导式可以看成 for 循环的一个解体。</p>
-<p>写起来特别简单，同样的功能，推导式可以这样写：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217074931.png" alt="图片中应为推导式不是倒，字打错了，图是我截得"></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 列表推导式
-
-urls1 = [i for i in range(1,101)]
-print(urls1)</code></pre>
-<p><strong>这段列表推导式代码解释是：</strong></p>
-<p><code>for</code> 循环，<code>i</code> 从 <code>range</code> 里面循环，循环出来拿出一个 <code>i</code>，然后往前面放到这个列表里面。</p>
-<p>再拿出一个 <code>i</code> 放到这个列表里面，这样重复（拿出一个 <code>i</code> 放到列表里面），直到把 <code>for</code> 循环遍历完。</p>
-<p>将里面所有的元素都拿出来放到列表里面，最后生成一个新的列表，这就是列表推导式。</p>
-<p><strong>里面是 1-100 个数字：</strong></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217080347.png" alt="图片中应为推导式不是倒，字打错了，图是我截得"></p>
-<p>如果用列表推导式生成这个 page1，到 100 页。代码就修改成这样：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">urls1 = ['page&#123;&#125;'.format(i)  for i in range(1,101)]
-print(urls1)</code></pre>
-<p><code>&#39;page&#123;&#125;&#39;.format(i)</code></p>
-<p><code>format()</code>格式化字符串的函数。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217092254.png" alt="图片中应为推导式不是倒，字打错了，图是我截得"></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 列表推导式
-
-urls1 = ['page&#123;&#125;'.format(i)  for i in range(1,101)]
-print(urls1)</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217095421.png"></p>
-<p>简而言之，就是遍历出来的元素放到这个前面就行了。然后在前面，你可以做其它操作。</p>
-<p>以上，这就是用列表推导式快速生成一个列表。</p>
-<h2 id="二、字典推导式"><a href="#二、字典推导式" class="headerlink" title="二、字典推导式"></a>二、字典推导式</h2><p>字典推导式和列表推导式，它的原理是一样的。都用 for 循环去遍历，然后拿出对应的值在前面，生成对应的值。</p>
-<p>每遍历一轮，会把前面你写的内容放到字典里面去。前面写个键，键就是遍历出来的<code>i</code>，对应的值就是<code>i+1</code>。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217111405.png"></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">dict1 = &#123;i:i+1 for i in range(10)&#125;
-print(dict1)</code></pre>
-<p>键就是遍历出来的<code>i</code>，值就是键的基础上加 1。每循环遍历一轮，这个就生成一个键值对。</p>
-<p>推导式可以推导出字典，也可以推导出列表。大括号、中括号、花括号都可以。</p>
-<p><code>推导式改成小括号后是什么？</code></p>
-<p>中括号是列表，花括号是字典，小括号是元组。</p>
-<p><strong>推导式改成小括号后，不再是个元组了，是个生成器。</strong></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># () 生成器表达式
-
-tu = (i for i in range(10)) #生成器对象
-print(tu)</code></pre>
-<h2 id="三、2种方式创建生成器"><a href="#三、2种方式创建生成器" class="headerlink" title="三、2种方式创建生成器"></a>三、2种方式创建生成器</h2><h3 id="1-生成器表达式"><a href="#1-生成器表达式" class="headerlink" title="1.生成器表达式"></a>1.生成器表达式</h3><h4 id="1-1-什么是生成器？"><a href="#1-1-什么是生成器？" class="headerlink" title="1.1 什么是生成器？"></a>1.1 什么是生成器？</h4><p>这里有很多数据，可以把它装到一个 “就像自动取筷盒，拿出一双筷子，自动下来一双筷子”，就是你要用的时候，它给你生成一个出来。</p>
-<p>生成器不像列表，比如创建个列表，比如列表里面有一千个元素，创建列表的时候，那么这一千个元素已经被创建好放在列表里面了。生成器不是这样，它内部只保留了一个生成器计算的规则。</p>
-<h4 id="1-2-使用生成器的好处"><a href="#1-2-使用生成器的好处" class="headerlink" title="1.2 使用生成器的好处"></a>1.2 使用生成器的好处</h4><h5 id="生成器要生成一千个元素，这样："><a href="#生成器要生成一千个元素，这样：" class="headerlink" title="生成器要生成一千个元素，这样："></a>生成器要生成一千个元素，这样：</h5><p><code>tu = [i for i in range(1000)]#生成器对象</code></p>
-<p>直接生成一千个元素的列表。改成生成器，这个生成器对象里面存储的是一个计算公式，并没有存储这一千条数据啊。</p>
-<p>使用生成器来存储这些数据的话，相对于列表的优势是：<strong>不那么占内存。</strong></p>
-<p>一千条数据可能看不出效果，如果是一千万条数据往列表里面一放，那得占用多大的内存啊。如果是个生成器，里面就是个计算的规则，就是个生成的规则，没有那么多数据，节约内存，可以提高代码的性能。</p>
-<h4 id="1-3-拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？"><a href="#1-3-拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？" class="headerlink" title="1.3 拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？"></a>1.3 拿生成器里面的数据，也可以一个一个得拿，怎么拿呢？</h4><p>生成器表达式，打印出来是个生成器。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217121033.png"></p>
-<p>当然，可以通过<code>list</code>把它转换成一个列表。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">tu = (i for i in range(1000))#生成器对象
-print(list(tu))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217121635.png"></p>
-<p>它可以把生成器里面所有的元素都拿出来转换成列表。</p>
-<p><code>通过生成器表达式来定义生成器，一次想拿一个元素，怎么拿呢？</code></p>
-<p>Python 里面有个内置的函数，叫做<code>next()</code>。把生成器对象放进去，得到一个结果：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># () 生成器表达式
-tu = (i for i in range(1000))#生成器对象
-a = next(tu)
-print(a)
-print(next(tu))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217125707.png"></p>
-<h5 id="交互环境中可以看到："><a href="#交互环境中可以看到：" class="headerlink" title="交互环境中可以看到："></a>交互环境中可以看到：</h5><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217132304.png"></p>
-<p>它依次生成，要的时候，从生成器里面拿一个出来就行了。你要用的时候就去拿，它就一直生成，它就把里面所有的元素都取出来。</p>
-<h4 id="1-4-所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？"><a href="#1-4-所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？" class="headerlink" title="1.4 所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？"></a>1.4 所有的元素都取出来之后，我又拿了一次，它会出现什么情况呢？</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217132939.png"></p>
-<p>会报错。</p>
-<p>生成器可以用来节约内存，提高代码性能。<strong>生成器在于你什么时候用，你什么时候去取值。</strong></p>
-<h3 id="2-函数里面，通过-yield-定义生成器"><a href="#2-函数里面，通过-yield-定义生成器" class="headerlink" title="2.函数里面，通过 yield 定义生成器"></a>2.函数里面，通过 yield 定义生成器</h3><p>除了生成器表达式可以创建生成器，还有另外一个方式。Python 关键字里面有个<code>yield</code>参数。</p>
-<p><code>yield</code>这个关键字是用在函数里面的，这个关键字只能在函数里面用。</p>
-<p>函数定义完之后，只要在函数里面调用函数，那就会执行函数里面的代码。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen_fun():
-    print('清菡 加油')
-gen_fun()</code></pre>
-<p>如果当一个函数里面，有<code>yield</code>这个关键字：</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen_fun():
-    yield
-    print('清菡 加油')
-gen_fun()</code></pre>
-<p>这个时候再去运行这个函数，这个函数不会立即运行。</p>
-<h4 id="2-1-为什么不会立即运行呢？"><a href="#2-1-为什么不会立即运行呢？" class="headerlink" title="2.1 为什么不会立即运行呢？"></a>2.1 为什么不会立即运行呢？</h4><p>这个函数运行的时候，默认是没有写<code>return</code>的。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def gen_fun():
-    # yield
-    print('清菡 加油')
-res = gen_fun()
-print(res)</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217143002.png"></p>
-<p>如果函数里面出现了<code>yield</code>这个关键字，这个时候再看下。</p>
-<p>函数没有写<code>return</code>，调用函数，它里面，代码没有执行，但是有返回结果，返回的结果是：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217150648.png"></p>
-<p>返回的是一个生成器。</p>
-<p>通过<code>yield</code>定义出来的这个函数，是个生成器函数。</p>
-<p>调用这个函数的时候，它会给你返回一个生成器对象。既然它是一个生成器对象，那么就可以通过<code>next()</code>来对它进行取值。</p>
-<h5 id="运行结果如下："><a href="#运行结果如下：" class="headerlink" title="运行结果如下："></a>运行结果如下：</h5><pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
-def gen_fun():
-    yield
-    print('清菡 加油')
-
-res = gen_fun()  #返回生成器对象
-print(next(res))</code></pre>
-<p>你看到输出结果是：None</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217150509.png"></p>
-<h4 id="2-2-为什么是-None-呢？"><a href="#2-2-为什么是-None-呢？" class="headerlink" title="2.2 为什么是 None 呢？"></a>2.2 为什么是 None 呢？</h4><p>生成器生成的元素在<code>yield</code>关键字后面。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
-def gen_fun():
-    yield 100
-    print('清菡 加油')
-
-res = gen_fun()  #返回生成器对象
-print(next(res))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217151133.png"></p>
-<p>再写 2 个<code>yield</code>:</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
-def gen_fun():
-    yield 100
-    print('清菡 加油')
-    yield 1000
-
-    yield 100100
-
-res = gen_fun()  #返回生成器对象
-print(next(res))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217170106.png"></p>
-<p><strong>生成器函数：</strong> 只有通过<code>next()</code>取值的时候，它才会执行函数里面的代码。</p>
-<p><code>next()</code>一次，就运行到第一个<code>yield</code>这里，把这个结果返回出来。然后到这个地方，暂停了不动了，不会往下走了。</p>
-<p>如果在下面再<code>next()</code>，<strong>从生成器里面再获取一个元素：</strong></p>
-<p><code>print(next(res))</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217153046.png"></p>
-<p>直到等到下一个<code>next()</code>取值。当你下一次从生成器函数里面取值的时候，才会触发下一个<code>yield</code>。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 通过yield定义生成器
-def gen_fun():
-    yield 100
-    print('清菡 加油')
-    yield 1000
-
-    yield 100100
-
-res = gen_fun()  #返回生成器对象
-print(next(res))
-print(next(res))
-print(next(res))</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217153621.png"></p>
-<p>但是如果全部都生成完了，再去取一次，就会报错：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217153819.png"></p>
-<p>因为里面已经没有元素了。</p>
-<p>以上，生成器只有通过这 2 种方式定义。</p>
-<hr>
-<p>公众号 <strong>「清菡软件测试」</strong> 首发，更多原创文章：<strong>清菡软件测试 108+原创文章</strong>，欢迎关注、交流，禁止第三方擅自转载。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201217211840.png"></p>
-<p>感谢关注清菡，欢迎点击在看和转发！</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201230140058.jpg"></p>
 
                 
             </div>
@@ -675,7 +554,7 @@ print(next(res))</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/18/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%812%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">http://example.com/2020/12/18/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC3%E7%AF%87%E3%80%8A%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%81%E5%AD%97%E5%85%B8%E6%8E%A8%E5%AF%BC%E5%BC%8F%E3%80%812%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/</a>
+                    <a href="http://example.com/2020/12/30/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC5%E7%AF%87%E3%80%8A%E5%81%8F%E5%87%BD%E6%95%B0%E3%80%8B/">http://example.com/2020/12/30/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC5%E7%AF%87%E3%80%8A%E5%81%8F%E5%87%BD%E6%95%B0%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -888,13 +767,13 @@ print(next(res))</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/12/19/%E6%B5%8B%E5%BC%80%E4%B9%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E8%BF%AD%E4%BB%A3%E5%99%A8%E3%80%81%E7%94%9F%E6%88%90%E5%99%A8%E3%80%8B/">
+                <a href="/2021/01/01/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC6%E7%AF%87%E3%80%8A%E9%97%AD%E5%8C%85%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="测开之数据类型· 第4篇《迭代器、生成器》">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="测开之函数进阶· 第6篇《闭包》">
                         
-                        <span class="card-title">测开之数据类型· 第4篇《迭代器、生成器》</span>
+                        <span class="card-title">测开之函数进阶· 第6篇《闭包》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -905,7 +784,7 @@ print(next(res))</code></pre>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-19
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-01
                         </span>
                         <span class="publish-author">
                             
@@ -933,13 +812,13 @@ print(next(res))</code></pre>
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/16/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%AC%AC2%E7%AF%87%E3%80%8C%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%94%E7%94%A8%E3%80%8D/">
+                <a href="/2020/12/28/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC4%E7%AF%87%E3%80%8A%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="数据类型第2篇「字典和集合的原理和应用」">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="测开之函数进阶· 第4篇《匿名函数》">
                         
-                        <span class="card-title">数据类型第2篇「字典和集合的原理和应用」</span>
+                        <span class="card-title">测开之函数进阶· 第4篇《匿名函数》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -950,7 +829,7 @@ print(next(res))</code></pre>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-28
                             </span>
                         <span class="publish-author">
                             
