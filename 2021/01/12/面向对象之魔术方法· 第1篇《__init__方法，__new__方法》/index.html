@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="测开之函数进阶· 第7篇《装饰器装饰类，通用装饰器，有啥区别呢？》, 清菡的主页">
+    <meta name="keywords" content="面向对象之魔术方法· 第1篇《__init__方法，__new__方法》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>测开之函数进阶· 第7篇《装饰器装饰类，通用装饰器，有啥区别呢？》 | 清菡的主页</title>
+    <title>面向对象之魔术方法· 第1篇《__init__方法，__new__方法》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">测开之函数进阶· 第7篇《装饰器装饰类，通用装饰器，有啥区别呢？》</h1>
+                    <h1 class="description center-align post-title">面向对象之魔术方法· 第1篇《__init__方法，__new__方法》</h1>
                 </div>
             </div>
         </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-01-05
+                    2021-01-12
                 </div>
                 
 
@@ -468,224 +468,94 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105123255.png"></p>
-<p>作者：清菡<br/><br>博客：oschina、云+社区、知乎等各大平台都有。</p>
+                <h3 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210112151104.png"></p>
+<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
 <blockquote>
 <p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
 </blockquote>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、什么是装饰器<ul>
-<li>1.开放封闭原则（面向对象原则的核心）</li>
-<li>2.装饰器的作用</li>
+<li>一、什么是魔术方法（魔法方法、特殊方法）<ul>
+<li>1.<code>__init__</code>有什么作用？</li>
+<li>2.什么是魔术方法？</li>
+<li>3.创建一个对象的时候，调用的第一个方法是什么？</li>
 </ul>
 </li>
-<li>二、实现一个装饰器<ul>
-<li>1.不带参数的装饰器</li>
-<li>2.装饰器的原理</li>
-<li>3.组装方便，拆卸也方便</li>
-<li>4.带参数的装饰器</li>
+<li>二、 <code>__new_</code>方法<ul>
+<li>1.<code>__new_</code>方法</li>
+<li>2.为什么创建出来的对象会变成 None?</li>
+<li>3.不写 return 返回对象</li>
+<li>4.返回的不是 MyClass()类创建出来的对象</li>
 </ul>
 </li>
-<li>三、通用装饰器</li>
-<li>四、装饰器装饰类<ul>
-<li>1.不带参数的</li>
-<li>2.带参数的</li>
+<li>三、补充上篇文章</li>
 </ul>
-</li>
-<li>五、装饰器的应用场景</li>
-<li>六、补充<ul>
-<li>1.*号的作用</li>
-<li>2.装饰器装饰类和装饰函数的不同点</li>
-</ul>
-</li>
-</ul>
-<h2 id="一、什么是装饰器"><a href="#一、什么是装饰器" class="headerlink" title="一、什么是装饰器"></a>一、什么是装饰器</h2><h3 id="1-开放封闭原则（面向对象原则的核心）"><a href="#1-开放封闭原则（面向对象原则的核心）" class="headerlink" title="1.开放封闭原则（面向对象原则的核心）"></a>1.开放封闭原则（面向对象原则的核心）</h3><p><strong>对已经实现的功能（项目已经上线了），在这个基础上增加新功能，也可以在它的基础上进行拓展，这个就是开放。如果你要去再修改它内部的代码，这个时候是不允许的，对内部的修改是封闭的。</strong></p>
-<p>就是你实现的功能可以拓展，但是你不要去修改它内部的代码。</p>
-<p>比如<code>index()</code>是接口，返回是“这个是网站的首页”，只要调用这个接口就会返回一个“这个是网站的首页。”</p>
-<p>突然有个需求，在进入网站之前需要先登录校验一下。<code>这个时候需要拓展，如何拓展？就需要用装饰器了。</code></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def index():
-    print("这个是网站的首页")</code></pre>
-<p>这个已经实现的接口，不能去修改的。</p>
-<h3 id="2-装饰器的作用"><a href="#2-装饰器的作用" class="headerlink" title="2.装饰器的作用"></a>2.装饰器的作用</h3><p><strong>装饰器可在不更改这个函数里面任何代码的基础上，给它添加新的功能。</strong></p>
-<h2 id="二、实现一个装饰器"><a href="#二、实现一个装饰器" class="headerlink" title="二、实现一个装饰器"></a>二、实现一个装饰器</h2><h3 id="1-不带参数的装饰器"><a href="#1-不带参数的装饰器" class="headerlink" title="1.不带参数的装饰器"></a>1.不带参数的装饰器</h3><p>装饰器其实就是一种闭包的应用。要使用装饰器，可以先定义个闭包函数。把登录校验的功能写在了闭包函数的内部。</p>
-<p>把闭包函数当成装饰器来用的话，外面接收的参数需要传一个函数，你要装饰哪个函数，你就传哪个函数。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210104191754.png"></p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">
-# 开放封闭原则
-def login(func):
-    def fun():
-        # 简单的校验
-        username = 'python01'
-        password = 'qinghan'
-        user = input("请输入账号：")
-        pw = input("请输入密码：")
-        # 判断下账号密码对不对
-        if username == user and pw == password:
-            func()  # 登录得账号密码都正确的情况下，调用这个函数
-        else:
-            print("账号或密码错误")
-    return fun
+<h2 id="一、什么是魔术方法（魔法方法、特殊方法）"><a href="#一、什么是魔术方法（魔法方法、特殊方法）" class="headerlink" title="一、什么是魔术方法（魔法方法、特殊方法）"></a>一、什么是魔术方法（魔法方法、特殊方法）</h2><h3 id="1-init-有什么作用？"><a href="#1-init-有什么作用？" class="headerlink" title="1. __init__有什么作用？"></a>1. <code>__init__</code>有什么作用？</h3><p>创建对象的时候，类自动调用这个方法，对实例进行初始化设置的。在特定的情况下触发的，不需要手动的去调用。</p>
+<h3 id="2-什么是魔术方法？"><a href="#2-什么是魔术方法？" class="headerlink" title="2.什么是魔术方法？"></a>2.什么是魔术方法？</h3><p>在 Python 中像<code>__init_</code>这类双下划线和结尾的方法，我们把它统称为魔术方法。</p>
+<h4 id="注意点："><a href="#注意点：" class="headerlink" title="注意点："></a>注意点：</h4><p>魔术方法都是 Python 内部定义的，自己不要去定义<code>__init_</code>这种双下划线开头的方法。</p>
+<p>因为 Python 在不断发展，万一你定义的双下划线开头结尾的方法，被 Python 也定义并加在魔术方法里面来了。那么就和 Python 内部的魔术方法起冲突了。</p>
+<h3 id="3-创建一个对象的时候，调用的第一个方法是什么？"><a href="#3-创建一个对象的时候，调用的第一个方法是什么？" class="headerlink" title="3.创建一个对象的时候，调用的第一个方法是什么？"></a>3.创建一个对象的时候，调用的第一个方法是什么？</h3><p>调用类去创建对象的时候，<code>__init_</code>方法触发对象，做初始化的属性设置。<br>调用的第一个方法不是<code>__init_</code>，是<code>__new__</code>方法。</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON">class MyClass(object):
+    def __init__(self,name):
+        self.name=name
+
+m = MyClass("qinghan")
+print(m.name)</code></pre>
+<h2 id="二、-new-方法"><a href="#二、-new-方法" class="headerlink" title="二、 __new_方法"></a>二、 <code>__new_</code>方法</h2><h3 id="1-new-方法"><a href="#1-new-方法" class="headerlink" title="1.__new_方法"></a>1.<code>__new_</code>方法</h3><p>这个<code>__new_</code>方法是在<code>__init_</code>方法之前执行的。<code>__new_</code>方法一般不去重写。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109140638.png"></p>
+<p>看<code>object</code>源码：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109141707.png"></p>
+<p>Python 中万物皆对象，类创建出来对象叫做对象，类、函数其实也是对象。</p>
+<h3 id="2-为什么创建出来的对象会变成-None"><a href="#2-为什么创建出来的对象会变成-None" class="headerlink" title="2.为什么创建出来的对象会变成 None?"></a>2.为什么创建出来的对象会变成 None?</h3><p>在重写 new 方法的时候，一定要调用父类的 new 方法，来完成对象的创建，并将对象返回出去。</p>
+<p>参数：<code>cls</code></p>
+<p><code>cls</code>代表的是类对象本身。</p>
+<p>重写下<code>__new__</code>方法:</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109143833.png"></p>
+<p><code>这个时候不能创建一个对象出来。为什么是个空类型？</code></p>
+<p>原来是能创建对象的，重写<code>__new_</code>方法之后，对象没有了。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109144123.png"></p>
+<p><code>object</code>源码中有写道：</p>
+<pre class=" language-python"><code class="language-python">Create <span class="token operator">and</span> <span class="token keyword">return</span> a new object</code></pre>
+<p>这里没有返回东西，所以报错。</p>
+<p>不知道<code>return</code>什么。<strong>自己写的<code>_new_</code>方法并没有写创建对象的代码。创建对象的代码是 Python 内部实现的，我们自己不知道怎么实现。</strong></p>
+<p>子类里调用下父类的方法，并进行返回就行了。继承的是<code>object</code>。</p>
+<h4 id="所以，将代码修改加上这段代码："><a href="#所以，将代码修改加上这段代码：" class="headerlink" title="所以，将代码修改加上这段代码："></a>所以，将代码修改加上这段代码：</h4><p><strong>第一种调用父类的方法：</strong></p>
+<p><code>return super().__new__(cls)# 调用父类的__new__方法</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109150011.png"></p>
+<p>父类是<code>object</code>，对象是父类的方法 new 出来的。</p>
+<p><strong>第二种调用父类的方法：</strong></p>
+<p>父类是<code>object</code>，直接用父类的名字去调用。</p>
+<p>加上这段代码：</p>
+<p><code>return object.__new__(cls)</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109150419.png"></p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre class=" language-PYTHON"><code class="language-PYTHON">class MyClass(object):
+    def __init__(self,name):
+        self.name=name
+# 重写下__new__方法
+    def __new__(cls, *args, **kwargs):
+        print("这个是new方法")
+        # 子类里调用下父类的方法，并进行返回
+        # return  super().__new__(cls)#  调用父类的__new__方法
+        return object.__new__(cls)
 
 
-@login  # 艾特一下这个装饰器
-def index():
-    print("这个是网站的首页")
-
-
-index()
-</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210104194731.png"></p>
-<h3 id="2-装饰器的原理"><a href="#2-装饰器的原理" class="headerlink" title="2.装饰器的原理"></a>2.装饰器的原理</h3><p><strong>将被装饰的函数当作一个参数传到装饰器中，并且让被装饰的函数名指向装饰器内部的函数，在装饰器的内部函数中用接收到的参数再调用被装饰的函数。</strong></p>
-<p><code>@login</code>是 Python 中的一个语法糖。它的作用是：<code>index=login(index)</code>。传入<code>index</code>，然后被<code>index</code>接收。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210104200649.png"></p>
-<p><code>如何做到通过func()调用原函数？</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105081426.png"></p>
-<p><code>@login</code>等于<code>index=login(index)</code>。</p>
-<p>自动将<code>index</code>当作参数传入<code>login</code>这个函数里面，去执行<code>login(func)</code>这个函数，检测到这个<code>fun()</code>函数，将这段代码:</p>
-<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 简单的校验</span>
-        username <span class="token operator">=</span> <span class="token string">'python01'</span>
-        password <span class="token operator">=</span> <span class="token string">'qinghan'</span>
-        user <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">"请输入账号："</span><span class="token punctuation">)</span>
-        pw <span class="token operator">=</span> input<span class="token punctuation">(</span><span class="token string">"请输入密码："</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 判断下账号密码对不对</span>
-        <span class="token keyword">if</span> username <span class="token operator">==</span> user <span class="token operator">and</span> pw <span class="token operator">==</span> password<span class="token punctuation">:</span>
-            func<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 登录得账号密码都正确的情况下，调用这个函数</span>
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"账号或密码错误"</span><span class="token punctuation">)</span></code></pre>
-<p>直接跳过。</p>
-<p><code>return fun</code>直接将结果返回出来。结果返回出来又给<code>index()</code>接收，调用<code>index()</code>的时候实际上是调用<code>fun()</code>函数。</p>
-<p>执行<code>fun()</code>函数里面的代码。通过<code>func()</code>调用原函数，怎么做到的？</p>
-<p><code>fun()</code>函数是放在<code>index.__closure__</code>这个属性里面。</p>
-<p>然后在下面调用<code>func()</code>的时候，就是去<code>index.__closure__</code>这个属性里面找到对应存储的那块代码。</p>
-<p>存储的代码就是这个：</p>
-<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"这个是网站的首页"</span><span class="token punctuation">)</span></code></pre>
-<p>以上，就是装饰器装饰的流程。</p>
-<h3 id="3-组装方便，拆卸也方便"><a href="#3-组装方便，拆卸也方便" class="headerlink" title="3.组装方便，拆卸也方便"></a>3.组装方便，拆卸也方便</h3><p>我想改成不用登录也可以访问，直接去掉<code>@login</code>这个装饰器就可以了。</p>
-<pre class=" language-PytHON"><code class="language-PytHON">
-# 开放封闭原则
-def login(func):
-    def fun():
-        # 简单的校验
-        username = 'python01'
-        password = 'qinghan'
-        user = input("请输入账号：")
-        pw = input("请输入密码：")
-        # 判断下账号密码对不对
-        if username == user and pw == password:
-            func()  # 登录得账号密码都正确的情况下，调用这个函数
-        else:
-            print("账号或密码错误")
-    return fun
-
-
-# @login  # 艾特一下这个装饰器
-def index():
-    print("这个是网站的首页")
-
-# index.__closure__
-index()
-</code></pre>
-<p>这样操作，不会对原来有什么影响。</p>
-<h3 id="4-带参数的装饰器"><a href="#4-带参数的装饰器" class="headerlink" title="4.带参数的装饰器"></a>4.带参数的装饰器</h3><p>实现两个数相加后，又有新的需求，需要可以相乘、相除。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">def add(func):
-    def fun(a, b):
-        print("相乘", a * b)
-        print("相除", a / b)
-        func(a, b)
-
-    return fun
-
-
-@add
-def add_num(a, b):
-    # 打印两个数相加
-    print("相加：", a + b)
-
-
-add_num(11, 22)
-</code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105093213.png" alt="参数传递的过程"></p>
-<h2 id="三、通用装饰器"><a href="#三、通用装饰器" class="headerlink" title="三、通用装饰器"></a>三、通用装饰器</h2><p>如果同一个装饰器既要装饰有参数的函数，又要装饰无参数的函数。</p>
-<p>那么我们在传参的时候就设置成不定长参数，这样不管被装饰的函数有没有参数都能用。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># 通用装饰器
-def add(func):
-    def fun(*args, **kwargs):
-        print("装饰器的功能代码：登录")
-        func(*args,**kwargs)
-    return fun
-
-
-@add
-def index():
-    print("这个是网站的首页")
-
-@add
-def good_list(num):
-    print("这个是商品列表第&#123;&#125;页".format(num))
-
-index()
-print("------------")
-good_list(9)</code></pre>
-<h2 id="四、装饰器装饰类"><a href="#四、装饰器装饰类" class="headerlink" title="四、装饰器装饰类"></a>四、装饰器装饰类</h2><h3 id="1-不带参数的"><a href="#1-不带参数的" class="headerlink" title="1.不带参数的"></a>1.不带参数的</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#装饰器装饰类</span>
-
-<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"装饰器的功能代码：登录"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> fun
-
-
-@add  <span class="token comment" spellcheck="true"># MyClass=add(MyClass)</span>
-<span class="token keyword">class</span> <span class="token class-name">MyClass</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">pass</span>
-
-m <span class="token operator">=</span> MyClass<span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"m的值："</span><span class="token punctuation">,</span>m<span class="token punctuation">)</span></code></pre>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105112711.png" alt="装饰器装饰类的原理"></p>
-<p>把类当作一个参数传到装饰器里面。<code>return fun</code>返回的是<code>fun</code>，<code>MyClass</code>接收到的是<code>fun</code>。</p>
-<p><code>MyClass()</code>调用的是<code>fun</code>。</p>
-<p>执行代码：</p>
-<pre class=" language-python"><code class="language-python"> <span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"装饰器的功能代码：登录"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span></code></pre>
-<p>这里面的功能。</p>
-<p>先执行装饰器的功能，<code>return func(*args,**kwargs)</code>，<code>func()</code>来自<code>def add(func)</code>。</p>
-<p>调用<code>MyClass</code>这个类，<code>return func(*args,**kwargs)</code>创建了个对象，<code>MyClass()</code>调用完了接收，m 就能接收这个对象了。</p>
-<p>这个就是装饰器装饰类的一个原理。</p>
-<h3 id="2-带参数的"><a href="#2-带参数的" class="headerlink" title="2.带参数的"></a>2.带参数的</h3><pre class=" language-python"><code class="language-python"><span class="token comment" spellcheck="true">#装饰器装饰类</span>
-
-<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"装饰器的功能代码：登录"</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> fun
-
-
-@add  <span class="token comment" spellcheck="true"># MyClass=add(MyClass)</span>
-<span class="token keyword">class</span> <span class="token class-name">MyClass</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>name<span class="token punctuation">,</span>age<span class="token punctuation">)</span><span class="token punctuation">:</span>
-      self<span class="token punctuation">.</span>name<span class="token operator">=</span>name
-      self<span class="token punctuation">.</span>age<span class="token operator">=</span>age
-
-m <span class="token operator">=</span> MyClass<span class="token punctuation">(</span><span class="token string">"qinghan"</span><span class="token punctuation">,</span><span class="token string">"18"</span><span class="token punctuation">)</span>
-<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"m的值："</span><span class="token punctuation">,</span>m<span class="token punctuation">)</span></code></pre>
-<p>这里用的是不定行参数，所以不管你装饰的类是有参数的还是没参数的，都可以。</p>
-<h2 id="五、装饰器的应用场景"><a href="#五、装饰器的应用场景" class="headerlink" title="五、装饰器的应用场景"></a>五、装饰器的应用场景</h2><p>1.登录校验。（在装饰器里面判断下你有没有登录）</p>
-<p>2.函数运行时间统计。</p>
-<p>3.执行函数之前做准备工作。</p>
-<p>4.执行函数后清理功能。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105090744.png"></p>
-<h2 id="六、补充"><a href="#六、补充" class="headerlink" title="六、补充"></a>六、补充</h2><h3 id="1-号的作用"><a href="#1-号的作用" class="headerlink" title="1.*号的作用"></a>1.*号的作用</h3><p><code>*</code>是进行拆包作用的。把每个元素拿出来，当作参数进行传递。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105102508.png"></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105102534.png"></p>
-<p>一个<code>*</code>是对元组形式的位置参数进行拆包，两个<code>**</code>对关键字参数进行拆包。</p>
-<h3 id="2-装饰器装饰类和装饰函数的不同点"><a href="#2-装饰器装饰类和装饰函数的不同点" class="headerlink" title="2.装饰器装饰类和装饰函数的不同点"></a>2.装饰器装饰类和装饰函数的不同点</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210105113021.png"></p>
-<p>类需要把对象返回出来。</p>
+m = MyClass("qinghan")
+print(m.name)
+# print(m)</code></pre>
+<h3 id="3-不写-return-返回对象"><a href="#3-不写-return-返回对象" class="headerlink" title="3.不写 return 返回对象"></a>3.不写 return 返回对象</h3><p>如果</p>
+<pre class=" language-PYTHON"><code class="language-PYTHON"># return  super().__new__(cls)#  调用父类的__new__方法
+        # return object.__new__(cls)</code></pre>
+<p>这 2 句都没有，可以看下。</p>
+<p>如果不写<code>return</code>返回对象的话，不会进入<code>__init_</code>。没有创建对象返回出来，<code>__init_</code>就没有对象初始化，必须先由<code>__new__</code>方法返回一个对象。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210112143019.png"></p>
+<h3 id="4-返回的不是-MyClass-类创建出来的对象"><a href="#4-返回的不是-MyClass-类创建出来的对象" class="headerlink" title="4.返回的不是 MyClass()类创建出来的对象"></a>4.返回的不是 MyClass()类创建出来的对象</h3><p>假如返回个字符串<code>return &#39;666&#39;</code>，返回的不是这个<code>MyClass()</code>类创建出来的对象，是不会进来初始化的。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210112143347.png"></p>
+<h2 id="三、补充上篇文章"><a href="#三、补充上篇文章" class="headerlink" title="三、补充上篇文章"></a>三、补充上篇文章</h2><p>补充 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mR0qC0nqjYk5IOKnK_iIcA">测开之函数进阶· 第 8 篇《多个装饰器装饰同一个函数，三个内置的装饰器》</a>一文。</p>
+<p>user.txt 的内容：</p>
+<p><code>&#123;&quot;user&quot;:&quot;python01&quot;,&quot;pwd&quot;:&quot;qinghan&quot;,&quot;token&quot;:False&#125;</code></p>
+<p>目录结构：</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109125040.png"></p>
 <hr>
-<p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：清菡软件测试 116+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：清菡软件测试 118+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201231130225.jpg"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
@@ -714,7 +584,7 @@ m <span class="token operator">=</span> MyClass<span class="token punctuation">(
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/01/05/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC7%E7%AF%87%E3%80%8A%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%EF%BC%8C%E9%80%9A%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%8C%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB%E5%91%A2%EF%BC%9F%E3%80%8B/">http://example.com/2021/01/05/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC7%E7%AF%87%E3%80%8A%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E7%B1%BB%EF%BC%8C%E9%80%9A%E7%94%A8%E8%A3%85%E9%A5%B0%E5%99%A8%EF%BC%8C%E6%9C%89%E5%95%A5%E5%8C%BA%E5%88%AB%E5%91%A2%EF%BC%9F%E3%80%8B/</a>
+                    <a href="http://example.com/2021/01/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A__init__%E6%96%B9%E6%B3%95%EF%BC%8C__new__%E6%96%B9%E6%B3%95%E3%80%8B/">http://example.com/2021/01/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A__init__%E6%96%B9%E6%B3%95%EF%BC%8C__new__%E6%96%B9%E6%B3%95%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -923,17 +793,18 @@ m <span class="token operator">=</span> MyClass<span class="token punctuation">(
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/2021/01/07/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC8%E7%AF%87%E3%80%8A%E5%A4%9A%E4%B8%AA%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%89%E4%B8%AA%E5%86%85%E7%BD%AE%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%8B/">
+                <a href="/2021/01/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A__init__%E6%96%B9%E6%B3%95%EF%BC%8C__new__%E6%96%B9%E6%B3%95%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="测开之函数进阶· 第8篇《多个装饰器装饰同一个函数，三个内置的装饰器》">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="面向对象之魔术方法· 第1篇《__init__方法，__new__方法》">
                         
-                        <span class="card-title">测开之函数进阶· 第8篇《多个装饰器装饰同一个函数，三个内置的装饰器》</span>
+                        <span class="card-title">面向对象之魔术方法· 第1篇《__init__方法，__new__方法》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -943,9 +814,9 @@ m <span class="token operator">=</span> MyClass<span class="token punctuation">(
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -954,6 +825,7 @@ m <span class="token operator">=</span> MyClass<span class="token punctuation">(
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -972,13 +844,13 @@ m <span class="token operator">=</span> MyClass<span class="token punctuation">(
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/01/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC6%E7%AF%87%E3%80%8A%E9%97%AD%E5%8C%85%E3%80%8B/">
+                <a href="/2021/01/07/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC8%E7%AF%87%E3%80%8A%E5%A4%9A%E4%B8%AA%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%89%E4%B8%AA%E5%86%85%E7%BD%AE%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="测开之函数进阶· 第6篇《闭包》">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="测开之函数进阶· 第8篇《多个装饰器装饰同一个函数，三个内置的装饰器》">
                         
-                        <span class="card-title">测开之函数进阶· 第6篇《闭包》</span>
+                        <span class="card-title">测开之函数进阶· 第8篇《多个装饰器装饰同一个函数，三个内置的装饰器》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -989,7 +861,7 @@ m <span class="token operator">=</span> MyClass<span class="token punctuation">(
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-07
                             </span>
                         <span class="publish-author">
                             
