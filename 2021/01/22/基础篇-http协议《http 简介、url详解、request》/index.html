@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="面向对象之魔术方法· 第1篇《__init__方法，__new__方法》, 清菡的主页">
+    <meta name="keywords" content="基础篇-http协议《http 简介、url详解、request》, 清菡的主页">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>面向对象之魔术方法· 第1篇《__init__方法，__new__方法》 | 清菡的主页</title>
+    <title>基础篇-http协议《http 简介、url详解、request》 | 清菡的主页</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">面向对象之魔术方法· 第1篇《__init__方法，__new__方法》</h1>
+                    <h1 class="description center-align post-title">基础篇-http协议《http 简介、url详解、request》</h1>
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97/">
-                                <span class="chip bg-color">测试开发系列</span>
+                            <a href="/tags/%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96/">
+                                <span class="chip bg-color">接口自动化</span>
                             </a>
                         
                     </div>
@@ -447,7 +447,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-01-12
+                    2021-01-22
                 </div>
                 
 
@@ -468,94 +468,191 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="坚持原创输出，点击蓝字关注我吧"><a href="#坚持原创输出，点击蓝字关注我吧" class="headerlink" title="坚持原创输出，点击蓝字关注我吧"></a>坚持原创输出，点击蓝字关注我吧</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210112151104.png"></p>
-<p>作者：清菡<br>博客：oschina、云+社区、知乎等各大平台都有。</p>
-<blockquote>
-<p>由于微信公众号推送改为了信息流的形式，防止走丢，请给加个星标 ⭐，你就可以第一时间接收到本公众号的推送！</p>
-</blockquote>
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>一、什么是魔术方法（魔法方法、特殊方法）<ul>
-<li>1.<code>__init__</code>有什么作用？</li>
-<li>2.什么是魔术方法？</li>
-<li>3.创建一个对象的时候，调用的第一个方法是什么？</li>
+                <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li>一、http 简介</li>
+<li>二、url 详解</li>
+<li>三、request<ul>
+<li>1.get 和 post</li>
+<li>2.请求方法</li>
+<li>3.request 组成</li>
+<li>4.请求头</li>
+<li>5.get 请求参数</li>
+<li>6.post 请求参数</li>
+<li>7.post 的 body</li>
 </ul>
 </li>
-<li>二、 <code>__new_</code>方法<ul>
-<li>1.<code>__new_</code>方法</li>
-<li>2.为什么创建出来的对象会变成 None?</li>
-<li>3.不写 return 返回对象</li>
-<li>4.返回的不是 MyClass()类创建出来的对象</li>
+</ul>
+<h2 id="一、http-简介"><a href="#一、http-简介" class="headerlink" title="一、http 简介"></a>一、http 简介</h2><p>http 协议包含<code>request</code>（你发过去的内容）和<code>response</code>（返回来的内容）。http（超文本传输协议）是一个基于请求与响应模式的、无状态的、应用层的协议。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117065438.png" alt="请求响应交互图"></p>
+<p>服务器上可以配置域名和服务器 ip 地址的映射，你访问的 url 到达网络通信商（比如联通、电信、移动），他们会再转发到域名地址解析服务商那，根据你请求的域名解析成具体的 ip，这样就能找到你要访问的服务器了，解析到服务器后，再根据配置的 url 的路径找到服务器下对应路径下的文件，服务器根据你的请求再将内容返回到你这端。</p>
+<p>所以，输入百度的 url 地址就看到百度的页面了。我之前写过文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/I8T3TsuGf-58b-M8GOVa0w">通读《图解 HTTP》脑图</a>可以看下。</p>
+<p><strong>开发-洛丹伦的夏天的补充：</strong></p>
+<p>“ 1. 网络运营商维护着本地域名服务器，可能不需要再转发到根，顶，权威域名服务器（权威域名服务器由域名解析服务商提供）。</p>
+<ol start="2">
+<li><p>Url 本身就是 uri 的子集，路径还是参数都是 uri 的一部分。</p>
+</li>
+<li><p>拿到 ip 后怎么访问服务器上的文件，是根据路径还是根据参数还是根据整个 uri，要看你所访问服务器的本地文件系统和支持远程文件访问的 server 类型。</p>
+</li>
+<li><p>比如你服务器上安装了 ftp 的 server，那么你客户端就可以使用 ftp 协议去访问服务器上的文件系统，至于访问到哪个文件，根据你 ftp server 的配置来解析。</p>
+</li>
+<li><p>支持远程文件访问的 server 是啥？它可以是很多东西，你可以用你的 tomcat，你可以用 jetty 这些 servlet 容器搭建一个，也可以用 netty 自己写一个，甚至直接使用 nginx，说到 nginx 你或许就明白了——你的 uri 能访问到哪个文件，哪个路径，假如是 http 协议的话，你可以用路径映射，可以用参数映射，甚至可以用 header 甚至可以用 cookie 来映射。</p>
+</li>
+<li><p>文件 server 的本质其实就是，客户端与服务器文件系统的一个中间层，uri 与文件系统的映射，取决于你这个 server 里程序是怎么个逻辑。直白的讲，用过 springboot，里面的 ResourceHandler，了解下。”</p>
+</li>
+</ol>
+<h2 id="二、url-详解"><a href="#二、url-详解" class="headerlink" title="二、url 详解"></a>二、url 详解</h2><table>
+<thead>
+<tr>
+<th>http/https</th>
+<th>协议类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>port</td>
+<td>端口号。（默认端口是 80，它是可以省略的）</td>
+</tr>
+<tr>
+<td>path</td>
+<td>请求的路径（host 之后，问号之前）。路径就是通常说的接口地址。</br>比如<code>baidu.com/s/xxx/sss?tn=40039514_1_oem_dg</code> 中<code>/s/xxx/sss</code>就是路径。</br>接口文档上路径就是这部分，不会写 host 地址（比如 <a target="_blank" rel="noopener" href="http://www.baidu.com).因为接口的话,可以切换到不同的服务上,部署的机器可以搭建在不同的测试环境上,所以只会写相对路径./">www.baidu.com)。因为接口的话，可以切换到不同的服务上，部署的机器可以搭建在不同的测试环境上，所以只会写相对路径。</a></td>
+</tr>
+<tr>
+<td>参数</td>
+<td>name=value</td>
+</tr>
+<tr>
+<td>?</td>
+<td>是分割，前面是地址，后面是它带的参数。就是访问这个地址的时候携带的参数。多个参数用<code>&amp;</code>符合隔开。</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>多个参数用&amp;隔开，没有参数可以不写。</td>
+</tr>
+</tbody></table>
+<ul>
+<li>host : 主机地址或域名。<ul>
+<li>192.168.x.xx:8080 地址+端口号。(经常看到测试环境是这样的地址)</li>
+<li><a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 是域名。</li>
+<li>localhost:8080 中 localhost 是本机地址。</li>
 </ul>
 </li>
-<li>三、补充上篇文章</li>
 </ul>
-<h2 id="一、什么是魔术方法（魔法方法、特殊方法）"><a href="#一、什么是魔术方法（魔法方法、特殊方法）" class="headerlink" title="一、什么是魔术方法（魔法方法、特殊方法）"></a>一、什么是魔术方法（魔法方法、特殊方法）</h2><h3 id="1-init-有什么作用？"><a href="#1-init-有什么作用？" class="headerlink" title="1. __init__有什么作用？"></a>1. <code>__init__</code>有什么作用？</h3><p>创建对象的时候，类自动调用这个方法，对实例进行初始化设置的。在特定的情况下触发的，不需要手动的去调用。</p>
-<h3 id="2-什么是魔术方法？"><a href="#2-什么是魔术方法？" class="headerlink" title="2.什么是魔术方法？"></a>2.什么是魔术方法？</h3><p>在 Python 中像<code>__init_</code>这类双下划线和结尾的方法，我们把它统称为魔术方法。</p>
-<h4 id="注意点："><a href="#注意点：" class="headerlink" title="注意点："></a>注意点：</h4><p>魔术方法都是 Python 内部定义的，自己不要去定义<code>__init_</code>这种双下划线开头的方法。</p>
-<p>因为 Python 在不断发展，万一你定义的双下划线开头结尾的方法，被 Python 也定义并加在魔术方法里面来了。那么就和 Python 内部的魔术方法起冲突了。</p>
-<h3 id="3-创建一个对象的时候，调用的第一个方法是什么？"><a href="#3-创建一个对象的时候，调用的第一个方法是什么？" class="headerlink" title="3.创建一个对象的时候，调用的第一个方法是什么？"></a>3.创建一个对象的时候，调用的第一个方法是什么？</h3><p>调用类去创建对象的时候，<code>__init_</code>方法触发对象，做初始化的属性设置。<br>调用的第一个方法不是<code>__init_</code>，是<code>__new__</code>方法。</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON">class MyClass(object):
-    def __init__(self,name):
-        self.name=name
-
-m = MyClass("qinghan")
-print(m.name)</code></pre>
-<h2 id="二、-new-方法"><a href="#二、-new-方法" class="headerlink" title="二、 __new_方法"></a>二、 <code>__new_</code>方法</h2><h3 id="1-new-方法"><a href="#1-new-方法" class="headerlink" title="1.__new_方法"></a>1.<code>__new_</code>方法</h3><p>这个<code>__new_</code>方法是在<code>__init_</code>方法之前执行的。<code>__new_</code>方法一般不去重写。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109140638.png"></p>
-<p>看<code>object</code>源码：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109141707.png"></p>
-<p>Python 中万物皆对象，类创建出来对象叫做对象，类、函数其实也是对象。</p>
-<h3 id="2-为什么创建出来的对象会变成-None"><a href="#2-为什么创建出来的对象会变成-None" class="headerlink" title="2.为什么创建出来的对象会变成 None?"></a>2.为什么创建出来的对象会变成 None?</h3><p>在重写 new 方法的时候，一定要调用父类的 new 方法，来完成对象的创建，并将对象返回出去。</p>
-<p>参数：<code>cls</code></p>
-<p><code>cls</code>代表的是类对象本身。</p>
-<p>重写下<code>__new__</code>方法:</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109143833.png"></p>
-<p><code>这个时候不能创建一个对象出来。为什么是个空类型？</code></p>
-<p>原来是能创建对象的，重写<code>__new_</code>方法之后，对象没有了。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109144123.png"></p>
-<p><code>object</code>源码中有写道：</p>
-<pre class=" language-python"><code class="language-python">Create <span class="token operator">and</span> <span class="token keyword">return</span> a new object</code></pre>
-<p>这里没有返回东西，所以报错。</p>
-<p>不知道<code>return</code>什么。<strong>自己写的<code>_new_</code>方法并没有写创建对象的代码。创建对象的代码是 Python 内部实现的，我们自己不知道怎么实现。</strong></p>
-<p>子类里调用下父类的方法，并进行返回就行了。继承的是<code>object</code>。</p>
-<h4 id="所以，将代码修改加上这段代码："><a href="#所以，将代码修改加上这段代码：" class="headerlink" title="所以，将代码修改加上这段代码："></a>所以，将代码修改加上这段代码：</h4><p><strong>第一种调用父类的方法：</strong></p>
-<p><code>return super().__new__(cls)# 调用父类的__new__方法</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109150011.png"></p>
-<p>父类是<code>object</code>，对象是父类的方法 new 出来的。</p>
-<p><strong>第二种调用父类的方法：</strong></p>
-<p>父类是<code>object</code>，直接用父类的名字去调用。</p>
-<p>加上这段代码：</p>
-<p><code>return object.__new__(cls)</code></p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109150419.png"></p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><pre class=" language-PYTHON"><code class="language-PYTHON">class MyClass(object):
-    def __init__(self,name):
-        self.name=name
-# 重写下__new__方法
-    def __new__(cls, *args, **kwargs):
-        print("这个是new方法")
-        # 子类里调用下父类的方法，并进行返回
-        # return  super().__new__(cls)#  调用父类的__new__方法
-        return object.__new__(cls)
-
-
-m = MyClass("qinghan")
-print(m.name)
-# print(m)</code></pre>
-<h3 id="3-不写-return-返回对象"><a href="#3-不写-return-返回对象" class="headerlink" title="3.不写 return 返回对象"></a>3.不写 return 返回对象</h3><p>如果</p>
-<pre class=" language-PYTHON"><code class="language-PYTHON"># return  super().__new__(cls)#  调用父类的__new__方法
-        # return object.__new__(cls)</code></pre>
-<p>这 2 句都没有，可以看下。</p>
-<p>如果不写<code>return</code>返回对象的话，不会进入<code>__init_</code>。没有创建对象返回出来，<code>__init_</code>就没有对象初始化，必须先由<code>__new__</code>方法返回一个对象。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210112143019.png"></p>
-<h3 id="4-返回的不是-MyClass-类创建出来的对象"><a href="#4-返回的不是-MyClass-类创建出来的对象" class="headerlink" title="4.返回的不是 MyClass()类创建出来的对象"></a>4.返回的不是 MyClass()类创建出来的对象</h3><p>假如返回个字符串<code>return &#39;666&#39;</code>，返回的不是这个<code>MyClass()</code>类创建出来的对象，是不会进来初始化的。</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210112143347.png"></p>
-<h2 id="三、补充上篇文章"><a href="#三、补充上篇文章" class="headerlink" title="三、补充上篇文章"></a>三、补充上篇文章</h2><p>补充 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mR0qC0nqjYk5IOKnK_iIcA">测开之函数进阶· 第 8 篇《多个装饰器装饰同一个函数，三个内置的装饰器》</a>一文。</p>
-<p>user.txt 的内容：</p>
-<p><code>&#123;&quot;user&quot;:&quot;python01&quot;,&quot;pwd&quot;:&quot;qinghan&quot;,&quot;token&quot;:False&#125;</code></p>
-<p>目录结构：</p>
-<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210109125040.png"></p>
+<p>https 和 http 相比，就是多了一个证书。一般测试环境是 http，正式环境是 https。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117074636.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117075239.png"></p>
+<p><code>/s</code>是服务器上的路径，这个路径和电脑上的路径是一样的。比如 c 盘什么的。Linux 里面没有 d 盘 c 盘这种之分，只有地址。访问的是这个服务器的地址。</p>
+<p>打开其它的网站都是这样一个标准的格式。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117081042.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117081110.png"></p>
+<p>因为本机可以搭建不同的服务，81 端口，80 端口，不同的端口访问的是不同的服务。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117081511.png"></p>
+<p>http 协议里面 url 地址里面的内容是通过 UrlEncode 这种编码统一编码的。如果是中文，会自动转换成这种编码：<code>%e6%b8%85%e8%8f%a1%e7%9a%84%e5%8d%9a%e5%ae%a2</code></p>
+<p>这样的话，不同的服务器都可以解析出来。</p>
+<h2 id="三、request"><a href="#三、request" class="headerlink" title="三、request"></a>三、request</h2><p>用 fiddler 这个工具抓包看下。</p>
+<h3 id="1-get-和-post"><a href="#1-get-和-post" class="headerlink" title="1.get 和 post"></a>1.get 和 post</h3><h4 id="request"><a href="#request" class="headerlink" title="request:"></a>request:</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117090954.png"></p>
+<p>从协议的内容上看，这就是 get 和 post 最明显的区别。</p>
+<h3 id="2-请求方法"><a href="#2-请求方法" class="headerlink" title="2.请求方法"></a>2.请求方法</h3><p>根据 http 标准，http 请求可以使用多种方法。</p>
+<table>
+<thead>
+<tr>
+<th>http1.0</th>
+<th align="left">定义了三种请求方法：get，post 和 head 方法。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>http1.1</td>
+<td align="left">新增了五种请求方法：options,put,delete,trace 和 connect 方法。一共是八种方法。</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">get</th>
+<th align="left">请求指定的页面信息，并返回实体主体。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">head</td>
+<td align="left">类似于 get 请求，只不过返回的响应中没有具体的内容，用于获取报头。</td>
+</tr>
+<tr>
+<td align="center">put</td>
+<td align="left">从客户端向服务器传送的数据取代指定的文档的内容。</td>
+</tr>
+<tr>
+<td align="center">post</td>
+<td align="left">向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。post 请求可能会导致新的资源的建立或已有资源的修改。</td>
+</tr>
+<tr>
+<td align="center">delete</td>
+<td align="left">请求服务器删除指定的页面。</td>
+</tr>
+<tr>
+<td align="center">connect</td>
+<td align="left">http/1.1 协议中预留给能够将连接改为管道方式的代理服务器。</td>
+</tr>
+<tr>
+<td align="center">options</td>
+<td align="left">允许客户端查看服务器的性能。</td>
+</tr>
+<tr>
+<td align="center">trace</td>
+<td align="left">回显服务器收到的请求，主要用于测试或诊断。</td>
+</tr>
+</tbody></table>
+<p>从功能上讲，get 和 post 实现的功能都是一样的。get 从服务端读取数据，post 也可以的。get 也可以往服务端提交数据。</p>
+<p>get 的 url 后面可以带参数。post 的 url 后面也可以带参数，参数也可以放在 body 部分。</p>
+<h4 id="有点区别："><a href="#有点区别：" class="headerlink" title="有点区别："></a>有点区别：</h4><p>post 请求的 body 部分提交的数据可以比较大。body 部分可以提交图片、文件之类的。<br>但是 get 请求提交的时候，url 上面可提交的数据量比较小。url 上如果想带张图片是不可以的。</p>
+<h3 id="3-request-组成"><a href="#3-request-组成" class="headerlink" title="3.request 组成"></a>3.request 组成</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117093626.png"></p>
+<p>空行是固定格式，区分请求头和请求 body 的。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117105649.png"></p>
+<p><code>user-Agent</code>：显示是从哪个客户端发出去的。如果是从火狐浏览器发出去的，这块的内容会告诉你它是火狐浏览器。如果是从谷歌浏览器发出去的，这块的内容会告诉你它是谷歌浏览器。</p>
+<p>服务端收到了 user-Agent 这个参数后，它知道你是从哪个浏览器发出去的。后端统计数据的时候，可以分析出我的网站访问的用户是用哪个浏览器访问的最多，哪个浏览器访问的少。</p>
+<p>如果识别 user-Agent 没有客户端类型的话，可能就拒绝你的请求，因为可能通过脚本访问的。服务端通过 user-Agent 这个参数控制。</p>
+<p><code>Accept</code>:这个协议接收的数据类型是哪些。发出去后，需要接收哪些数据类型，告诉服务端，可以接收 image/webp 这些，可以接收哪种数据类型等。</p>
+<p><code>Accept-Encoding</code>:代表可以支持哪些压缩格式。不是电脑上普通的压缩格式，协议里面它有自己的压缩格式。例如 gzip,deflate,br。</p>
+<p>当服务端返回的数据量比较大的时候，通过压缩的话，可以节省流量。1 兆的图片直接用原始数据去传输，要消耗 1 兆的网络，用手机去访问，发现流量消耗的非常的快并且给服务端造成很大的压力。</p>
+<p>就像给同学发视频要压缩下，这样视频变小了，传起来快了，道理都是一样的。服务端返回数据的时候也可以压缩。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117104137.png"></p>
+<p>这个意思是说：从服务端返回的 body 内容被编码了，需要解开压缩。</p>
+<p><strong>不然的话，显示的就是乱码：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117104453.png"></p>
+<p><strong>点击这个提示，就解压了，解压之后就显示正常的内容了：</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117104634.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117105044.png"></p>
+<h3 id="4-请求头"><a href="#4-请求头" class="headerlink" title="4.请求头"></a>4.请求头</h3><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117110259.png"></p>
+<p>如果是 post 请求，多了个参数叫做<code>Content-Type</code>：告诉服务端数据是什么类型。get 请求没这个参数，post 请求必须有这个参数。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117110557.png"></p>
+<p>post 请求数据类型比较多，肯定先声明，不然服务端没办法正确得解析。</p>
+<h3 id="5-get-请求参数"><a href="#5-get-请求参数" class="headerlink" title="5.get 请求参数"></a>5.get 请求参数</h3><p>get 请求参数都在请求行里。可以在 Webforms（Webforms 是解析它的参数的意思）的 QueryString（QueryString 是 url 地址后面的参数）查看。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117111448.png"></p>
+<h4 id="根据域名找到刚才模拟请求的接口，可以查看到参数："><a href="#根据域名找到刚才模拟请求的接口，可以查看到参数：" class="headerlink" title="根据域名找到刚才模拟请求的接口，可以查看到参数："></a>根据域名找到刚才模拟请求的接口，可以查看到参数：</h4><p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117111601.png"></p>
+<h3 id="6-post-请求参数"><a href="#6-post-请求参数" class="headerlink" title="6.post 请求参数"></a>6.post 请求参数</h3><p>请求参数可以是请求行的参数，也可以是请求行的参数+body 的参数。</p>
+<p>post 请求，QueryString 也有参数。例如：<a target="_blank" rel="noopener" href="http://www.example.com/?1=1">http://www.example.com/?1=1</a><br><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117154524.png"></p>
+<p>QueryString+body</p>
+<p>QueryString 可以为空，body 也可以为空。</p>
+<p>Content-Type: <code>application/x-www-form-urlencoded</code></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117161155.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117161209.png"></p>
+<p>QueryString 部分是 url 里面的参数，body 部分就是 request body 的参数了。</p>
+<pre class=" language-TEXT"><code class="language-TEXT">User-Agent: Fiddler
+Host: www.example.com
+Content-Length: 13
+Content-Type: application/json</code></pre>
+<p>request body:</p>
+<pre class=" language-TEXT"><code class="language-TEXT">&#123;"111":"ddd"&#125;</code></pre>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117160705.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117160718.png"></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117162459.png"></p>
+<h3 id="7-post-的-body"><a href="#7-post-的-body" class="headerlink" title="7.post 的 body"></a>7.post 的 body</h3><p><strong>post 请求的 body 部分不是瞎传的。</strong></p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117113540.png" alt="body常见的5种数据类型"></p>
+<p>request body 里是的 json 格式，这是 http 协议里面的数据类型。</p>
+<p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20210117113915.png"></p>
+<p>注意：这里是英文的引号。<code>表单格式</code>：传图片、文字都可以。</p>
+<p>看 post 请求的数据格式：就看 Content-Type。这里的 Content-Type 是发出去的数据类型。</p>
+<p>get 请求一般不写 body。get 请求加上 body，需要后端做一些特殊的处理。前端如果把数据放到 body 中，后端可以获取到。这样比较麻烦，而且用 post 更加安全一些。</p>
+<p><strong>附 requests 官方文档：</strong> <a target="_blank" rel="noopener" href="https://requests.readthedocs.io/zh_CN/latest/">https://requests.readthedocs.io/zh_CN/latest/</a></p>
 <hr>
-<p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：清菡软件测试 118+原创文章，欢迎关注、交流，禁止第三方擅自转载。</p>
+<p>公众号<strong>清菡软件测试</strong>首发，更多原创文章：清菡软件测试 120+原创文章，欢迎关注、交流，禁止第三方擅自转载。如有转载，请标明出处。</p>
 <p><img src="https://gitee.com/qinghanstudy/qinghan/raw/master/img/20201231130225.jpg"></p>
 <p>感谢关注清菡，欢迎点击在看和转发！</p>
 
@@ -584,7 +681,7 @@ print(m.name)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/01/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A__init__%E6%96%B9%E6%B3%95%EF%BC%8C__new__%E6%96%B9%E6%B3%95%E3%80%8B/">http://example.com/2021/01/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A__init__%E6%96%B9%E6%B3%95%EF%BC%8C__new__%E6%96%B9%E6%B3%95%E3%80%8B/</a>
+                    <a href="http://example.com/2021/01/22/%E5%9F%BA%E7%A1%80%E7%AF%87-http%E5%8D%8F%E8%AE%AE%E3%80%8Ahttp%20%E7%AE%80%E4%BB%8B%E3%80%81url%E8%AF%A6%E8%A7%A3%E3%80%81request%E3%80%8B/">http://example.com/2021/01/22/%E5%9F%BA%E7%A1%80%E7%AF%87-http%E5%8D%8F%E8%AE%AE%E3%80%8Ahttp%20%E7%AE%80%E4%BB%8B%E3%80%81url%E8%AF%A6%E8%A7%A3%E3%80%81request%E3%80%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -622,8 +719,8 @@ print(m.name)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B5%8B%E8%AF%95%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97/">
-                                    <span class="chip bg-color">测试开发系列</span>
+                                <a href="/tags/%E6%8E%A5%E5%8F%A3%E8%87%AA%E5%8A%A8%E5%8C%96/">
+                                    <span class="chip bg-color">接口自动化</span>
                                 </a>
                             
                         </div>
@@ -797,13 +894,13 @@ print(m.name)
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2021/01/22/%E5%9F%BA%E7%A1%80%E7%AF%87-http%E5%8D%8F%E8%AE%AE%E3%80%8Ahttp%20%E7%AE%80%E4%BB%8B%E3%80%81url%E8%AF%A6%E8%A7%A3%E3%80%81request%E3%80%8B/">
+                <a href="/2021/02/13/%E5%9F%BA%E7%A1%80%E7%AF%87-Python%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82%E3%80%8A%E6%A0%B9%E6%8D%AE%E5%8F%82%E6%95%B0%E4%BD%8D%E7%BD%AE%E4%BC%A0%E5%8F%82%E3%80%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E4%B8%8D%E5%90%8C%E6%96%B9%E5%BC%8F%E4%BC%A0%E5%8F%82%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="基础篇-http协议《http 简介、url详解、request》">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="基础篇-Python发送post请求《根据参数位置传参、数据类型、不同方式传参》">
                         
-                        <span class="card-title">基础篇-http协议《http 简介、url详解、request》</span>
+                        <span class="card-title">基础篇-Python发送post请求《根据参数位置传参、数据类型、不同方式传参》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -814,7 +911,7 @@ print(m.name)
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-13
                         </span>
                         <span class="publish-author">
                             
@@ -842,13 +939,13 @@ print(m.name)
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/07/%E6%B5%8B%E5%BC%80%E4%B9%8B%E5%87%BD%E6%95%B0%E8%BF%9B%E9%98%B6%C2%B7%20%E7%AC%AC8%E7%AF%87%E3%80%8A%E5%A4%9A%E4%B8%AA%E8%A3%85%E9%A5%B0%E5%99%A8%E8%A3%85%E9%A5%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%89%E4%B8%AA%E5%86%85%E7%BD%AE%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%8B/">
+                <a href="/2021/01/12/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E9%AD%94%E6%9C%AF%E6%96%B9%E6%B3%95%C2%B7%20%E7%AC%AC1%E7%AF%87%E3%80%8A__init__%E6%96%B9%E6%B3%95%EF%BC%8C__new__%E6%96%B9%E6%B3%95%E3%80%8B/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="测开之函数进阶· 第8篇《多个装饰器装饰同一个函数，三个内置的装饰器》">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="面向对象之魔术方法· 第1篇《__init__方法，__new__方法》">
                         
-                        <span class="card-title">测开之函数进阶· 第8篇《多个装饰器装饰同一个函数，三个内置的装饰器》</span>
+                        <span class="card-title">面向对象之魔术方法· 第1篇《__init__方法，__new__方法》</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -859,7 +956,7 @@ print(m.name)
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
                             </span>
                         <span class="publish-author">
                             
